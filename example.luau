@@ -14,19 +14,28 @@ local HttpService = cloneref(game:GetService("HttpService"))
 local WindUI
 
 do
-	if readfile and (not isfile or isfile("main.luau")) then
-		WindUI = loadstring(readfile("main.luau"))()
-	elseif readfile and isfile and isfile("main.lua") then
-		WindUI = loadstring(readfile("main.lua"))()
-	else
-		local ok, result = pcall(function()
-			return require("./src/Init")
-		end)
-		if ok then
-			WindUI = result
-		else
-			WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/main.luau"))()
+	local loadedLocal = false
+	if readfile and isfile then
+		if isfile("main.luau") then
+			local ok, fn = pcall(function()
+				return loadstring(readfile("main.luau"))
+			end)
+			if ok and type(fn) == "function" then
+				WindUI = fn()
+				loadedLocal = true
+			end
+		elseif isfile("main.lua") then
+			local ok, fn = pcall(function()
+				return loadstring(readfile("main.lua"))
+			end)
+			if ok and type(fn) == "function" then
+				WindUI = fn()
+				loadedLocal = true
+			end
 		end
+	end
+	if not loadedLocal then
+		WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/main.luau"))()
 	end
 end
 
@@ -1627,11 +1636,15 @@ do
 
 	MacSec:Segmented({
 		Title = "Sidebar Tab Mode",
-		Desc = "Switch between Full (Icon + Name) and compact macOS Icon Only rail",
-		Values = { "Full", "Icon Only" },
+		Desc = "Switch between Full, compact Icon Only rail, or Collapsed curved edge handle",
+		Values = { "Full", "Icon Only", "Collapsed" },
 		Value = "Full",
 		Callback = function(mode)
-			Window:SetSidebarMode(mode == "Icon Only" and "IconOnly" or "Full")
+			if mode == "Collapsed" then
+				Window:SetSidebarCollapsed(true)
+			else
+				Window:SetSidebarMode(mode == "Icon Only" and "IconOnly" or "Full")
+			end
 		end,
 	})
 
