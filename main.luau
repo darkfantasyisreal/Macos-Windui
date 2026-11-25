@@ -43053,6 +43053,7 @@ end
 end
 end)
 
+if ae.TouchPinch then
 af.AddSignal(ae.TouchPinch,function(at,au,av,aw)
 if not IsTouchInsideViewport(at[1])or not IsTouchInsideViewport(at[2])then
 return
@@ -43074,16 +43075,27 @@ ao=false
 end
 end
 end)
+end
 
 local function FocusCamera()
-local at=am.Object:IsA"BasePart"and am.Object.Size
-or select(2,am.Object:GetBoundingBox(0))
-local au=math.max(at.X,at.Y,at.Z)
+if not am.Object then
+return
+end
+local at
+if am.Object:IsA"BasePart"or am.Object.Size then
+at=am.Object.Size
+elseif am.Object.GetBoundingBox then
+at=select(2,am.Object:GetBoundingBox(0))
+else
+at=Vector3.new(2,2,2)
+end
+local au=math.max(at.X or 2,at.Y or 2,at.Z or 2)
 local av=au*2
-local aw=am.Object:GetPivot().Position
+local aw=(am.Object.GetPivot and am.Object:GetPivot())or am.Object.CFrame or CFrame.new()
+local ax=aw.Position or Vector3.new(0,0,0)
 
 am.Camera.CFrame=
-CFrame.new(aw+Vector3.new(0,au/2,av),aw)
+CFrame.new(ax+Vector3.new(0,au/2,av),ax)
 end
 
 if am.Focused then

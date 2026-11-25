@@ -679,21 +679,27 @@ local Window = WindUI:CreateWindow({
 
 ---
 
-## 3 Example Mẫu **100% NewForm** (Chạy Ngay / Ready-to-Run Loadstrings)
+## Example Mẫu **100% NewForm** (Chạy Ngay / Ready-to-Run Loadstrings)
 
-1. **Obsidian Combat & Movement Hub** (`MacOS` Dark Clear Glass · 100% NewForm · Welcome `"hello"` · Aim/Movement/Visuals):
+1. **Full Elements & Custom Welcome Tab Showcase** *(Đầy đủ 22+ Element · Custom Welcome `"hello"` · Live đổi Background Image · 100% NewForm)*:
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_full_elements.luau"))()
+```
+
+2. **Obsidian Combat & Movement Hub** (`MacOS` Dark Clear Glass · 100% NewForm · Welcome `"hello"` · Aim/Movement/Visuals):
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_combat_hub.luau"))()
 ```
 
-2. **Aether RPG Auto-Farm & Telemetry Hub** (`MacOSLight` Light Clear Glass · 100% NewForm · StatCard · Console · ProgressBar · Dynamic Island):
+3. **Aether RPG Auto-Farm & Telemetry Hub** (`MacOSLight` Light Clear Glass · 100% NewForm · StatCard · Console · ProgressBar · Dynamic Island):
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_autofarm_rpg.luau"))()
 ```
 
-3. **Studio Utility & Appearance Toolbox** (`MacOS` Dark Clear Glass · 100% NewForm · Đổi Background Image trực tiếp · Code · Prompt · Profiles):
+4. **Studio Utility & Appearance Toolbox** (`MacOS` Dark Clear Glass · 100% NewForm · Đổi Background Image trực tiếp · Code · Prompt · Profiles):
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_studio_toolbox.luau"))()
 ```
+
 
 
