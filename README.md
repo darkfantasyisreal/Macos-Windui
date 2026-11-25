@@ -309,9 +309,9 @@ local Notif = WindUI:Notify({
 
 ---
 
-## Step 6: Built-in Settings Tab & Layout Mode Switching
+## Step 6: Built-in Settings Tab & 60 FPS Liquid Oil Navigate Bar (`NewForm`)
 
-Add a complete **Settings Tab** (Theme switcher, UI Scale slider, Notification Style/Position, Keybind Menu HUD toggle, and Config Save/Load profiles) with a single line:
+Add a complete **Settings Tab** (Theme switcher, UI Scale slider, Notification Style/Position, Keybind Menu HUD toggle, and Config Save/Load profiles) with a single line, and enable the **60 FPS Liquid Oil Glass Morph Navigate Bar** with its **Apple Liquid Glass sliding active-tab lens** (supports spring-mass jelly morph & press-and-drag scrubbing across tabs):
 
 ```lua
 -- Automatically creates a full Settings tab:
@@ -319,9 +319,19 @@ Window:CreateSettingsTab({
     Title = "Hub Settings",
 })
 
--- Switch between Classic Sidebar and macOS NewForm (Bottom Navigate Bar) at runtime:
--- Window:SetLayoutMode("NewForm")
+-- Switch between Classic Sidebar and macOS NewForm (60 FPS Liquid Oil Bottom Navigate Bar):
+Window:SetLayoutMode("NewForm")
 -- Window:SetLayoutMode("Classic")
+
+-- Optional NavBar customization inside WindUI:CreateWindow({ ... }):
+-- NavBar = {
+--     LiquidOil = true,       -- 60 FPS thin-film iridescent Liquid Oil Glass Morph shell
+--     OilIntensity = 1,       -- 0.0 .. 1.5 sheen strength
+--     LiquidGlassLens = true, -- 60 FPS sliding Apple Liquid Glass lens with jelly spring physics
+-- }
+
+-- Toggle Liquid Oil shell dynamically at runtime:
+-- Window.NavBar:SetLiquidOil(true)
 
 -- Select the first tab when ready:
 MainTab:Select()
@@ -599,9 +609,9 @@ WindUI:Notify({
 
 ---
 
-## Bước 6: Tự Động Tạo Tab Cài Đặt (`Hub Settings`) & Đổi Chế Độ Giao Diện
+## Bước 6: Tab Cài Đặt (`Hub Settings`) & Thanh Navigate Bar **Liquid Oil Glass Morph 60 FPS** (`NewForm`)
 
-Chỉ cần 1 dòng lệnh để tạo nguyên một tab **Settings** gồm: đổi Theme, chỉnh kích thước UI Scale, chọn kiểu/vị trí Thông báo, bật Keybind Menu HUD và Lưu/Tải Config tự động:
+Chỉ cần 1 dòng lệnh để tạo nguyên tab **Settings**, và bật chế độ **`NewForm`** để trải nghiệm **Navigate Bar Liquid Oil Glass Morph 60 FPS** cùng **thanh trượt Liquid Glass Lens kiểu iOS 26 / macOS Tahoe** (hỗ trợ co giãn jelly spring-mass khi bấm đổi tab và giữ-vuốt ngang qua các tab):
 
 ```lua
 -- Tạo tab Cài đặt hoàn chỉnh:
@@ -609,9 +619,19 @@ Window:CreateSettingsTab({
     Title = "Hub Settings",
 })
 
--- Đổi qua lại giữa giao diện Classic (có Sidebar) và NewForm (thanh điều hướng nổi ở đáy):
--- Window:SetLayoutMode("NewForm")
+-- Đổi qua lại giữa Classic (Sidebar) và NewForm (Liquid Oil Navigate Bar 60 FPS):
+Window:SetLayoutMode("NewForm")
 -- Window:SetLayoutMode("Classic")
+
+-- Tùy chỉnh hiệu ứng trong WindUI:CreateWindow({ ... }):
+-- NavBar = {
+--     LiquidOil = true,       -- Hiệu ứng màng dầu Liquid Oil Glass Morph 60 FPS trên vỏ bar
+--     OilIntensity = 1,       -- Cường độ ánh dầu (0.0 .. 1.5)
+--     LiquidGlassLens = true, -- Thanh kính lỏng Liquid Glass trượt co giãn khi chọn tab
+-- }
+
+-- Bật/tắt nhanh Liquid Oil lúc đang chạy:
+-- Window.NavBar:SetLiquidOil(true)
 
 -- Chọn Tab mặc định hiển thị đầu tiên:
 MainTab:Select()
