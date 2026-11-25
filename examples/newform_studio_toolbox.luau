@@ -59,7 +59,7 @@ local Window = WindUI:CreateWindow({
 		Description = "Customize your window wallpaper in real time, switch between Dark and Light clear glass, test snippets, and manage saved profiles effortlessly.",
 		Highlights = {
 			{ Icon = "sfsymbols:photo", Text = "Live URL & Asset Background Switcher" },
-			{ Icon = "sfsymbols:terminalFill", Text = "Code Snippets, Prompts & Quick Actions" },
+			{ Icon = "sfsymbols:appleTerminalFill", Text = "Code Snippets, Prompts & Quick Actions" },
 			{ Icon = "sfsymbols:folderFill", Text = "One-Tap Config Profile Management" },
 		},
 		ButtonText = "Open Toolbox",
@@ -168,7 +168,7 @@ BgSec:Button({
 -- =========================================================================
 local ToolsTab = Window:Tab({
 	Title = "Workspace",
-	Icon = "sfsymbols:terminalFill",
+	Icon = "sfsymbols:appleTerminalFill",
 })
 
 local SnippetSec = ToolsTab:Section({

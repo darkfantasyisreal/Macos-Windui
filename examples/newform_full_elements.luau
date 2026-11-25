@@ -293,7 +293,7 @@ ButtonSec:Keybind({
 -- =========================================================================
 local InputsTab = Window:Tab({
 	Title = "Inputs",
-	Icon = "sfsymbols:textCursor",
+	Icon = "sfsymbols:characterTextbox",
 })
 
 local InputSec = InputsTab:Section({
