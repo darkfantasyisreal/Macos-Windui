@@ -630,9 +630,50 @@ Window:SetLayoutMode("NewForm")
 --     LiquidGlassLens = true, -- Thanh kính lỏng Liquid Glass trượt co giãn khi chọn tab
 -- }
 
--- Bật/tắt nhanh Liquid Oil lúc đang chạy:
+-- Bật/tắt nhanh Liquid Glass lúc đang chạy:
 -- Window.NavBar:SetLiquidOil(true)
 
--- Chọn Tab mặc định hiển thị đầu tiên:
-MainTab:Select()
+-- Lưu ý: Mặc định khi mới mở UI sẽ vào thẳng Tab Welcome (có ảnh nền + hiệu ứng vẽ chữ "hello" kiểu iPadOS).
+-- Nếu muốn bỏ qua Welcome để vào thẳng MainTab: MainTab:Select() hoặc truyền Welcome = false trong CreateWindow.
 ```
+
+---
+
+## Bước 7 / Step 7: Tab Welcome (Hiệu ứng vẽ `"hello"` kiểu iPadOS) & Background Image
+
+Khi load UI lần đầu, **Tab Welcome** sẽ tự động hiển thị với ảnh nền tràn viền (tạm ẩn Topbar nhưng vẫn giữ 3 nút Đóng / Thu nhỏ / Phóng to), phần giới thiệu Hub bên trái và hiệu ứng viết chữ `"hello"` 60 FPS bên phải:
+
+```lua
+local Window = WindUI:CreateWindow({
+    Title = "My Sequoia Hub",
+    Author = "v1.6 • macOS Edition",
+
+    -- Ảnh nền toàn cửa sổ (hỗ trợ link https:// hoặc rbxassetid://):
+    BackgroundImage = "https://example.com/wallpaper.png",
+    BackgroundImageTransparency = 0.25,
+
+    -- Cấu hình Tab Welcome (truyền Welcome = false để tắt):
+    Welcome = {
+        Enabled = true,
+        TabTitle = "Welcome",
+        Background = "https://example.com/welcome_bg.png", -- Để trống sẽ dùng ảnh nền studio mặc định
+        Greeting = "hello",                                -- Hiệu ứng vẽ tay chữ "hello" 60 FPS kiểu iPadOS
+        Badge = "MACOS EDITION",
+        Title = "My Sequoia Hub",
+        Subtitle = "Nhanh • Mượt • Tối giản",
+        Description = "Giới thiệu ngắn gọn về Hub của bạn hiển thị bên trái màn hình Welcome.",
+        Highlights = {
+            { Icon = "sfsymbols:sparkles", Text = "Clear Monochrome Liquid Glass 60 FPS" },
+            { Icon = "sfsymbols:sliderHorizontal3", Text = "Giao diện macOS Sequoia chuẩn mực" },
+        },
+        ButtonText = "Get Started",
+        HideTopbar = true, -- Tạm ẩn Topbar khi ở Welcome, vẫn giữ 3 nút Close / Minimize / Fullscreen
+    },
+})
+
+-- Đổi ảnh nền bất cứ lúc nào lúc đang chạy (Runtime API):
+-- Window:SetBackgroundImage("https://example.com/new_bg.png", 0.20)
+-- Window:SetBackgroundImageTransparency(0.30)
+-- Window:ShowWelcome()
+```
+

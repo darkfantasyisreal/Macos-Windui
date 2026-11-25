@@ -91,6 +91,26 @@ local Window = WindUI:CreateWindow({
 	Style = "MacOS",
 	Theme = "MacOS",
 	NewElements = false,
+	-- Optional global Window Background Image (supports https:// URL or rbxassetid://):
+	-- BackgroundImage = "https://your-link.com/wallpaper.png",
+	-- BackgroundImageTransparency = 0.25,
+	Welcome = {
+		Enabled = true,
+		TabTitle = "Welcome",
+		Icon = "sfsymbols:sparkles",
+		Greeting = "hello", -- 60 FPS Apple iPadOS cursive "hello" stroke-drawing animation!
+		Badge = "MACOS SEQUOIA • WINDUI",
+		Title = "WindUI macOS Sequoia",
+		Subtitle = "Clear Monochrome Liquid Glass • Apple SF Symbols",
+		Description = "A refined macOS Sequoia workspace built for Roblox — featuring 60 FPS clear Liquid Glass navigation, native controls, Spotlight search, and instant config profiles.",
+		Highlights = {
+			{ Icon = "sfsymbols:sparkles", Text = "60 FPS Clear Monochrome Liquid Glass" },
+			{ Icon = "sfsymbols:sliderHorizontal3", Text = "Native macOS Sequoia Controls" },
+			{ Icon = "sfsymbols:command", Text = "Keybind HUD & Spotlight Search" },
+		},
+		ButtonText = "Get Started",
+		HideTopbar = true, -- Hides Topbar while keeping the 3 important buttons (Close, Minimize, Fullscreen)
+	},
 	KeybindMenu = {
 		Enabled = true,
 		Visible = true,
