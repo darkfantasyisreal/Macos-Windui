@@ -694,8 +694,15 @@ ModalGroup3:Button({
 		WindUI:OpenKeySystem({
 			Title = "Sequoia Studio",
 			Note = "Demo Key: <b>MACOS-2026</b>",
+			IntroSubtitle = "macOS Sequoia • Clear Liquid Glass",
+			Background = DEFAULT_WELCOME_BG,
+			URL = "https://github.com/darkfantasyisreal/Macos-Windui",
 			Key = { "MACOS-2026", "SEQUOIA" },
 			Default = "MACOS-2026",
+			GetKeyTitle = "Get Key",
+			SubmitTitle = "Sign In",
+			PlayIntroAfterLogin = true,
+			ReplayWelcomeOnLogin = false,
 			SaveKey = false,
 		}, function(ok)
 			MainConsole:Info("KeySystem unlocked: " .. tostring(ok))

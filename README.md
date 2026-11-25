@@ -667,7 +667,8 @@ local Window = WindUI:CreateWindow({
             { Icon = "sfsymbols:sliderHorizontal3", Text = "Giao diện macOS Sequoia chuẩn mực" },
         },
         ButtonText = "Get Started",
-        HideTopbar = true, -- Tạm ẩn Topbar khi ở Welcome, vẫn giữ 3 nút Close / Minimize / Fullscreen
+        HideTopbar = true,   -- Tạm ẩn Topbar khi ở Welcome, vẫn giữ 3 nút Close / Minimize / Fullscreen
+        ShowInNavBar = false, -- Mặc định ẩn tab Welcome khỏi thanh NavBar NewForm để chừa chỗ cho tab chính
     },
 })
 
@@ -679,27 +680,62 @@ local Window = WindUI:CreateWindow({
 
 ---
 
+## Bước 8 / Step 8: Key System chuẩn **macOS Sequoia Login User** + Intro iPadOS `"Hello {Tên Player}"`
+
+Khi bật `KeySystem`, giao diện xác thực sẽ chạy trọn chuỗi 3 giai đoạn:
+1. **Frame ảnh nền tràn viền (`CanvasGroup` bo góc macOS + Ken Burns zoom)** cùng hiệu ứng viết tay `"hello"` 60 FPS + animation viết chữ **`Hello {Tên Player}`** kiểu iPadOS.
+2. **Chuyển cảnh mượt sang màn hình đăng nhập macOS Sequoia User Login:** Avatar tròn của Player, ô nhập Key dạng viên thuốc kính mờ có nút mũi tên tròn `→` bên trong, cùng **2 nút đối xứng chuẩn macOS Login** (`Get Key` & `Sign In`), rung lắc chuẩn macOS khi nhập sai Key và hiệu ứng mở khóa xanh khi nhập đúng.
+3. **Tự động nối tiếp sang Hub Boot Intro (`Intro.Play`)** ngay sau khi đăng nhập thành công (`PlayIntroAfterLogin = true` mặc định), rồi mở thẳng cửa sổ Hub!
+
+```lua
+local Window = WindUI:CreateWindow({
+    Title = "Sequoia Login Hub",
+    LayoutMode = "NewForm",
+    KeySystem = {
+        Title = "Sequoia Login Hub",
+        IntroSubtitle = "Authenticating macOS Sequoia Workspace",
+        Note = "Demo Key: <b>MACOS-2026</b>",
+        Background = "https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/assets/welcome_bg.png",
+        URL = "https://github.com/darkfantasyisreal/Macos-Windui",
+        Key = { "MACOS-2026", "SEQUOIA" },
+        GetKeyTitle = "Get Key",
+        SubmitTitle = "Sign In",
+        IntroDuration = 1.95,      -- Thời lượng intro "Hello {Player}" trước khi chuyển sang khung nhập Key
+        PlayIntroAfterLogin = true, -- Tự động chạy tiếp Hub Boot Intro sau khi đăng nhập thành công
+        SaveKey = false,
+    },
+})
+```
+
+---
+
 ## Example Mẫu **100% NewForm** (Chạy Ngay / Ready-to-Run Loadstrings)
 
-1. **Full Elements & Custom Welcome Tab Showcase** *(Đầy đủ 22+ Element · Custom Welcome `"hello"` · Live đổi Background Image · 100% NewForm)*:
+1. **macOS Sequoia Key System Login + Post-Login Intro + 100% NewForm** *(Demo Key: `MACOS-2026` · iPadOS `"Hello {Player}"` · macOS Login User · Chained Boot Intro · Welcome ẩn khỏi NavBar)*:
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_keysystem_login.luau"))()
+```
+
+2. **Full Elements & Custom Welcome Tab Showcase** *(Đầy đủ 22+ Element · Custom Welcome `"hello"` · Preview KeySystem · Live đổi Background Image · 100% NewForm)*:
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_full_elements.luau"))()
 ```
 
-2. **Obsidian Combat & Movement Hub** (`MacOS` Dark Clear Glass · 100% NewForm · Welcome `"hello"` · Aim/Movement/Visuals):
+3. **Obsidian Combat & Movement Hub** (`MacOS` Dark Clear Glass · 100% NewForm · Welcome `"hello"` · Aim/Movement/Visuals):
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_combat_hub.luau"))()
 ```
 
-3. **Aether RPG Auto-Farm & Telemetry Hub** (`MacOSLight` Light Clear Glass · 100% NewForm · StatCard · Console · ProgressBar · Dynamic Island):
+4. **Aether RPG Auto-Farm & Telemetry Hub** (`MacOSLight` Light Clear Glass · 100% NewForm · StatCard · Console · ProgressBar · Dynamic Island):
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_autofarm_rpg.luau"))()
 ```
 
-4. **Studio Utility & Appearance Toolbox** (`MacOS` Dark Clear Glass · 100% NewForm · Đổi Background Image trực tiếp · Code · Prompt · Profiles):
+5. **Studio Utility & Appearance Toolbox** (`MacOS` Dark Clear Glass · 100% NewForm · Đổi Background Image trực tiếp · Code · Prompt · Profiles):
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_studio_toolbox.luau"))()
 ```
+
 
 
 
