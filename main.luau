@@ -6027,103 +6027,128 @@ return nil end end if isfile and isfile(aK)then return getcustomasset(aK)end
 return nil end)resolveAll(aI and aJ or nil)end)end function aa.New(aE,aF,aG)aG=
 typeof(aG)=='table'and aG or{}local aH=aG.LiquidOil~=false local aI=aG.
 LiquidGlassLens~=false local aJ=math.clamp(tonumber(aG.OilIntensity)or 1,0,1.4)
-local aK=math.clamp(tonumber(aG.GlassTransparency)or 0.72,0.55,0.88)local aL={
-Enabled=false,WindowVisible=true,LibraryHidden=false,UserHidden=false,TabPills={
-},ActiveTabIndex=nil,PreviousNonSettingsTab=nil,Destroyed=false,LiquidOil=aH,
+local aK=math.clamp(tonumber(aG.GlassTransparency)or 0,0,0.85)local aL={Enabled=
+false,WindowVisible=true,LibraryHidden=false,UserHidden=false,TabPills={},
+ActiveTabIndex=nil,PreviousNonSettingsTab=nil,Destroyed=false,LiquidOil=aH,
 LiquidGlassLens=aI,UIElements={}}local aM={}local function track(aN,aO)local aP=
 ah.AddSignal(aN,aO)table.insert(aM,aP)return aP end local function
 resolveMacIcon(aN,aO)if ah.Icon(aN)then return aN end return aO end
 local function isLightTheme()if ah.IsThemeDark then return not ah.IsThemeDark(ah
 .Theme)end local aN=string.lower(tostring(ah.Theme or''))return string.find(aN,
-'light',1,true)~=nil end local function isTintableIcon(aN,aO,aP)if aP then
-return false end if aO then return true end if type(aN)~='string'or aN==''then
-return true end local aQ=string.lower(aN)if string.find(aQ,'http',1,true)or
-string.find(aQ,'rbxassetid://',1,true)or string.find(aQ,'rbxasset://',1,true)
-then return false end return true end local function createIconFrame(aN,aO,aP,aQ
-,aR)local aS=aR if aS==nil then aS=isTintableIcon(aN,aE and aE.IconThemed,nil)
-end local aT=ah.Image(aN,aO,0,aE.Folder,'NavBar',true,aS,aQ or'Icon')aT.Size=
-UDim2.fromOffset(aP,aP)aT.AnchorPoint=Vector2.new(0.5,0.5)aT.Position=UDim2.new(
-0.5,0,0.5,0)return aT end local function makeRoundActionBtn(aN,aO,aP,aQ,aR,aS)
-local aT=createIconFrame(aO,'NavBar_'..aN,aP,'Icon')local aU=ak('UIScale',{Scale
-=1})local aV=ak('UIStroke',{Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.
-Border,Color=Color3.new(1,1,1),Transparency=1})local aW=ak('TextButton',{Name=aN
-,Size=UDim2.fromOffset(aQ,aR),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=1,BorderSizePixel=0,Text='',AutoButtonColor=false,Active=
-true,LayoutOrder=aS},{aU,ak('UICorner',{CornerRadius=UDim.new(1,0)}),aV,aT})
-track(aW.MouseButton1Down,function()al(aU,0.08,{Scale=0.88}):Play()end)track(aW.
-InputEnded,function()al(aU,0.16,{Scale=1},Enum.EasingStyle.Back,Enum.
-EasingDirection.Out):Play()end)return aW,aT,aU,aV end local function randRange(
-aN,aO)return aN+math.random()*(aO-aN)end local function createOrganicMotion()
-return{phase=math.random()*ar,speed=randRange(-11,11),targetSpeed=randRange(-12,
-12),panX=randRange(-0.1,0.1),panY=randRange(-0.11,0.11),targetPanX=randRange(-
-0.11,0.11),targetPanY=randRange(-0.12,0.12),sheenOff=randRange(-0.45,0.45),
-targetSheenOff=randRange(-0.45,0.45),sheenRot=randRange(110,152),targetSheenRot=
-randRange(110,152),retargetTimer=randRange(0.4,2.2),seedA=math.random()*6.283185
-,seedB=math.random()*6.283185}end local aN={}local function makeGlassIsland(aO,
-aP,aQ,aR)local aS=ak('ImageLabel',{Name=aO..'Shadow',Size=UDim2.new(1,22,1,22),
-Position=UDim2.new(0.5,0,0.5,4),AnchorPoint=Vector2.new(0.5,0.5),
-BackgroundTransparency=1,Image=ao,ImageColor3=Color3.new(0,0,0),
-ImageTransparency=0.76,ScaleType=Enum.ScaleType.Slice,SliceCenter=ap,ZIndex=1})
-local aT=ak('UIGradient',{Rotation=132,Color=ColorSequence.new{
-ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
-0.5,Color3.fromHex'#A0A0A0'),ColorSequenceKeypoint.new(1,Color3.fromHex'#E8E8E8'
-)},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.52),
-NumberSequenceKeypoint.new(0.5,0.9),NumberSequenceKeypoint.new(1,0.74)}})local
-aU=ak('UIStroke',{Name='OpticalRimStroke',Thickness=1,ApplyStrokeMode=Enum.
-ApplyStrokeMode.Border,Color=Color3.new(1,1,1),Transparency=0.14},{aT})local aV=
-ak('UIGradient',{Rotation=128,Offset=Vector2.new(0,0),Color=ColorSequence.new{
+'light',1,true)~=nil end local function resolveMacDockBaseColor(aN)local aO=aN
+and Color3.fromHex'#EAECF0'or Color3.fromHex'#1F2026'local aP if ah.
+GetThemeProperty and ah.Theme then local aQ=ah.GetThemeProperty(
+'WindowBackground',ah.Theme)if typeof(aQ)=='Color3'then aP=aQ else local aR=ah.
+GetThemeProperty('Background',ah.Theme)if typeof(aR)=='Color3'then aP=aR end end
+end if typeof(aP)=='Color3'then local aQ=aO:Lerp(aP,aN and 0.18 or 0.3)if aN
+then return Color3.new(math.clamp(aQ.R,0.86,0.96),math.clamp(aQ.G,0.87,0.96),
+math.clamp(aQ.B,0.89,0.97))else return Color3.new(math.clamp(aQ.R,0.09,0.18),
+math.clamp(aQ.G,0.09,0.18),math.clamp(aQ.B,0.11,0.21))end end return aO end
+local function isTintableIcon(aN,aO,aP)if aP then return false end if aO then
+return true end if type(aN)~='string'or aN==''then return true end local aQ=
+string.lower(aN)if string.find(aQ,'http',1,true)or string.find(aQ,
+'rbxassetid://',1,true)or string.find(aQ,'rbxasset://',1,true)then return false
+end return true end local function createIconFrame(aN,aO,aP,aQ,aR)local aS=aR if
+aS==nil then aS=isTintableIcon(aN,aE and aE.IconThemed,nil)end local aT=ah.
+Image(aN,aO,0,aE.Folder,'NavBar',true,aS,aQ or'Icon')aT.Size=UDim2.fromOffset(aP
+,aP)aT.AnchorPoint=Vector2.new(0.5,0.5)aT.Position=UDim2.new(0.5,0,0.5,0)return
+aT end local function makeRoundActionBtn(aN,aO,aP,aQ,aR,aS)local aT=
+createIconFrame(aO,'NavBar_'..aN,aP,'Icon')local aU=ak('UIScale',{Scale=1})local
+aV=ak('UIStroke',{Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Color=
+Color3.new(1,1,1),Transparency=1})local aW=ak('TextButton',{Name=aN,Size=UDim2.
+fromOffset(aQ,aR),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,
+BorderSizePixel=0,Text='',AutoButtonColor=false,Active=true,LayoutOrder=aS},{aU,
+ak('UICorner',{CornerRadius=UDim.new(1,0)}),aV,aT})track(aW.MouseButton1Down,
+function()al(aU,0.08,{Scale=0.88}):Play()end)track(aW.InputEnded,function()al(aU
+,0.16,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()end)return
+aW,aT,aU,aV end local function randRange(aN,aO)return aN+math.random()*(aO-aN)
+end local function createOrganicMotion()return{phase=math.random()*ar,speed=
+randRange(-11,11),targetSpeed=randRange(-12,12),panX=randRange(-0.1,0.1),panY=
+randRange(-0.11,0.11),targetPanX=randRange(-0.11,0.11),targetPanY=randRange(-
+0.12,0.12),sheenOff=randRange(-0.45,0.45),targetSheenOff=randRange(-0.45,0.45),
+sheenRot=randRange(110,152),targetSheenRot=randRange(110,152),retargetTimer=
+randRange(0.4,2.2),seedA=math.random()*6.283185,seedB=math.random()*6.283185}end
+local aN={}local function makeGlassIsland(aO,aP,aQ,aR)local aS=ak('ImageLabel',{
+Name=aO..'Shadow',Size=UDim2.new(1,22,1,22),Position=UDim2.new(0.5,0,0.5,4),
+AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,Image=ao,ImageColor3=
+Color3.new(0,0,0),ImageTransparency=0.54,ScaleType=Enum.ScaleType.Slice,
+SliceCenter=ap,ZIndex=1})local aT=ak('UIGradient',{Rotation=132,Color=
+ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),
+ColorSequenceKeypoint.new(0.48,Color3.fromHex'#8E929E'),ColorSequenceKeypoint.
+new(1,Color3.fromHex'#C8CCD6')},Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.48),NumberSequenceKeypoint.new(0.48,0.86),
+NumberSequenceKeypoint.new(1,0.72)}})local aU=ak('UIStroke',{Name=
+'OpticalRimStroke',Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Color
+=Color3.new(1,1,1),Transparency=0.22},{aT})local aV=ak('UIGradient',{Rotation=90
+,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),
+ColorSequenceKeypoint.new(0.5,Color3.fromHex'#D4DAEA'),ColorSequenceKeypoint.
+new(1,Color3.fromHex'#FFFFFF')},Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.915),NumberSequenceKeypoint.new(0.35,0.96),
+NumberSequenceKeypoint.new(0.72,0.99),NumberSequenceKeypoint.new(1,0.965)}})
+local aW=ak('Frame',{Name='MacSurfaceFrost',Size=UDim2.fromScale(1,1),
+BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0,BorderSizePixel=0,
+ZIndex=1},{ak('UICorner',{CornerRadius=UDim.new(1,0)}),aV})local aX=ak(
+'UIGradient',{Rotation=128,Offset=Vector2.new(0,0),Color=ColorSequence.new{
 ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
 0.5,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF'
 )},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,1),
-NumberSequenceKeypoint.new(0.32,0.92),NumberSequenceKeypoint.new(0.5,0.76),
-NumberSequenceKeypoint.new(0.68,0.92),NumberSequenceKeypoint.new(1,1)}})local aW
+NumberSequenceKeypoint.new(0.32,0.94),NumberSequenceKeypoint.new(0.5,0.82),
+NumberSequenceKeypoint.new(0.68,0.94),NumberSequenceKeypoint.new(1,1)}})local aY
 =ak('Frame',{Name='RandomMonochromeSheen',Size=UDim2.fromScale(1,1),
-BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=aH and 0.65 or 1,
+BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=aH and 0.84 or 1,
 BorderSizePixel=0,Visible=aH,ZIndex=2},{ak('UICorner',{CornerRadius=UDim.new(1,0
-)}),aV})local aX=ak('ImageLabel',{Name='LiquidOilSpriteA',Size=UDim2.fromScale(
+)}),aX})local aZ=ak('ImageLabel',{Name='LiquidOilSpriteA',Size=UDim2.fromScale(
 1.28,1.34),Position=UDim2.fromScale(0.5,0.5),AnchorPoint=Vector2.new(0.5,0.5),
 BackgroundTransparency=1,Image='',ImageRectSize=au,ImageRectOffset=
 getFrameRectOffset(0),ImageTransparency=1,ScaleType=Enum.ScaleType.Stretch,
-Visible=aH,ZIndex=3})local aY=ak('ImageLabel',{Name='LiquidOilSpriteB',Size=
+Visible=aH,ZIndex=3})local a_=ak('ImageLabel',{Name='LiquidOilSpriteB',Size=
 UDim2.fromScale(1.28,1.34),Position=UDim2.fromScale(0.5,0.5),AnchorPoint=Vector2
 .new(0.5,0.5),BackgroundTransparency=1,Image='',ImageRectSize=au,ImageRectOffset
 =getFrameRectOffset(1),ImageTransparency=1,ScaleType=Enum.ScaleType.Stretch,
-Visible=aH,ZIndex=4})local aZ=ak('Frame',{Name='TopMeniscus',Size=UDim2.new(1,-
+Visible=aH,ZIndex=4})local a0=ak('Frame',{Name='TopMeniscus',Size=UDim2.new(1,-
 26,0,1),Position=UDim2.new(0.5,0,0,1),AnchorPoint=Vector2.new(0.5,0),
-BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.64,BorderSizePixel=0
+BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.56,BorderSizePixel=0
 ,ZIndex=5},{ak('UICorner',{CornerRadius=UDim.new(1,0)}),ak('UIGradient',{
 Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,1),
-NumberSequenceKeypoint.new(0.2,0.3),NumberSequenceKeypoint.new(0.5,0),
-NumberSequenceKeypoint.new(0.8,0.3),NumberSequenceKeypoint.new(1,1)}})})local a_
-=ak('CanvasGroup',{Name=aO,Size=UDim2.fromScale(1,1),BackgroundColor3=Color3.
-fromHex'#0A0B0E',BackgroundTransparency=aK,BorderSizePixel=0,Active=true,ZIndex=
-2},{ak('UICorner',{CornerRadius=UDim.new(1,0)}),aU,aW,aX,aY,aZ})local a0=ak(
-'Frame',{Name=aO..'Wrapper',Size=UDim2.fromOffset(aP,av),BackgroundTransparency=
-1,BorderSizePixel=0,LayoutOrder=aQ},{aS,a_})local a1={Wrapper=a0,Shadow=aS,Shell
-=a_,RimStroke=aU,RimGrad=aT,RandomSheen=aW,RandomSheenGrad=aV,OilA=aX,OilB=aY,
-TopMeniscus=aZ,AlphaScale=aR,Motion=createOrganicMotion()}table.insert(aN,a1)
-return a1 end local aO=(aE.Icon and aE.Icon~=''and aE.Icon)or resolveMacIcon(
-'sfsymbols:appFill','folder')local aP=resolveMacIcon('sfsymbols:gearshapeFill',
-'settings')local aQ=resolveMacIcon('sfsymbols:command','keyboard')local aR,aS,aT
-,aU=makeRoundActionBtn('AppIconBtn',aO,17,30,30,1)local aV,aW,aX,aY=
-makeRoundActionBtn('SettingsBtn',aP,15,30,30,2)local aZ,a_,a0,a1=
-makeRoundActionBtn('KeybindBtn',aQ,14,30,30,3)local a2=ak('TextLabel',{Name=
-'Count',Size=UDim2.fromScale(1,1),BackgroundTransparency=1,Text='2',TextSize=8,
-FontFace=Font.new(ah.Font,Enum.FontWeight.Bold),TextColor3=Color3.fromHex
-'#0F0F12',ZIndex=10})local b=ak('Frame',{Name='WorkspaceCountBadge',Size=UDim2.
-fromOffset(12,12),Position=UDim2.new(1,-1,0,1),AnchorPoint=Vector2.new(1,0),
-BackgroundColor3=Color3.fromHex'#F5F5F7',BackgroundTransparency=0.06,
-BorderSizePixel=0,Visible=false,ZIndex=9,Parent=aZ},{ak('UICorner',{CornerRadius
-=UDim.new(0,999)}),a2})local d=makeGlassIsland('UtilityCapsule',ax,1,0.72)ak(
-'Frame',{Name='LeftContent',Size=UDim2.fromScale(1,1),BackgroundTransparency=1,
-ZIndex=6,Parent=d.Shell},{ak('UIPadding',{PaddingLeft=UDim.new(0,4),PaddingRight
-=UDim.new(0,4)}),ak('UIListLayout',{FillDirection='Horizontal',VerticalAlignment
-='Center',HorizontalAlignment='Center',SortOrder='LayoutOrder',Padding=UDim.new(
-0,4)}),aR,aV,aZ})local e=d.Shell local f=makeGlassIsland('TabRail',260,2,1)local
-g=f.Shell local h=f.OilA local i=f.OilB local l=ak('UISizeConstraint',{MinSize=
-Vector2.new(170,av),MaxSize=Vector2.new(400,av)})l.Parent=f.Wrapper local m=ak(
-'Frame',{Name='TabButtonsRow',Size=UDim2.new(1,0,0,av),Position=UDim2.new(0,0,0,
-0),BackgroundTransparency=1,ZIndex=5})local p=ak('ImageLabel',{Name=
+NumberSequenceKeypoint.new(0.2,0.28),NumberSequenceKeypoint.new(0.5,0),
+NumberSequenceKeypoint.new(0.8,0.28),NumberSequenceKeypoint.new(1,1)}})})local
+a1=ak('Frame',{Name='BottomBevelLip',Size=UDim2.new(1,-26,0,1),Position=UDim2.
+new(0.5,0,1,-1),AnchorPoint=Vector2.new(0.5,1),BackgroundColor3=Color3.new(0,0,0
+),BackgroundTransparency=0.74,BorderSizePixel=0,ZIndex=5},{ak('UICorner',{
+CornerRadius=UDim.new(1,0)}),ak('UIGradient',{Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(0.22,0.3),
+NumberSequenceKeypoint.new(0.5,0),NumberSequenceKeypoint.new(0.78,0.3),
+NumberSequenceKeypoint.new(1,1)}})})local a2=ak('CanvasGroup',{Name=aO,Size=
+UDim2.fromScale(1,1),BackgroundColor3=Color3.fromHex'#1E1F24',
+BackgroundTransparency=aK,BorderSizePixel=0,Active=true,ZIndex=2},{ak('UICorner'
+,{CornerRadius=UDim.new(1,0)}),aU,aW,aY,aZ,a_,a0,a1})local b=ak('Frame',{Name=aO
+..'Wrapper',Size=UDim2.fromOffset(aP,av),BackgroundTransparency=1,
+BorderSizePixel=0,LayoutOrder=aQ},{aS,a2})local d={Wrapper=b,Shadow=aS,Shell=a2,
+RimStroke=aU,RimGrad=aT,SurfaceFrost=aW,SurfaceFrostGrad=aV,RandomSheen=aY,
+RandomSheenGrad=aX,OilA=aZ,OilB=a_,TopMeniscus=a0,BottomLip=a1,AlphaScale=aR,
+Motion=createOrganicMotion()}table.insert(aN,d)return d end local aO=(aE.Icon
+and aE.Icon~=''and aE.Icon)or resolveMacIcon('sfsymbols:appFill','folder')local
+aP=resolveMacIcon('sfsymbols:gearshapeFill','settings')local aQ=resolveMacIcon(
+'sfsymbols:command','keyboard')local aR,aS,aT,aU=makeRoundActionBtn('AppIconBtn'
+,aO,17,30,30,1)local aV,aW,aX,aY=makeRoundActionBtn('SettingsBtn',aP,15,30,30,2)
+local aZ,a_,a0,a1=makeRoundActionBtn('KeybindBtn',aQ,14,30,30,3)local a2=ak(
+'TextLabel',{Name='Count',Size=UDim2.fromScale(1,1),BackgroundTransparency=1,
+Text='2',TextSize=8,FontFace=Font.new(ah.Font,Enum.FontWeight.Bold),TextColor3=
+Color3.fromHex'#0F0F12',ZIndex=10})local b=ak('Frame',{Name=
+'WorkspaceCountBadge',Size=UDim2.fromOffset(12,12),Position=UDim2.new(1,-1,0,1),
+AnchorPoint=Vector2.new(1,0),BackgroundColor3=Color3.fromHex'#F5F5F7',
+BackgroundTransparency=0.06,BorderSizePixel=0,Visible=false,ZIndex=9,Parent=aZ},
+{ak('UICorner',{CornerRadius=UDim.new(0,999)}),a2})local d=makeGlassIsland(
+'UtilityCapsule',ax,1,0.72)ak('Frame',{Name='LeftContent',Size=UDim2.fromScale(1
+,1),BackgroundTransparency=1,ZIndex=6,Parent=d.Shell},{ak('UIPadding',{
+PaddingLeft=UDim.new(0,4),PaddingRight=UDim.new(0,4)}),ak('UIListLayout',{
+FillDirection='Horizontal',VerticalAlignment='Center',HorizontalAlignment=
+'Center',SortOrder='LayoutOrder',Padding=UDim.new(0,4)}),aR,aV,aZ})local e=d.
+Shell local f=makeGlassIsland('TabRail',260,2,1)local g=f.Shell local h=f.OilA
+local i=f.OilB local l=ak('UISizeConstraint',{MinSize=Vector2.new(170,av),
+MaxSize=Vector2.new(400,av)})l.Parent=f.Wrapper local m=ak('Frame',{Name=
+'TabButtonsRow',Size=UDim2.new(1,0,0,av),Position=UDim2.new(0,0,0,0),
+BackgroundTransparency=1,ZIndex=5})local p=ak('ImageLabel',{Name=
 'LiquidLensShadow',Size=UDim2.fromOffset(88,aw+6),Position=UDim2.new(0,0,0,math.
 floor(av*0.5)+1),AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,Image=
 ao,ImageColor3=Color3.new(0,0,0),ImageTransparency=1,ScaleType=Enum.ScaleType.
@@ -6308,102 +6333,122 @@ then bD.ImageLabel.ImageColor3=bF and Color3.fromHex'#111111'or Color3.fromHex
 ImageColor3=bF and Color3.fromHex'#FFFFFF'or Color3.fromHex'#EBEBEB'bD.
 ImageLabel.ImageTransparency=bF and 0.04 or 0.16 end end end local bD local bE
 local function applyLiquidTheme()if aL.Destroyed then return end local bF=
-isLightTheme()for bG,bH in ipairs(aN)do if bF then bH.Shell.BackgroundColor3=
-Color3.fromHex'#FFFFFF'bH.Shell.BackgroundTransparency=math.clamp(aK-0.04,0.65,
-0.85)bH.Shadow.ImageTransparency=0.86 bH.TopMeniscus.BackgroundTransparency=0.28
-bH.RimStroke.Transparency=0.12 bH.RimGrad.Color=ColorSequence.new{
+isLightTheme()local bG=resolveMacDockBaseColor(bF)for bH,bI in ipairs(aN)do bI.
+Shell.BackgroundColor3=bG bI.Shell.BackgroundTransparency=aK if bF then bI.
+Shadow.ImageTransparency=0.76 bI.SurfaceFrostGrad.Color=ColorSequence.new{
 ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
-0.5,Color3.fromHex'#888888'),ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF'
-)}bH.RimGrad.Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.18),
-NumberSequenceKeypoint.new(0.5,0.78),NumberSequenceKeypoint.new(1,0.42)}else bH.
-Shell.BackgroundColor3=Color3.fromHex'#0A0B0E'bH.Shell.BackgroundTransparency=
-math.clamp(aK,0.65,0.85)bH.Shadow.ImageTransparency=0.76 bH.TopMeniscus.
-BackgroundTransparency=0.64 bH.RimStroke.Transparency=0.14 bH.RimGrad.Color=
+0.58,Color3.fromHex'#E4E7EE'),ColorSequenceKeypoint.new(1,Color3.fromHex
+'#F7F8FB')}bI.SurfaceFrostGrad.Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.34),NumberSequenceKeypoint.new(0.42,0.72),
+NumberSequenceKeypoint.new(0.8,0.86),NumberSequenceKeypoint.new(1,0.54)}bI.
+TopMeniscus.BackgroundColor3=Color3.new(1,1,1)bI.TopMeniscus.
+BackgroundTransparency=0.14 bI.BottomLip.BackgroundColor3=Color3.new(0,0,0)bI.
+BottomLip.BackgroundTransparency=0.88 bI.RimStroke.Color=Color3.new(1,1,1)bI.
+RimStroke.Transparency=0.24 bI.RimGrad.Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
+0.48,Color3.fromHex'#9EA4B0'),ColorSequenceKeypoint.new(1,Color3.fromHex
+'#C8CDD8')}bI.RimGrad.Transparency=NumberSequence.new{NumberSequenceKeypoint.
+new(0,0.18),NumberSequenceKeypoint.new(0.48,0.62),NumberSequenceKeypoint.new(1,
+0.44)}else bI.Shadow.ImageTransparency=0.54 bI.SurfaceFrostGrad.Color=
 ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),
-ColorSequenceKeypoint.new(0.5,Color3.fromHex'#A0A0A0'),ColorSequenceKeypoint.
-new(1,Color3.fromHex'#E8E8E8')}bH.RimGrad.Transparency=NumberSequence.new{
-NumberSequenceKeypoint.new(0,0.52),NumberSequenceKeypoint.new(0.5,0.9),
-NumberSequenceKeypoint.new(1,0.74)}end end if bF then G.BackgroundTransparency=
-0.16 x.Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex
-'#FFFFFF'),ColorSequenceKeypoint.new(0.55,Color3.fromHex'#F5F5F5'),
-ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF')}x.Transparency=
-NumberSequence.new{NumberSequenceKeypoint.new(0,0.26),NumberSequenceKeypoint.
-new(0.55,0.4),NumberSequenceKeypoint.new(1,0.3)}u.Transparency=NumberSequence.
-new{NumberSequenceKeypoint.new(0,0.12),NumberSequenceKeypoint.new(0.5,0.72),
-NumberSequenceKeypoint.new(1,0.3)}F.BackgroundTransparency=0.18 else G.
-BackgroundTransparency=0.06 x.Color=ColorSequence.new{ColorSequenceKeypoint.new(
+ColorSequenceKeypoint.new(0.5,Color3.fromHex'#D4DAEA'),ColorSequenceKeypoint.
+new(1,Color3.fromHex'#FFFFFF')}bI.SurfaceFrostGrad.Transparency=NumberSequence.
+new{NumberSequenceKeypoint.new(0,0.915),NumberSequenceKeypoint.new(0.35,0.96),
+NumberSequenceKeypoint.new(0.72,0.99),NumberSequenceKeypoint.new(1,0.965)}bI.
+TopMeniscus.BackgroundColor3=Color3.new(1,1,1)bI.TopMeniscus.
+BackgroundTransparency=0.56 bI.BottomLip.BackgroundColor3=Color3.new(0,0,0)bI.
+BottomLip.BackgroundTransparency=0.74 bI.RimStroke.Color=Color3.new(1,1,1)bI.
+RimStroke.Transparency=0.22 bI.RimGrad.Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
+0.48,Color3.fromHex'#8E929E'),ColorSequenceKeypoint.new(1,Color3.fromHex
+'#C8CCD6')}bI.RimGrad.Transparency=NumberSequence.new{NumberSequenceKeypoint.
+new(0,0.48),NumberSequenceKeypoint.new(0.48,0.86),NumberSequenceKeypoint.new(1,
+0.72)}end end if bF then G.BackgroundTransparency=0.02 x.Color=ColorSequence.new
+{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
+0.55,Color3.fromHex'#F7F8FB'),ColorSequenceKeypoint.new(1,Color3.fromHex
+'#FFFFFF')}x.Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.02),
+NumberSequenceKeypoint.new(0.55,0.08),NumberSequenceKeypoint.new(1,0.04)}u.Color
+=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),
+ColorSequenceKeypoint.new(0.5,Color3.fromHex'#ADB2BE'),ColorSequenceKeypoint.
+new(1,Color3.fromHex'#D4D8E2')}u.Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.24),NumberSequenceKeypoint.new(0.5,0.68),
+NumberSequenceKeypoint.new(1,0.48)}F.BackgroundTransparency=0.12 else G.
+BackgroundTransparency=0.04 x.Color=ColorSequence.new{ColorSequenceKeypoint.new(
 0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.55,Color3.fromHex
-'#EAEAEA'),ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF')}x.Transparency=
-NumberSequence.new{NumberSequenceKeypoint.new(0,0.74),NumberSequenceKeypoint.
-new(0.52,0.86),NumberSequenceKeypoint.new(1,0.8)}u.Transparency=NumberSequence.
-new{NumberSequenceKeypoint.new(0,0.3),NumberSequenceKeypoint.new(0.5,0.84),
-NumberSequenceKeypoint.new(1,0.56)}F.BackgroundTransparency=0.34 end
-setBtnBaseIconColor(aS,bF,true,bC)setBtnBaseIconColor(be,bF,true,bC)
-setBtnBaseIconColor(T,bF,false,true)local bG=bF and Color3.fromHex'#F9F9FB'or
-Color3.fromHex'#16171C'local bH=bF and 0.04 or 0.05 local bI=bF and Color3.new(0
-,0,0)or Color3.new(1,1,1)local bJ=bF and 0.86 or 0.78 bv.BackgroundColor3=bG bv.
-BackgroundTransparency=bH bw.BackgroundColor3=bG bw.BackgroundTransparency=bH by
-.BackgroundColor3=bG by.BackgroundTransparency=bH ba.Color=bI ba.Transparency=bJ
-bb.Color=bI bb.Transparency=bJ bc.BackgroundTransparency=bF and 0.25 or 0.56 bf.
-BackgroundColor3=bF and Color3.new(0,0,0)or Color3.new(1,1,1)bf.
-BackgroundTransparency=bF and 0.94 or 0.9 bd.Color=bF and Color3.new(0,0,0)or
-Color3.new(1,1,1)bd.Transparency=bF and 0.9 or 0.86 bg.TextColor3=bF and Color3.
-fromHex'#1D1D1F'or Color3.fromHex'#F5F5F7'bk.TextColor3=bF and Color3.fromHex
-'#6E6E73'or Color3.fromHex'#AEAEB2'bn.TextColor3=bF and Color3.fromHex'#3A3A3C'
-or Color3.fromHex'#D1D1D6'bj.BackgroundColor3=bF and Color3.new(0,0,0)or Color3.
-new(1,1,1)bj.BackgroundTransparency=bF and 0.93 or 0.9 bi.Color=bF and Color3.
-new(0,0,0)or Color3.new(1,1,1)bh.TextColor3=bF and Color3.fromHex'#1D1D1F'or
-Color3.fromHex'#EBEBEB'bm.BackgroundColor3=bF and Color3.new(0,0,0)or Color3.
-new(1,1,1)bp.BackgroundColor3=bF and Color3.new(0,0,0)or Color3.new(1,1,1)bq.
-TextColor3=bF and Color3.fromHex'#6E6E73'or Color3.fromHex'#98989D'br.TextColor3
-=bF and Color3.fromHex'#6E6E73'or Color3.fromHex'#98989D'if aL.HubInfoOpen then
-a8.ImageTransparency=bF and 0.86 or 0.72 end if bD then bD()end if bE then for
-bK,bL in pairs(aL.TabPills)do bE(bL,bK==aL.ActiveTabIndex)end end end
-local function getBarScale()return math.max(X.Scale or 1,0.1)end local function
-syncOuterBarWidth(bF)local bG=ax+az+bF+az+ay Y.Size=UDim2.fromOffset(bG+aA*2,av+
-aB*2)end local bF=math.floor(av*0.5)local function syncTabCanvasWidth()local bG=
-{}for bH,bI in pairs(aL.TabPills)do if bI and bI.Button then table.insert(bG,{
-idx=bH,entry=bI})end end table.sort(bG,function(bH,bI)return bH.idx<bI.idx end)
-local bH=0 for bI,bJ in ipairs(bG)do local bK=bJ.entry local bL=tostring(bK.Tab.
-Title or'Tab')local bM=0 if bK.Label and bK.Label.TextBounds and bK.Label.
-TextBounds.X>0 then bM=math.ceil(bK.Label.TextBounds.X)else bM=math.ceil(#bL*6.8
-)end local bN=bK.Icon and 20 or 0 local bO=math.max(64,bM+bN+26)bK._x=bH bK._w=
-bO bK.Button.Size=UDim2.fromOffset(bO,aw)bK.Button.Position=UDim2.new(0,bH,0,bF)
-bH=bH+bO+2 end local bI=math.max(bH-2,0)local bJ=math.max(bI,f.Wrapper.Size.X.
-Offset-10)H.Size=UDim2.new(0,math.ceil(bJ),0,av)m.Size=UDim2.new(0,math.ceil(bJ)
-,0,av)J.CanvasSize=UDim2.new(0,math.ceil(bI),0,av)return bI end local bG=0 local
-bH=0 local bI=0 local bJ=78 local bK=78 local bL=0 local bM=false local bN=false
-local bO=0 local bP=false local bQ=1 local bR=1 local bS=math.random()*32 local
-bT=math.random()*100 local bU=false local bV local bW=0 local bX local bY=false
-local bZ=0 local b_=0 local b0 local b1=0 local function isFiniteNumber(b2)
-return type(b2)=='number'and b2==b2 and math.abs(b2)<1e6 end local function
-stepCriticallyDamped(b2,b3,b4,b5,b6)if not isFiniteNumber(b4)then return
-isFiniteNumber(b2)and b2 or 0,0 end if not isFiniteNumber(b2)then return b4,0
-end if not isFiniteNumber(b3)then b3=0 end local b7=b2-b4 local b8=math.exp(-b5*
-b6)local b9=(b3+b5*b7)*b6 local ca=(b3-b5*b9)*b8 local cb=b4+(b7+b9)*b8 return
-cb,ca end local function exciteLiquid(b2)bO=math.clamp(math.max(bO,b2 or 0.7),0,
-1)end local function measurePillGeometry(b2)if not b2 or not b2.Button then
-return nil,nil end if b2._x==nil or b2._w==nil then syncTabCanvasWidth()end
-return b2._x,b2._w end local function syncLensShadowGeometry(b2,b3,b4)p.Position
-=UDim2.new(0,math.floor(b2-4+0.5),0,bF+1)p.Size=UDim2.fromOffset(math.floor(b3+8
-+0.5),math.floor(b4+6+0.5))end local b2=0 local function targetLensToTab(b3,b4)
-if not aI then G.Visible=false p.Visible=false return end b2=b2+1 local b5=b2
-local b6=b3 and aL.TabPills[b3]or nil if not b6 then bN=false if b4 or not Y.
-Visible or aE.WorkspaceSuspended then G.Visible=false p.ImageTransparency=1 p.
-Visible=false r.Scale=0.88 else al(p,0.14,{ImageTransparency=1}):Play()al(r,0.14
-,{Scale=0.84}):Play()task.delay(0.15,function()if b2==b5 and not bN and not aL.
-Destroyed then G.Visible=false p.Visible=false end end)end return end local b7,
-b8=measurePillGeometry(b6)if not b7 or not b8 or b8<=0 then return end local b9=
-isFiniteNumber(bH)and bH or b7 bH=b7 bK=b8 bN=true G.Visible=true p.Visible=true
-local ca=isLightTheme()and 0.88 or 0.8 local cb=b4 or not bM or not Y.Visible or
-aE.WorkspaceSuspended==true or not isFiniteNumber(bG)or not isFiniteNumber(bJ)if
-cb then bG=b7 bJ=b8 bI=0 bL=0 bM=true local cc=math.floor(bG+0.5)local cd=math.
-max(36,math.floor(bJ+0.5))G.Position=UDim2.new(0,cc,0,bF)G.Size=UDim2.
-fromOffset(cd,aw)syncLensShadowGeometry(cc,cd,aw)p.ImageTransparency=ca r.Scale=
-1 else if not isFiniteNumber(bI)then bI=0 end if not isFiniteNumber(bL)then bL=0
-end if math.abs(b7-b9)>2 then bR=b7>=b9 and 1 or-1 bQ=0 exciteLiquid(0.9)else
-exciteLiquid(0.4)end al(p,0.14,{ImageTransparency=ca}):Play()al(r,0.16,{Scale=1}
-,Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end end local function
+'#DCE0EA'),ColorSequenceKeypoint.new(1,Color3.fromHex'#F2F4F8')}x.Transparency=
+NumberSequence.new{NumberSequenceKeypoint.new(0,0.8),NumberSequenceKeypoint.new(
+0.52,0.88),NumberSequenceKeypoint.new(1,0.84)}u.Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
+0.5,Color3.fromHex'#A6AAB6'),ColorSequenceKeypoint.new(1,Color3.fromHex'#E4E7EE'
+)}u.Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.36),
+NumberSequenceKeypoint.new(0.5,0.84),NumberSequenceKeypoint.new(1,0.6)}F.
+BackgroundTransparency=0.38 end if G.Visible then p.ImageTransparency=bF and 0.8
+or 0.68 end setBtnBaseIconColor(aS,bF,true,bC)setBtnBaseIconColor(be,bF,true,bC)
+setBtnBaseIconColor(T,bF,false,true)local bH=bG local bI=aK local bJ=bF and
+Color3.new(0,0,0)or Color3.new(1,1,1)local bK=bF and 0.84 or 0.8 bv.
+BackgroundColor3=bH bv.BackgroundTransparency=bI bw.BackgroundColor3=bH bw.
+BackgroundTransparency=bI by.BackgroundColor3=bH by.BackgroundTransparency=bI ba
+.Color=bJ ba.Transparency=bK bb.Color=bJ bb.Transparency=bK bc.
+BackgroundTransparency=bF and 0.16 or 0.56 bf.BackgroundColor3=bF and Color3.
+new(0,0,0)or Color3.new(1,1,1)bf.BackgroundTransparency=bF and 0.94 or 0.9 bd.
+Color=bF and Color3.new(0,0,0)or Color3.new(1,1,1)bd.Transparency=bF and 0.9 or
+0.86 bg.TextColor3=bF and Color3.fromHex'#1D1D1F'or Color3.fromHex'#F5F5F7'bk.
+TextColor3=bF and Color3.fromHex'#6E6E73'or Color3.fromHex'#AEAEB2'bn.TextColor3
+=bF and Color3.fromHex'#3A3A3C'or Color3.fromHex'#D1D1D6'bj.BackgroundColor3=bF
+and Color3.new(0,0,0)or Color3.new(1,1,1)bj.BackgroundTransparency=bF and 0.93
+or 0.9 bi.Color=bF and Color3.new(0,0,0)or Color3.new(1,1,1)bh.TextColor3=bF and
+Color3.fromHex'#1D1D1F'or Color3.fromHex'#EBEBEB'bm.BackgroundColor3=bF and
+Color3.new(0,0,0)or Color3.new(1,1,1)bp.BackgroundColor3=bF and Color3.new(0,0,0
+)or Color3.new(1,1,1)bq.TextColor3=bF and Color3.fromHex'#6E6E73'or Color3.
+fromHex'#98989D'br.TextColor3=bF and Color3.fromHex'#6E6E73'or Color3.fromHex
+'#98989D'if aL.HubInfoOpen then a8.ImageTransparency=bF and 0.78 or 0.62 end if
+bD then bD()end if bE then for bL,bM in pairs(aL.TabPills)do bE(bM,bL==aL.
+ActiveTabIndex)end end end local function getBarScale()return math.max(X.Scale
+or 1,0.1)end local function syncOuterBarWidth(bF)local bG=ax+az+bF+az+ay Y.Size=
+UDim2.fromOffset(bG+aA*2,av+aB*2)end local bF=math.floor(av*0.5)local function
+syncTabCanvasWidth()local bG={}for bH,bI in pairs(aL.TabPills)do if bI and bI.
+Button then table.insert(bG,{idx=bH,entry=bI})end end table.sort(bG,function(bH,
+bI)return bH.idx<bI.idx end)local bH=0 for bI,bJ in ipairs(bG)do local bK=bJ.
+entry local bL=tostring(bK.Tab.Title or'Tab')local bM=0 if bK.Label and bK.Label
+.TextBounds and bK.Label.TextBounds.X>0 then bM=math.ceil(bK.Label.TextBounds.X)
+else bM=math.ceil(#bL*6.8)end local bN=bK.Icon and 20 or 0 local bO=math.max(64,
+bM+bN+26)bK._x=bH bK._w=bO bK.Button.Size=UDim2.fromOffset(bO,aw)bK.Button.
+Position=UDim2.new(0,bH,0,bF)bH=bH+bO+2 end local bI=math.max(bH-2,0)local bJ=
+math.max(bI,f.Wrapper.Size.X.Offset-10)H.Size=UDim2.new(0,math.ceil(bJ),0,av)m.
+Size=UDim2.new(0,math.ceil(bJ),0,av)J.CanvasSize=UDim2.new(0,math.ceil(bI),0,av)
+return bI end local bG=0 local bH=0 local bI=0 local bJ=78 local bK=78 local bL=
+0 local bM=false local bN=false local bO=0 local bP=false local bQ=1 local bR=1
+local bS=math.random()*32 local bT=math.random()*100 local bU=false local bV
+local bW=0 local bX local bY=false local bZ=0 local b_=0 local b0 local b1=0
+local function isFiniteNumber(b2)return type(b2)=='number'and b2==b2 and math.
+abs(b2)<1e6 end local function stepCriticallyDamped(b2,b3,b4,b5,b6)if not
+isFiniteNumber(b4)then return isFiniteNumber(b2)and b2 or 0,0 end if not
+isFiniteNumber(b2)then return b4,0 end if not isFiniteNumber(b3)then b3=0 end
+local b7=b2-b4 local b8=math.exp(-b5*b6)local b9=(b3+b5*b7)*b6 local ca=(b3-b5*
+b9)*b8 local cb=b4+(b7+b9)*b8 return cb,ca end local function exciteLiquid(b2)bO
+=math.clamp(math.max(bO,b2 or 0.7),0,1)end local function measurePillGeometry(b2
+)if not b2 or not b2.Button then return nil,nil end if b2._x==nil or b2._w==nil
+then syncTabCanvasWidth()end return b2._x,b2._w end local function
+syncLensShadowGeometry(b2,b3,b4)p.Position=UDim2.new(0,math.floor(b2-4+0.5),0,bF
++1)p.Size=UDim2.fromOffset(math.floor(b3+8+0.5),math.floor(b4+6+0.5))end local
+b2=0 local function targetLensToTab(b3,b4)if not aI then G.Visible=false p.
+Visible=false return end b2=b2+1 local b5=b2 local b6=b3 and aL.TabPills[b3]or
+nil if not b6 then bN=false if b4 or not Y.Visible or aE.WorkspaceSuspended then
+G.Visible=false p.ImageTransparency=1 p.Visible=false r.Scale=0.88 else al(p,
+0.14,{ImageTransparency=1}):Play()al(r,0.14,{Scale=0.84}):Play()task.delay(0.15,
+function()if b2==b5 and not bN and not aL.Destroyed then G.Visible=false p.
+Visible=false end end)end return end local b7,b8=measurePillGeometry(b6)if not
+b7 or not b8 or b8<=0 then return end local b9=isFiniteNumber(bH)and bH or b7 bH
+=b7 bK=b8 bN=true G.Visible=true p.Visible=true local ca=isLightTheme()and 0.8
+or 0.68 local cb=b4 or not bM or not Y.Visible or aE.WorkspaceSuspended==true or
+not isFiniteNumber(bG)or not isFiniteNumber(bJ)if cb then bG=b7 bJ=b8 bI=0 bL=0
+bM=true local cc=math.floor(bG+0.5)local cd=math.max(36,math.floor(bJ+0.5))G.
+Position=UDim2.new(0,cc,0,bF)G.Size=UDim2.fromOffset(cd,aw)
+syncLensShadowGeometry(cc,cd,aw)p.ImageTransparency=ca r.Scale=1 else if not
+isFiniteNumber(bI)then bI=0 end if not isFiniteNumber(bL)then bL=0 end if math.
+abs(b7-b9)>2 then bR=b7>=b9 and 1 or-1 bQ=0 exciteLiquid(0.9)else exciteLiquid(
+0.4)end al(p,0.14,{ImageTransparency=ca}):Play()al(r,0.16,{Scale=1},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out):Play()end end local function
 updateResponsiveWidth()if aL.Destroyed then return end local b3=workspace.
 CurrentCamera local b4=(b3 and b3.ViewportSize and b3.ViewportSize.X)or 844
 local b5=math.clamp(math.floor(b4-230),160,410)local b6=math.min(184,b5)l.
@@ -6524,15 +6569,15 @@ local ch=cg.X>0 and cb.X>=cf.X-4 and cb.X<=cf.X+cg.X+4 and cb.Y>=cf.Y-4 and cb.Y
 SetLibraryHidden then aE:SetLibraryHidden(false)elseif aE.SetToTheCenter then aE
 :SetToTheCenter()end end)local ca=false local cb=false local function
 setActionBtnActive(cc,cd,ce,cf)local cg=isLightTheme()if cf then cc.
-BackgroundColor3=Color3.new(1,1,1)al(cc,0.14,{BackgroundTransparency=cg and 0.25
-or 0.78}):Play()if ce then ce.Color=Color3.new(1,1,1)al(ce,0.14,{Transparency=cg
-and 0.35 or 0.62}):Play()end if cd and cd:FindFirstChild'ImageLabel'then al(cd.
-ImageLabel,0.14,{ImageColor3=cg and Color3.fromHex'#000000'or Color3.fromHex
-'#FFFFFF',ImageTransparency=0}):Play()end else al(cc,0.14,{
-BackgroundTransparency=1}):Play()if ce then al(ce,0.14,{Transparency=1}):Play()
-end if cd and cd:FindFirstChild'ImageLabel'then al(cd.ImageLabel,0.14,{
-ImageColor3=cg and Color3.fromHex'#2C2C2E'or Color3.fromHex'#EBEBEB',
-ImageTransparency=cg and 0.14 or 0.18}):Play()end end end local function
+BackgroundColor3=Color3.new(1,1,1)al(cc,0.14,{BackgroundTransparency=cg and 0.06
+or 0.82}):Play()if ce then ce.Color=cg and Color3.fromHex'#A6ACB8'or Color3.new(
+1,1,1)al(ce,0.14,{Transparency=cg and 0.48 or 0.68}):Play()end if cd and cd:
+FindFirstChild'ImageLabel'then al(cd.ImageLabel,0.14,{ImageColor3=cg and Color3.
+fromHex'#0F0F10'or Color3.fromHex'#FFFFFF',ImageTransparency=0}):Play()end else
+al(cc,0.14,{BackgroundTransparency=1}):Play()if ce then al(ce,0.14,{Transparency
+=1}):Play()end if cd and cd:FindFirstChild'ImageLabel'then al(cd.ImageLabel,0.14
+,{ImageColor3=cg and Color3.fromHex'#3A3A3F'or Color3.fromHex'#E4E6EC',
+ImageTransparency=cg and 0.12 or 0.16}):Play()end end end local function
 swapHideLibIcon(cc)if P then P:Destroy()end local cd=cc and M or L P=
 createIconFrame(cd,'NavBar_HideLib',15,'Icon')P.Parent=O end bD=function()local
 cc=aE.IsWorkspaceSwitcherOpen and aE:IsWorkspaceSwitcherOpen()==true local cd=aE
@@ -6542,235 +6587,236 @@ GetWorkspaceCount and aE:GetWorkspaceCount())or 1 b.Visible=cf>=2 if cf>=2 then
 a2.Text=cf>9 and'9+'or tostring(cf)b.BackgroundColor3=ce and Color3.fromHex
 '#1C1C1E'or Color3.fromHex'#F2F2F7'a2.TextColor3=ce and Color3.fromHex'#FFFFFF'
 or Color3.fromHex'#111114'end end if aL.HubInfoOpen then aR.BackgroundColor3=
-Color3.new(1,1,1)al(aR,0.14,{BackgroundTransparency=ce and 0.25 or 0.78}):Play()
-if aU then aU.Color=Color3.new(1,1,1)al(aU,0.14,{Transparency=ce and 0.35 or
-0.62}):Play()end else al(aR,0.14,{BackgroundTransparency=1}):Play()if aU then
-al(aU,0.14,{Transparency=1}):Play()end end setActionBtnActive(aV,aW,aY,ca)
-setActionBtnActive(aZ,a_,a1,cb)setActionBtnActive(O,P,R,aL.LibraryHidden)end
-track(aV.MouseEnter,function()if not ca then aV.BackgroundColor3=getHoverColor()
-al(aV,0.12,{BackgroundTransparency=0.88}):Play()end end)track(aV.MouseLeave,
-function()if not ca then al(aV,0.12,{BackgroundTransparency=1}):Play()end end)
-track(aZ.MouseEnter,function()if not cb then aZ.BackgroundColor3=getHoverColor()
-al(aZ,0.12,{BackgroundTransparency=0.88}):Play()end end)track(aZ.MouseLeave,
-function()if not cb then al(aZ,0.12,{BackgroundTransparency=1}):Play()end end)
-track(O.MouseEnter,function()if not aL.LibraryHidden then O.BackgroundColor3=
-getHoverColor()al(O,0.12,{BackgroundTransparency=0.88}):Play()end end)track(O.
-MouseLeave,function()if not aL.LibraryHidden then al(O,0.12,{
-BackgroundTransparency=1}):Play()end end)track(S.MouseEnter,function()S.
-BackgroundColor3=getHoverColor()al(S,0.12,{BackgroundTransparency=0.88}):Play()
-end)track(S.MouseLeave,function()al(S,0.12,{BackgroundTransparency=1}):Play()end
-)local function findSettingsTab()if not aE.TabModule or not aE.TabModule.Tabs
-then return nil end for cc,cd in pairs(aE.TabModule.Tabs)do if cd._IsSettingsTab
-then return cd end end for cc,cd in pairs(aE.TabModule.Tabs)do local ce=string.
-lower(tostring(cd.Title or''))if string.find(ce,'setting',1,true)then return cd
-end end return nil end track(aV.MouseButton1Click,function()exciteLiquid(0.75)if
-aG.OnSettings then ah.SafeCallback(aG.OnSettings)return end if aL.LibraryHidden
-and aE.SetLibraryHidden then aE:SetLibraryHidden(false)end local cc=
-findSettingsTab()if not cc and aE.CreateSettingsTab then cc=aE:CreateSettingsTab
-{Title='Settings',Icon=aP}end if cc then if aL.ActiveTabIndex==cc.Index then
-local cd=aL.PreviousNonSettingsTab or(aL.TabOrder and aL.TabOrder[1])if cd then
-aE:SelectTab(cd)end else cc:Select()end end end)track(aZ.MouseButton1Click,
-function()exciteLiquid(0.7)if aG.OnKeybind then ah.SafeCallback(aG.OnKeybind)
-return end if aL.HubInfoOpen then aL:HideHubInfo(false)end if aE.
-ToggleWorkspaceSwitcher then aE:ToggleWorkspaceSwitcher()bD()elseif aE.
-ToggleKeybindMenu then aE:ToggleKeybindMenu()bD()end end)track(aZ.
-MouseButton2Click,function()exciteLiquid(0.7)if aE.ToggleKeybindMenu then aE:
-ToggleKeybindMenu()bD()end end)track(O.MouseButton1Click,function()exciteLiquid(
-0.7)if aE.ToggleLibraryHidden then aE:ToggleLibraryHidden()elseif aE.Toggle then
-aE:Toggle()end end)bE=function(cc,cd)if not cc or not cc.Button then return end
-local ce=isLightTheme()local cf=isTintableIcon(cc.Tab.Icon,cc.Tab.IconThemed,cc.
-Tab.IconColor)cc.Active=cd if cd then if aI then al(cc.Button,0.12,{
-BackgroundTransparency=1}):Play()else cc.Button.BackgroundColor3=Color3.new(1,1,
-1)al(cc.Button,0.12,{BackgroundTransparency=ce and 0.28 or 0.78}):Play()end if
-cc.Label then cc.Label.FontFace=Font.new(ah.Font,Enum.FontWeight.SemiBold)al(cc.
-Label,0.12,{TextColor3=ce and Color3.fromHex'#0F0F10'or Color3.fromHex'#FFFFFF',
-TextTransparency=0}):Play()end if cc.Icon and cc.Icon:FindFirstChild'ImageLabel'
-then if cf then al(cc.Icon.ImageLabel,0.12,{ImageColor3=ce and Color3.fromHex
-'#0F0F10'or Color3.fromHex'#FFFFFF',ImageTransparency=0}):Play()else al(cc.Icon.
-ImageLabel,0.12,{ImageTransparency=0}):Play()end end else al(cc.Button,0.12,{
+Color3.new(1,1,1)al(aR,0.14,{BackgroundTransparency=ce and 0.06 or 0.82}):Play()
+if aU then aU.Color=ce and Color3.fromHex'#A6ACB8'or Color3.new(1,1,1)al(aU,0.14
+,{Transparency=ce and 0.48 or 0.68}):Play()end else al(aR,0.14,{
+BackgroundTransparency=1}):Play()if aU then al(aU,0.14,{Transparency=1}):Play()
+end end setActionBtnActive(aV,aW,aY,ca)setActionBtnActive(aZ,a_,a1,cb)
+setActionBtnActive(O,P,R,aL.LibraryHidden)end track(aV.MouseEnter,function()if
+not ca then aV.BackgroundColor3=getHoverColor()al(aV,0.12,{
+BackgroundTransparency=0.88}):Play()end end)track(aV.MouseLeave,function()if not
+ca then al(aV,0.12,{BackgroundTransparency=1}):Play()end end)track(aZ.MouseEnter
+,function()if not cb then aZ.BackgroundColor3=getHoverColor()al(aZ,0.12,{
+BackgroundTransparency=0.88}):Play()end end)track(aZ.MouseLeave,function()if not
+cb then al(aZ,0.12,{BackgroundTransparency=1}):Play()end end)track(O.MouseEnter,
+function()if not aL.LibraryHidden then O.BackgroundColor3=getHoverColor()al(O,
+0.12,{BackgroundTransparency=0.88}):Play()end end)track(O.MouseLeave,function()
+if not aL.LibraryHidden then al(O,0.12,{BackgroundTransparency=1}):Play()end end
+)track(S.MouseEnter,function()S.BackgroundColor3=getHoverColor()al(S,0.12,{
+BackgroundTransparency=0.88}):Play()end)track(S.MouseLeave,function()al(S,0.12,{
+BackgroundTransparency=1}):Play()end)local function findSettingsTab()if not aE.
+TabModule or not aE.TabModule.Tabs then return nil end for cc,cd in pairs(aE.
+TabModule.Tabs)do if cd._IsSettingsTab then return cd end end for cc,cd in
+pairs(aE.TabModule.Tabs)do local ce=string.lower(tostring(cd.Title or''))if
+string.find(ce,'setting',1,true)then return cd end end return nil end track(aV.
+MouseButton1Click,function()exciteLiquid(0.75)if aG.OnSettings then ah.
+SafeCallback(aG.OnSettings)return end if aL.LibraryHidden and aE.
+SetLibraryHidden then aE:SetLibraryHidden(false)end local cc=findSettingsTab()if
+not cc and aE.CreateSettingsTab then cc=aE:CreateSettingsTab{Title='Settings',
+Icon=aP}end if cc then if aL.ActiveTabIndex==cc.Index then local cd=aL.
+PreviousNonSettingsTab or(aL.TabOrder and aL.TabOrder[1])if cd then aE:
+SelectTab(cd)end else cc:Select()end end end)track(aZ.MouseButton1Click,function
+()exciteLiquid(0.7)if aG.OnKeybind then ah.SafeCallback(aG.OnKeybind)return end
+if aL.HubInfoOpen then aL:HideHubInfo(false)end if aE.ToggleWorkspaceSwitcher
+then aE:ToggleWorkspaceSwitcher()bD()elseif aE.ToggleKeybindMenu then aE:
+ToggleKeybindMenu()bD()end end)track(aZ.MouseButton2Click,function()
+exciteLiquid(0.7)if aE.ToggleKeybindMenu then aE:ToggleKeybindMenu()bD()end end)
+track(O.MouseButton1Click,function()exciteLiquid(0.7)if aE.ToggleLibraryHidden
+then aE:ToggleLibraryHidden()elseif aE.Toggle then aE:Toggle()end end)bE=
+function(cc,cd)if not cc or not cc.Button then return end local ce=isLightTheme(
+)local cf=isTintableIcon(cc.Tab.Icon,cc.Tab.IconThemed,cc.Tab.IconColor)cc.
+Active=cd if cd then if aI then al(cc.Button,0.12,{BackgroundTransparency=1}):
+Play()else cc.Button.BackgroundColor3=Color3.new(1,1,1)al(cc.Button,0.12,{
+BackgroundTransparency=ce and 0.28 or 0.78}):Play()end if cc.Label then cc.Label
+.FontFace=Font.new(ah.Font,Enum.FontWeight.SemiBold)al(cc.Label,0.12,{TextColor3
+=ce and Color3.fromHex'#0F0F10'or Color3.fromHex'#FFFFFF',TextTransparency=0}):
+Play()end if cc.Icon and cc.Icon:FindFirstChild'ImageLabel'then if cf then al(cc
+.Icon.ImageLabel,0.12,{ImageColor3=ce and Color3.fromHex'#0F0F10'or Color3.
+fromHex'#FFFFFF',ImageTransparency=0}):Play()else al(cc.Icon.ImageLabel,0.12,{
+ImageTransparency=0}):Play()end end else al(cc.Button,0.12,{
 BackgroundTransparency=1}):Play()if cc.Label then cc.Label.FontFace=Font.new(ah.
 Font,Enum.FontWeight.Medium)al(cc.Label,0.12,{TextColor3=ce and Color3.fromHex
-'#2C2C2E'or Color3.fromHex'#E6E6E6',TextTransparency=ce and 0.3 or 0.36}):Play()
+'#3A3A40'or Color3.fromHex'#D4D6DC',TextTransparency=ce and 0.2 or 0.24}):Play()
 end if cc.Icon and cc.Icon:FindFirstChild'ImageLabel'then if cf then al(cc.Icon.
-ImageLabel,0.12,{ImageColor3=ce and Color3.fromHex'#2C2C2E'or Color3.fromHex
-'#DCDCDC',ImageTransparency=ce and 0.28 or 0.36}):Play()else al(cc.Icon.
-ImageLabel,0.12,{ImageTransparency=0.2}):Play()end end end end applyLiquidTheme(
-)if ah.OnThemeChange then local cc=ah:OnThemeChange(applyLiquidTheme)if cc then
-table.insert(aM,{Disconnect=cc})end end local function screenXToCanvasX(cc)local
-cd=getBarScale()local ce=H.AbsolutePosition.X return(cc-ce)/cd end
-local function findTabAtCanvasX(cc)local cd local ce=math.huge for cf,cg in
-pairs(aL.TabPills)do if cg and cg.Button and cg.Button.Visible and not cg.Tab.
-Locked then local ch,ci=measurePillGeometry(cg)if ch and ci then local cj=ch+ci
-if cc>=ch and cc<=cj then return cf,cg end local ck=ch+ci*0.5 local cl=math.abs(
-cc-ck)if cl<ce then ce=cl cd=cf end end end end return cd,cd and aL.TabPills[cd]
-or nil end local function isTabStripOverflowing()local cc=getBarScale()local cd=
-J.AbsoluteSize.X>0 and(J.AbsoluteSize.X/cc)or math.max(f.Wrapper.Size.X.Offset-
-10,150)return J.CanvasSize.X.Offset>cd+4 end local function cancelScrubState(cc)
-bU=false bV=nil bX=nil bY=false b0=nil J.ScrollingEnabled=true if cc and aL.
-ActiveTabIndex and not aL.Destroyed then targetLensToTab(aL.ActiveTabIndex,false
-)end end function aL.CancelScrub(cc)cancelScrubState(false)end track(ag.
-InputChanged,function(cc)if not bU or aL.Destroyed then return end if aE.
-WorkspaceSuspended or not Y.Visible then cancelScrubState(false)return end if cc
-.UserInputType~=Enum.UserInputType.MouseMovement and cc.UserInputType~=Enum.
-UserInputType.Touch then return end if bV and bV.UserInputType==Enum.
-UserInputType.Touch and cc~=bV then return end local cd=cc.Position.X local ce=
-math.abs(cd-bW)if not bY then local cf=(cc.UserInputType==Enum.UserInputType.
-Touch)or(bV and bV.UserInputType==Enum.UserInputType.Touch)local cg=(bX~=nil and
-bX==aL.ActiveTabIndex)local ch=cf and(cg and 12 or 18)or(cg and 7 or 12)if ce<ch
-then return end if isTabStripOverflowing()and not cg then cancelScrubState(false
-)return end bY=true J.ScrollingEnabled=false local ci=screenXToCanvasX(cd)b_=ci
-local cj=aL.ActiveTabIndex and aL.TabPills[aL.ActiveTabIndex]local ck=(cj and cj
-._w)or bJ local cl=isFiniteNumber(bG)and bG or((cj and cj._x)or 0)bZ=math.clamp(
-ci-cl,ck*0.25,ck*0.75)local cm=findTabAtCanvasX(ci)b0=cm or bX or aL.
-ActiveTabIndex end local cf=screenXToCanvasX(cd)b_=cf if isTabStripOverflowing()
-then local cg=getBarScale()local ch=J.AbsolutePosition.X local ci=ch+J.
-AbsoluteSize.X local cj=28*cg local ck=math.max(0,J.CanvasSize.X.Offset-(J.
-AbsoluteSize.X/cg))if cd>ci-cj then J.CanvasPosition=Vector2.new(math.min(ck,J.
-CanvasPosition.X+7),0)elseif cd<ch+cj then J.CanvasPosition=Vector2.new(math.
-max(0,J.CanvasPosition.X-7),0)end end local cg,ch=findTabAtCanvasX(cf)if cg and
-ch and cg~=b0 then local ci=b0 and aL.TabPills[b0]if ci and ci._x and ch._x then
-bR=ch._x>=ci._x and 1 or-1 bQ=0 end b0=cg bK=ch._w or bK for cj,ck in pairs(aL.
-TabPills)do bE(ck,cj==cg)end end exciteLiquid(0.85)end)local function
-finishPointerRelease(cc,cd)if not bU or aL.Destroyed then return end local ce=(
-cc==bV)or(bV and bV.UserInputType==Enum.UserInputType.MouseButton1 and cc and cc
-.UserInputType==Enum.UserInputType.MouseButton1)or(cd==true)if not ce then
-return end local cf=bY local cg=b0 bU=false bV=nil bX=nil J.ScrollingEnabled=
-true if cf and not cd and not aE.WorkspaceSuspended then b1=os.clock()+0.18
-local ch=cg and aL.TabPills[cg]or nil if ch and not ch.Tab.Locked then local ci,
-cj=measurePillGeometry(ch)aL.ActiveTabIndex=cg if ci and cj then bH=ci bK=cj end
-bI=(isFiniteNumber(bI)and bI or 0)*0.22 bY=false b0=nil if aL.LibraryHidden and
-aE.SetLibraryHidden then aE:SetLibraryHidden(false)end if aE.TabModule and aE.
-TabModule.SelectedTab~=cg then ch.Tab:Select()else aL:SetActiveTab(cg)end else
-bY=false b0=nil if aL.ActiveTabIndex then targetLensToTab(aL.ActiveTabIndex,
-false)end end else bY=false b0=nil if cf and aL.ActiveTabIndex then
-targetLensToTab(aL.ActiveTabIndex,false)end end end track(ag.InputEnded,function
-(cc)finishPointerRelease(cc,cc and cc.UserInputState==Enum.UserInputState.Cancel
-)end)if ag.TouchEnded then track(ag.TouchEnded,function(cc)if bU and bV and bV.
-UserInputType==Enum.UserInputType.Touch then if cc==bV or cc.UserInputState==
-Enum.UserInputState.Cancel then finishPointerRelease(cc,cc.UserInputState==Enum.
-UserInputState.Cancel)end end end)end function aL.AddTab(cc,cd)if aL.Destroyed
-or not cd or not cd.Index then return end if aL.TabPills[cd.Index]or cd.
-_IsSettingsTab or cd._HideInNavBar then return end local ce if cd.Icon and cd.
-Icon~=''then ce=ah.Image(cd.Icon,'NavTab_'..tostring(cd.Index),0,aE.Folder,
-'NavBarTab',cd.IconColor and false or true,cd.IconThemed,'TabIcon')ce.Size=UDim2
-.fromOffset(14,14)ce.LayoutOrder=1 if cd.IconColor and ce:FindFirstChild
-'ImageLabel'then ce.ImageLabel.ImageColor3=cd.IconColor end end local cf=ak(
-'TextLabel',{Name='Label',Size=UDim2.new(0,0,1,0),AutomaticSize='X',
-BackgroundTransparency=1,Text=cd.Title or'Tab',TextSize=12,TextTransparency=0.36
-,TextColor3=Color3.fromHex'#E6E6E6',FontFace=Font.new(ah.Font,Enum.FontWeight.
-Medium),TextXAlignment='Center',LayoutOrder=2})local cg=ak('TextButton',{Name=
-'NavTab_'..tostring(cd.Index),Size=UDim2.fromOffset(76,aw),Position=UDim2.new(0,
-0,0,bF),AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=1,BorderSizePixel=0,Text='',AutoButtonColor=false,Active=
-true,LayoutOrder=cd.Index,Parent=m},{ak('UICorner',{CornerRadius=UDim.new(1,0)})
-,ak('UIPadding',{PaddingLeft=UDim.new(0,12),PaddingRight=UDim.new(0,12)}),ak(
-'UIListLayout',{FillDirection='Horizontal',VerticalAlignment='Center',
-HorizontalAlignment='Center',SortOrder='LayoutOrder',Padding=UDim.new(0,6)}),ce,
-cf})local ch={Tab=cd,Button=cg,Label=cf,Icon=ce,Active=false}aL.TabPills[cd.
-Index]=ch track(cf:GetPropertyChangedSignal'TextBounds',updateResponsiveWidth)
-track(cg.MouseEnter,function()if not ch.Active and not cd.Locked and not bY then
-cg.BackgroundColor3=getHoverColor()al(cg,0.12,{BackgroundTransparency=0.92}):
-Play()if ch.Label then al(ch.Label,0.12,{TextTransparency=0.12}):Play()end end
-end)track(cg.MouseLeave,function()if not ch.Active and not bY then al(cg,0.12,{
-BackgroundTransparency=1}):Play()if ch.Label then al(ch.Label,0.12,{
-TextTransparency=isLightTheme()and 0.3 or 0.36}):Play()end end end)track(cg.
-InputBegan,function(ci)if cd.Locked then return end if ci.UserInputType==Enum.
-UserInputType.MouseButton1 or ci.UserInputType==Enum.UserInputType.Touch then bU
-=true bV=ci bW=ci.Position.X bX=cd.Index bY=false b0=cd.Index end end)track(cg.
-MouseButton1Click,function()if os.clock()<b1 then return end if not cd.Locked
-then if aL.LibraryHidden and aE.SetLibraryHidden then aE:SetLibraryHidden(false)
-end cd:Select()end end)local ci=aE.TabModule and aE.TabModule.SelectedTab==cd.
-Index bE(ch,ci)updateResponsiveWidth()if ci then task.defer(function()if not aL.
-Destroyed then targetLensToTab(cd.Index,not bM)end end)end end function aL.
-SetActiveTab(cc,cd)if aL.Destroyed then return end if bY or bU then bY=false bU=
-false bV=nil bX=nil b0=nil J.ScrollingEnabled=true end aL.ActiveTabIndex=cd
-local ce=findSettingsTab()ca=(ce~=nil and ce.Index==cd)if not ca and cd~=nil and
-aL.TabPills[cd]then aL.PreviousNonSettingsTab=cd end for cf,cg in pairs(aL.
-TabPills)do bE(cg,cf==cd)end syncTabCanvasWidth()targetLensToTab(cd,not bM)local
-cf=aL.TabPills[cd]if cf and cf._x~=nil and cf._w~=nil then local cg=J.
-AbsoluteSize.X>0 and(J.AbsoluteSize.X/getBarScale())or math.max(f.Wrapper.Size.X
-.Offset-10,150)local ch=J.CanvasPosition.X local ci=cf._x local cj=cf._x+cf._w
-local ck=ch if ci<ch+4 then ck=math.max(0,ci-6)elseif cj>ch+cg-4 then ck=math.
-max(0,cj-cg+6)end if math.abs(ck-ch)>2 then al(J,0.24,{CanvasPosition=Vector2.
-new(ck,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end end bD()
-end function aL.SyncActiveLens(cc,cd)if aL.Destroyed then return end
-cancelScrubState(false)updateResponsiveWidth()local ce=aL.ActiveTabIndex or(aE.
-TabModule and aE.TabModule.SelectedTab)if ce then aL.ActiveTabIndex=ce
-targetLensToTab(ce,cd~=false)end end function aL.SyncAllTabs(cc)if aL.Destroyed
-or not aE.TabModule or not aE.TabModule.Tabs then return end local cd={}for ce,
-cf in pairs(aE.TabModule.Tabs)do table.insert(cd,{idx=ce,tab=cf})end table.sort(
-cd,function(ce,cf)return ce.idx<cf.idx end)for ce,cf in ipairs(cd)do aL:AddTab(
-cf.tab)end if aE.TabModule.SelectedTab then aL:SetActiveTab(aE.TabModule.
-SelectedTab)end bD()updateResponsiveWidth()end function aL.SetLibraryHidden(cc,
-cd)local ce=cd and true or false if aL.LibraryHidden~=ce then aL.LibraryHidden=
-ce swapHideLibIcon(ce)end bD()end function aL.SetAppIcon(cc,cd)if aS then aS:
-Destroy()end if be then be:Destroy()end local ce=(cd and cd~=''and cd)or
-resolveMacIcon('sfsymbols:appFill','folder')bC=isTintableIcon(ce,aE.IconThemed,
-nil)aS=createIconFrame(ce,'NavBar_AppIcon',17,'Icon',bC)aS.Parent=aR be=
-createIconFrame(ce,'HubInfo_AppIcon',19,'Icon',bC)be.Parent=bf local cf=
-isLightTheme()setBtnBaseIconColor(aS,cf,true,bC)setBtnBaseIconColor(be,cf,true,
-bC)end local cc=0 local cd,ce,cf track(af.RenderStepped,function(cg)if aL.
-Destroyed or not Y.Visible or aE.WorkspaceSuspended then return end if bU and bV
-then local ch=bV.UserInputState if ch==Enum.UserInputState.End or ch==Enum.
-UserInputState.Cancel then finishPointerRelease(bV,ch==Enum.UserInputState.
-Cancel)end end local ch=math.clamp(cg or(1.6666666666666665E-2),0.001,0.1)local
-ci=(not bY)and(math.abs(bH-bG)<0.35)and(math.abs(bI)<1)and(math.abs(bK-bJ)<0.35)
-and(math.abs(bL)<1)local cj=bY or bP or bO>0.04 or bQ<1 or not ci local ck=ch if
-not cj then cc=cc+ch if cc<0.05 then return end ck=math.min(cc,0.1)cc=0 else cc=
-0 end bT=bT+ck local cl=isLightTheme()local cm=bY and 0.85 or(bP and 0.3 or 0)if
-bO>cm then bO=math.max(cm,bO-ck*1.4)else bO=math.min(cm,bO+ck*2.8)end if aH then
-local cn=cl and math.clamp((0.15+bO*0.09)*aJ,0.04,0.32)or math.clamp((0.2+bO*
-0.12)*aJ,0.06,0.38)for co,cp in ipairs(aN)do local cq=cp.Motion cq.retargetTimer
-=cq.retargetTimer-ck if cq.retargetTimer<=0 then cq.retargetTimer=randRange(1.8,
-4.4)local cr=(math.random()<0.5)and 1 or-1 cq.targetSpeed=cr*randRange(5,16)cq.
-targetPanX=randRange(-0.11,0.11)cq.targetPanY=randRange(-0.12,0.12)cq.
-targetSheenOff=randRange(-0.55,0.55)cq.targetSheenRot=randRange(108,156)end
-local cr=math.min(1,ck*1.15)cq.speed=cq.speed+(cq.targetSpeed-cq.speed)*cr cq.
-panX=cq.panX+(cq.targetPanX-cq.panX)*math.min(1,ck*0.85)cq.panY=cq.panY+(cq.
-targetPanY-cq.panY)*math.min(1,ck*0.85)cq.sheenOff=cq.sheenOff+(cq.
-targetSheenOff-cq.sheenOff)*math.min(1,ck*0.75)cq.sheenRot=cq.sheenRot+(cq.
-targetSheenRot-cq.sheenRot)*math.min(1,ck*0.75)local cs=cq.speed>=0 and 1 or-1
-local ct=cq.speed+cs*(bO*18)cq.phase=(cq.phase+ck*ct)%ar if cq.phase<0 then cq.
-phase=cq.phase+ar end local cu=132+math.sin(bT*0.43+cq.seedA)*7+math.cos(bT*0.71
-+cq.seedB)*4 cp.RimGrad.Rotation=cu cp.RimStroke.Transparency=math.clamp((cl and
-0.12 or 0.16)-bO*0.06,0.04,0.42)cp.RandomSheenGrad.Rotation=cq.sheenRot cp.
-RandomSheenGrad.Offset=Vector2.new(cq.sheenOff,cq.panY*1.4)local cv=0.5+0.5*math
-.sin(bT*0.61+cq.seedB)cp.RandomSheen.BackgroundTransparency=math.clamp((cl and
-0.72 or 0.78)-cv*0.08-bO*0.08,0.52,0.94)if bA then local cw=math.floor(cq.phase)
-%ar local cx=(cw+1)%ar local cy=cq.phase-math.floor(cq.phase)local cz=0.85+0.15*
-math.sin(bT*0.53+cq.seedA)local cA=math.clamp(cn*cp.AlphaScale*cz,0.04,0.4)local
-cB=cA*cy local cC=(cA-cB)/math.max(1-cB,0.001)local cD=UDim2.fromScale(0.5+cq.
-panX,0.5+cq.panY)cp.OilA.Position=cD cp.OilB.Position=cD cp.OilA.ImageRectOffset
-=getFrameRectOffset(cw)cp.OilB.ImageRectOffset=getFrameRectOffset(cx)cp.OilA.
-ImageTransparency=1-math.clamp(cC,0,1)cp.OilB.ImageTransparency=1-math.clamp(cB,
-0,1)end end end if aI and bN and G.Visible then if bY then local cn=b0 and aL.
-TabPills[b0]or nil local co=(cn and cn._w)or bK if not isFiniteNumber(bJ)then bJ
-=co end bJ=bJ+(co-bJ)*math.min(1,ck*20)local cp=math.max(0,H.Size.X.Offset-bJ)
-local cq=math.clamp(b_-bZ,0,cp)local cr=(cn and cn._x)and(cq*0.78+cn._x*0.22)or
-cq local cs=isFiniteNumber(bG)and bG or cr bG=cs+(cr-cs)*math.min(1,ck*28)bI=(bG
--cs)/ck bL=0 else local cn=aL.ActiveTabIndex and aL.TabPills[aL.ActiveTabIndex]
-or nil if cn then local co,cp=measurePillGeometry(cn)if co and cp then bH=co bK=
-cp end end bG,bI=stepCriticallyDamped(bG,bI,bH,18,ck)bJ,bL=stepCriticallyDamped(
-bJ,bL,bK,17.5,ck)bJ=math.max(36,bJ)if math.abs(bH-bG)<0.35 and math.abs(bI)<2
-then bG=bH bI=0 end if math.abs(bK-bJ)<0.35 and math.abs(bL)<2 then bJ=bK bL=0
-end end local cn=math.abs(bI)local co=math.clamp(cn/650,0,1)local cp=co*7 local
-cq=math.max(36,bJ+cp)local cr=bG-(cp*0.5)local cs=math.clamp(aw-co*2+(bY and 1.2
-or 0),aw-2.5,aw+1.5)local ct=math.floor(cr+0.5)local cu=math.floor(cq+0.5)local
-cv=math.floor(cs+0.5)if ct~=cd or cu~=ce or cv~=cf then cd,ce,cf=ct,cu,cv G.
-Position=UDim2.new(0,ct,0,bF)G.Size=UDim2.fromOffset(cu,cv)
-syncLensShadowGeometry(cr,cq,cs)end local cw=bY and 1.04 or(1+co*0.025)r.Scale=r
-.Scale+(cw-r.Scale)*math.min(1,ck*18)local cx=124+math.clamp(bI/50,-12,12)+math.
-sin(bT*0.7)*3 u.Rotation=cx v.Transparency=math.clamp(0.16-co*0.1-(bY and 0.08
-or 0),0.04,0.38)local cy=(bQ<1)and(-0.7+bQ*1.4)*bR or(math.sin(bS*0.1963495)*
-0.45)z.Offset=Vector2.new(cy,0)if bQ<1 then bQ=math.min(1,bQ+ck*2.6)end bS=(bS+
-ck*(12+co*32))%32 if bB then local cz,cA,cB local cC if bQ<1 or bY or co>0.12
-then local cD=bQ<1 and bQ or((bS%32)/32)local cE=bR>=0 and cD or(1-cD)local cF=
-cE*31 cz=math.clamp(math.floor(cF),0,31)cA=math.clamp(cz+1,0,31)cB=cF-cz cC=cl
-and math.min(0.48,0.34+co*0.14)or math.min(0.72,0.56+co*0.16)else local cD=bS
-local cE=math.floor(cD)%32 local cF=(cE+1)%32 cz=32+cE cA=32+cF cB=cD-math.
-floor(cD)cC=cl and 0.3 or 0.52 end local cD=cC*cB local cE=(cC-cD)/math.max(1-cD
-,0.001)B.ImageRectOffset=getFrameRectOffset(cz)C.ImageRectOffset=
-getFrameRectOffset(cA)B.ImageTransparency=1-math.clamp(cE,0,1)C.
+ImageLabel,0.12,{ImageColor3=ce and Color3.fromHex'#3A3A40'or Color3.fromHex
+'#CDD0D8',ImageTransparency=ce and 0.2 or 0.24}):Play()else al(cc.Icon.
+ImageLabel,0.12,{ImageTransparency=0.16}):Play()end end end end
+applyLiquidTheme()if ah.OnThemeChange then local cc=ah:OnThemeChange(
+applyLiquidTheme)if cc then table.insert(aM,{Disconnect=cc})end end
+local function screenXToCanvasX(cc)local cd=getBarScale()local ce=H.
+AbsolutePosition.X return(cc-ce)/cd end local function findTabAtCanvasX(cc)local
+cd local ce=math.huge for cf,cg in pairs(aL.TabPills)do if cg and cg.Button and
+cg.Button.Visible and not cg.Tab.Locked then local ch,ci=measurePillGeometry(cg)
+if ch and ci then local cj=ch+ci if cc>=ch and cc<=cj then return cf,cg end
+local ck=ch+ci*0.5 local cl=math.abs(cc-ck)if cl<ce then ce=cl cd=cf end end end
+end return cd,cd and aL.TabPills[cd]or nil end local function
+isTabStripOverflowing()local cc=getBarScale()local cd=J.AbsoluteSize.X>0 and(J.
+AbsoluteSize.X/cc)or math.max(f.Wrapper.Size.X.Offset-10,150)return J.CanvasSize
+.X.Offset>cd+4 end local function cancelScrubState(cc)bU=false bV=nil bX=nil bY=
+false b0=nil J.ScrollingEnabled=true if cc and aL.ActiveTabIndex and not aL.
+Destroyed then targetLensToTab(aL.ActiveTabIndex,false)end end function aL.
+CancelScrub(cc)cancelScrubState(false)end track(ag.InputChanged,function(cc)if
+not bU or aL.Destroyed then return end if aE.WorkspaceSuspended or not Y.Visible
+then cancelScrubState(false)return end if cc.UserInputType~=Enum.UserInputType.
+MouseMovement and cc.UserInputType~=Enum.UserInputType.Touch then return end if
+bV and bV.UserInputType==Enum.UserInputType.Touch and cc~=bV then return end
+local cd=cc.Position.X local ce=math.abs(cd-bW)if not bY then local cf=(cc.
+UserInputType==Enum.UserInputType.Touch)or(bV and bV.UserInputType==Enum.
+UserInputType.Touch)local cg=(bX~=nil and bX==aL.ActiveTabIndex)local ch=cf and(
+cg and 12 or 18)or(cg and 7 or 12)if ce<ch then return end if
+isTabStripOverflowing()and not cg then cancelScrubState(false)return end bY=true
+J.ScrollingEnabled=false local ci=screenXToCanvasX(cd)b_=ci local cj=aL.
+ActiveTabIndex and aL.TabPills[aL.ActiveTabIndex]local ck=(cj and cj._w)or bJ
+local cl=isFiniteNumber(bG)and bG or((cj and cj._x)or 0)bZ=math.clamp(ci-cl,ck*
+0.25,ck*0.75)local cm=findTabAtCanvasX(ci)b0=cm or bX or aL.ActiveTabIndex end
+local cf=screenXToCanvasX(cd)b_=cf if isTabStripOverflowing()then local cg=
+getBarScale()local ch=J.AbsolutePosition.X local ci=ch+J.AbsoluteSize.X local cj
+=28*cg local ck=math.max(0,J.CanvasSize.X.Offset-(J.AbsoluteSize.X/cg))if cd>ci-
+cj then J.CanvasPosition=Vector2.new(math.min(ck,J.CanvasPosition.X+7),0)elseif
+cd<ch+cj then J.CanvasPosition=Vector2.new(math.max(0,J.CanvasPosition.X-7),0)
+end end local cg,ch=findTabAtCanvasX(cf)if cg and ch and cg~=b0 then local ci=b0
+and aL.TabPills[b0]if ci and ci._x and ch._x then bR=ch._x>=ci._x and 1 or-1 bQ=
+0 end b0=cg bK=ch._w or bK for cj,ck in pairs(aL.TabPills)do bE(ck,cj==cg)end
+end exciteLiquid(0.85)end)local function finishPointerRelease(cc,cd)if not bU or
+aL.Destroyed then return end local ce=(cc==bV)or(bV and bV.UserInputType==Enum.
+UserInputType.MouseButton1 and cc and cc.UserInputType==Enum.UserInputType.
+MouseButton1)or(cd==true)if not ce then return end local cf=bY local cg=b0 bU=
+false bV=nil bX=nil J.ScrollingEnabled=true if cf and not cd and not aE.
+WorkspaceSuspended then b1=os.clock()+0.18 local ch=cg and aL.TabPills[cg]or nil
+if ch and not ch.Tab.Locked then local ci,cj=measurePillGeometry(ch)aL.
+ActiveTabIndex=cg if ci and cj then bH=ci bK=cj end bI=(isFiniteNumber(bI)and bI
+or 0)*0.22 bY=false b0=nil if aL.LibraryHidden and aE.SetLibraryHidden then aE:
+SetLibraryHidden(false)end if aE.TabModule and aE.TabModule.SelectedTab~=cg then
+ch.Tab:Select()else aL:SetActiveTab(cg)end else bY=false b0=nil if aL.
+ActiveTabIndex then targetLensToTab(aL.ActiveTabIndex,false)end end else bY=
+false b0=nil if cf and aL.ActiveTabIndex then targetLensToTab(aL.ActiveTabIndex,
+false)end end end track(ag.InputEnded,function(cc)finishPointerRelease(cc,cc and
+cc.UserInputState==Enum.UserInputState.Cancel)end)if ag.TouchEnded then track(ag
+.TouchEnded,function(cc)if bU and bV and bV.UserInputType==Enum.UserInputType.
+Touch then if cc==bV or cc.UserInputState==Enum.UserInputState.Cancel then
+finishPointerRelease(cc,cc.UserInputState==Enum.UserInputState.Cancel)end end
+end)end function aL.AddTab(cc,cd)if aL.Destroyed or not cd or not cd.Index then
+return end if aL.TabPills[cd.Index]or cd._IsSettingsTab or cd._HideInNavBar then
+return end local ce if cd.Icon and cd.Icon~=''then ce=ah.Image(cd.Icon,'NavTab_'
+..tostring(cd.Index),0,aE.Folder,'NavBarTab',cd.IconColor and false or true,cd.
+IconThemed,'TabIcon')ce.Size=UDim2.fromOffset(14,14)ce.LayoutOrder=1 if cd.
+IconColor and ce:FindFirstChild'ImageLabel'then ce.ImageLabel.ImageColor3=cd.
+IconColor end end local cf=ak('TextLabel',{Name='Label',Size=UDim2.new(0,0,1,0),
+AutomaticSize='X',BackgroundTransparency=1,Text=cd.Title or'Tab',TextSize=12,
+TextTransparency=0.36,TextColor3=Color3.fromHex'#E6E6E6',FontFace=Font.new(ah.
+Font,Enum.FontWeight.Medium),TextXAlignment='Center',LayoutOrder=2})local cg=ak(
+'TextButton',{Name='NavTab_'..tostring(cd.Index),Size=UDim2.fromOffset(76,aw),
+Position=UDim2.new(0,0,0,bF),AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=
+Color3.new(1,1,1),BackgroundTransparency=1,BorderSizePixel=0,Text='',
+AutoButtonColor=false,Active=true,LayoutOrder=cd.Index,Parent=m},{ak('UICorner',
+{CornerRadius=UDim.new(1,0)}),ak('UIPadding',{PaddingLeft=UDim.new(0,12),
+PaddingRight=UDim.new(0,12)}),ak('UIListLayout',{FillDirection='Horizontal',
+VerticalAlignment='Center',HorizontalAlignment='Center',SortOrder='LayoutOrder',
+Padding=UDim.new(0,6)}),ce,cf})local ch={Tab=cd,Button=cg,Label=cf,Icon=ce,
+Active=false}aL.TabPills[cd.Index]=ch track(cf:GetPropertyChangedSignal
+'TextBounds',updateResponsiveWidth)track(cg.MouseEnter,function()if not ch.
+Active and not cd.Locked and not bY then cg.BackgroundColor3=getHoverColor()al(
+cg,0.12,{BackgroundTransparency=0.92}):Play()if ch.Label then al(ch.Label,0.12,{
+TextTransparency=0.12}):Play()end end end)track(cg.MouseLeave,function()if not
+ch.Active and not bY then al(cg,0.12,{BackgroundTransparency=1}):Play()if ch.
+Label then al(ch.Label,0.12,{TextTransparency=isLightTheme()and 0.2 or 0.24}):
+Play()end end end)track(cg.InputBegan,function(ci)if cd.Locked then return end
+if ci.UserInputType==Enum.UserInputType.MouseButton1 or ci.UserInputType==Enum.
+UserInputType.Touch then bU=true bV=ci bW=ci.Position.X bX=cd.Index bY=false b0=
+cd.Index end end)track(cg.MouseButton1Click,function()if os.clock()<b1 then
+return end if not cd.Locked then if aL.LibraryHidden and aE.SetLibraryHidden
+then aE:SetLibraryHidden(false)end cd:Select()end end)local ci=aE.TabModule and
+aE.TabModule.SelectedTab==cd.Index bE(ch,ci)updateResponsiveWidth()if ci then
+task.defer(function()if not aL.Destroyed then targetLensToTab(cd.Index,not bM)
+end end)end end function aL.SetActiveTab(cc,cd)if aL.Destroyed then return end
+if bY or bU then bY=false bU=false bV=nil bX=nil b0=nil J.ScrollingEnabled=true
+end aL.ActiveTabIndex=cd local ce=findSettingsTab()ca=(ce~=nil and ce.Index==cd)
+if not ca and cd~=nil and aL.TabPills[cd]then aL.PreviousNonSettingsTab=cd end
+for cf,cg in pairs(aL.TabPills)do bE(cg,cf==cd)end syncTabCanvasWidth()
+targetLensToTab(cd,not bM)local cf=aL.TabPills[cd]if cf and cf._x~=nil and cf._w
+~=nil then local cg=J.AbsoluteSize.X>0 and(J.AbsoluteSize.X/getBarScale())or
+math.max(f.Wrapper.Size.X.Offset-10,150)local ch=J.CanvasPosition.X local ci=cf.
+_x local cj=cf._x+cf._w local ck=ch if ci<ch+4 then ck=math.max(0,ci-6)elseif cj
+>ch+cg-4 then ck=math.max(0,cj-cg+6)end if math.abs(ck-ch)>2 then al(J,0.24,{
+CanvasPosition=Vector2.new(ck,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.
+Out):Play()end end bD()end function aL.SyncActiveLens(cc,cd)if aL.Destroyed then
+return end cancelScrubState(false)updateResponsiveWidth()local ce=aL.
+ActiveTabIndex or(aE.TabModule and aE.TabModule.SelectedTab)if ce then aL.
+ActiveTabIndex=ce targetLensToTab(ce,cd~=false)end end function aL.SyncAllTabs(
+cc)if aL.Destroyed or not aE.TabModule or not aE.TabModule.Tabs then return end
+local cd={}for ce,cf in pairs(aE.TabModule.Tabs)do table.insert(cd,{idx=ce,tab=
+cf})end table.sort(cd,function(ce,cf)return ce.idx<cf.idx end)for ce,cf in
+ipairs(cd)do aL:AddTab(cf.tab)end if aE.TabModule.SelectedTab then aL:
+SetActiveTab(aE.TabModule.SelectedTab)end bD()updateResponsiveWidth()end
+function aL.SetLibraryHidden(cc,cd)local ce=cd and true or false if aL.
+LibraryHidden~=ce then aL.LibraryHidden=ce swapHideLibIcon(ce)end bD()end
+function aL.SetAppIcon(cc,cd)if aS then aS:Destroy()end if be then be:Destroy()
+end local ce=(cd and cd~=''and cd)or resolveMacIcon('sfsymbols:appFill','folder'
+)bC=isTintableIcon(ce,aE.IconThemed,nil)aS=createIconFrame(ce,'NavBar_AppIcon',
+17,'Icon',bC)aS.Parent=aR be=createIconFrame(ce,'HubInfo_AppIcon',19,'Icon',bC)
+be.Parent=bf local cf=isLightTheme()setBtnBaseIconColor(aS,cf,true,bC)
+setBtnBaseIconColor(be,cf,true,bC)end local cc=0 local cd,ce,cf track(af.
+RenderStepped,function(cg)if aL.Destroyed or not Y.Visible or aE.
+WorkspaceSuspended then return end if bU and bV then local ch=bV.UserInputState
+if ch==Enum.UserInputState.End or ch==Enum.UserInputState.Cancel then
+finishPointerRelease(bV,ch==Enum.UserInputState.Cancel)end end local ch=math.
+clamp(cg or(1.6666666666666665E-2),0.001,0.1)local ci=(not bY)and(math.abs(bH-bG
+)<0.35)and(math.abs(bI)<1)and(math.abs(bK-bJ)<0.35)and(math.abs(bL)<1)local cj=
+bY or bP or bO>0.04 or bQ<1 or not ci local ck=ch if not cj then cc=cc+ch if cc<
+0.05 then return end ck=math.min(cc,0.1)cc=0 else cc=0 end bT=bT+ck local cl=
+isLightTheme()local cm=bY and 0.85 or(bP and 0.3 or 0)if bO>cm then bO=math.max(
+cm,bO-ck*1.4)else bO=math.min(cm,bO+ck*2.8)end if aH then local cn=cl and math.
+clamp((0.08+bO*0.06)*aJ,0.02,0.2)or math.clamp((0.11+bO*0.08)*aJ,0.03,0.24)for
+co,cp in ipairs(aN)do local cq=cp.Motion cq.retargetTimer=cq.retargetTimer-ck if
+cq.retargetTimer<=0 then cq.retargetTimer=randRange(1.8,4.4)local cr=(math.
+random()<0.5)and 1 or-1 cq.targetSpeed=cr*randRange(5,16)cq.targetPanX=
+randRange(-0.11,0.11)cq.targetPanY=randRange(-0.12,0.12)cq.targetSheenOff=
+randRange(-0.55,0.55)cq.targetSheenRot=randRange(108,156)end local cr=math.min(1
+,ck*1.15)cq.speed=cq.speed+(cq.targetSpeed-cq.speed)*cr cq.panX=cq.panX+(cq.
+targetPanX-cq.panX)*math.min(1,ck*0.85)cq.panY=cq.panY+(cq.targetPanY-cq.panY)*
+math.min(1,ck*0.85)cq.sheenOff=cq.sheenOff+(cq.targetSheenOff-cq.sheenOff)*math.
+min(1,ck*0.75)cq.sheenRot=cq.sheenRot+(cq.targetSheenRot-cq.sheenRot)*math.min(1
+,ck*0.75)local cs=cq.speed>=0 and 1 or-1 local ct=cq.speed+cs*(bO*18)cq.phase=(
+cq.phase+ck*ct)%ar if cq.phase<0 then cq.phase=cq.phase+ar end local cu=132+math
+.sin(bT*0.43+cq.seedA)*7+math.cos(bT*0.71+cq.seedB)*4 cp.RimGrad.Rotation=cu cp.
+RimStroke.Transparency=math.clamp((cl and 0.24 or 0.22)-bO*0.06,0.1,0.44)cp.
+RandomSheenGrad.Rotation=cq.sheenRot cp.RandomSheenGrad.Offset=Vector2.new(cq.
+sheenOff,cq.panY*1.4)local cv=0.5+0.5*math.sin(bT*0.61+cq.seedB)cp.RandomSheen.
+BackgroundTransparency=math.clamp((cl and 0.82 or 0.86)-cv*0.06-bO*0.06,0.66,
+0.96)if bA then local cw=math.floor(cq.phase)%ar local cx=(cw+1)%ar local cy=cq.
+phase-math.floor(cq.phase)local cz=0.85+0.15*math.sin(bT*0.53+cq.seedA)local cA=
+math.clamp(cn*cp.AlphaScale*cz,0.02,0.26)local cB=cA*cy local cC=(cA-cB)/math.
+max(1-cB,0.001)local cD=UDim2.fromScale(0.5+cq.panX,0.5+cq.panY)cp.OilA.Position
+=cD cp.OilB.Position=cD cp.OilA.ImageRectOffset=getFrameRectOffset(cw)cp.OilB.
+ImageRectOffset=getFrameRectOffset(cx)cp.OilA.ImageTransparency=1-math.clamp(cC,
+0,1)cp.OilB.ImageTransparency=1-math.clamp(cB,0,1)end end end if aI and bN and G
+.Visible then if bY then local cn=b0 and aL.TabPills[b0]or nil local co=(cn and
+cn._w)or bK if not isFiniteNumber(bJ)then bJ=co end bJ=bJ+(co-bJ)*math.min(1,ck*
+20)local cp=math.max(0,H.Size.X.Offset-bJ)local cq=math.clamp(b_-bZ,0,cp)local
+cr=(cn and cn._x)and(cq*0.78+cn._x*0.22)or cq local cs=isFiniteNumber(bG)and bG
+or cr bG=cs+(cr-cs)*math.min(1,ck*28)bI=(bG-cs)/ck bL=0 else local cn=aL.
+ActiveTabIndex and aL.TabPills[aL.ActiveTabIndex]or nil if cn then local co,cp=
+measurePillGeometry(cn)if co and cp then bH=co bK=cp end end bG,bI=
+stepCriticallyDamped(bG,bI,bH,18,ck)bJ,bL=stepCriticallyDamped(bJ,bL,bK,17.5,ck)
+bJ=math.max(36,bJ)if math.abs(bH-bG)<0.35 and math.abs(bI)<2 then bG=bH bI=0 end
+if math.abs(bK-bJ)<0.35 and math.abs(bL)<2 then bJ=bK bL=0 end end local cn=math
+.abs(bI)local co=math.clamp(cn/650,0,1)local cp=co*7 local cq=math.max(36,bJ+cp)
+local cr=bG-(cp*0.5)local cs=math.clamp(aw-co*2+(bY and 1.2 or 0),aw-2.5,aw+1.5)
+local ct=math.floor(cr+0.5)local cu=math.floor(cq+0.5)local cv=math.floor(cs+0.5
+)if ct~=cd or cu~=ce or cv~=cf then cd,ce,cf=ct,cu,cv G.Position=UDim2.new(0,ct,
+0,bF)G.Size=UDim2.fromOffset(cu,cv)syncLensShadowGeometry(cr,cq,cs)end local cw=
+bY and 1.04 or(1+co*0.025)r.Scale=r.Scale+(cw-r.Scale)*math.min(1,ck*18)local cx
+=124+math.clamp(bI/50,-12,12)+math.sin(bT*0.7)*3 u.Rotation=cx v.Transparency=
+math.clamp(0.22-co*0.09-(bY and 0.06 or 0),0.08,0.42)local cy=(bQ<1)and(-0.7+bQ*
+1.4)*bR or(math.sin(bS*0.1963495)*0.45)z.Offset=Vector2.new(cy,0)if bQ<1 then bQ
+=math.min(1,bQ+ck*2.6)end bS=(bS+ck*(12+co*32))%32 if bB then local cz,cA,cB
+local cC if bQ<1 or bY or co>0.12 then local cD=bQ<1 and bQ or((bS%32)/32)local
+cE=bR>=0 and cD or(1-cD)local cF=cE*31 cz=math.clamp(math.floor(cF),0,31)cA=math
+.clamp(cz+1,0,31)cB=cF-cz cC=cl and math.min(0.26,0.16+co*0.1)or math.min(0.46,
+0.32+co*0.14)else local cD=bS local cE=math.floor(cD)%32 local cF=(cE+1)%32 cz=
+32+cE cA=32+cF cB=cD-math.floor(cD)cC=cl and 0.14 or 0.28 end local cD=cC*cB
+local cE=(cC-cD)/math.max(1-cD,0.001)B.ImageRectOffset=getFrameRectOffset(cz)C.
+ImageRectOffset=getFrameRectOffset(cA)B.ImageTransparency=1-math.clamp(cE,0,1)C.
 ImageTransparency=1-math.clamp(cD,0,1)end end end)local cg=0 local function
 syncWindowElevation(ch,ci)if not aE or not aE.UIElements or not aE.UIElements.
 Main then return end if aE.LayoutMode~='NewForm'or aE.Closed or aL.LibraryHidden
@@ -6783,7 +6829,7 @@ UIElements.Main.Position=ck end elseif not ch and math.abs(cj.Y.Scale-0.475)<
 UIElements.Main,0.28,{Position=ck},Enum.EasingStyle.Quint,Enum.EasingDirection.
 Out):Play()else aE.UIElements.Main.Position=ck end end end local ch=UDim2.new(
 0.5,0,1,-10)local ci=UDim2.new(0.5,0,1,74)local function setIslandsVisibility(cj
-,ck,cl,cm)local cn=cj and 0 or 1 local co=cj and(isLightTheme()and 0.86 or 0.76)
+,ck,cl,cm)local cn=cj and 0 or 1 local co=cj and(isLightTheme()and 0.76 or 0.54)
 or 1 for cp,cq in ipairs(aN)do if ck and ck>0 then al(cq.Shell,ck,{
 GroupTransparency=cn},cl,cm):Play()al(cq.Shadow,ck,{ImageTransparency=co},cl,cm)
 :Play()else cq.Shell.GroupTransparency=cn cq.Shadow.ImageTransparency=co end end
