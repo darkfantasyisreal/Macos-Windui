@@ -2316,54 +2316,56 @@ or 0.84})end)trackOverlay(aU.MouseLeave,function()tween(aU,0.12,{
 BackgroundTransparency=p.IsLight and 0.91 or 0.93})end)trackOverlay(aU.
 MouseButton1Click,function()local r=getActiveEntry()aw:Close(true)if r and r.
 Window and not r.Window.Destroyed and r.Window.ToggleKeybindMenu then pcall(
-function()r.Window:ToggleKeybindMenu()end)end end)local r=false trackOverlay(aO:
-GetPropertyChangedSignal'Text',function()if r then return end local u=aO.Text or
-''aw.SearchQuery=u aN.Visible=u~=''if aw.IsOpen then aw:Refresh()end end)
-trackOverlay(aO.Focused,function()p.SearchFocused=true tween(aQ,0.16,{Size=UDim2
-.fromOffset(p.ExpandedSearchW or 168,22)})tween(aP,0.14,{Color=p.AccentColor or
-Color3.fromHex'#0A84FF',Transparency=0.25})end)trackOverlay(aO.FocusLost,
-function(u)p.SearchFocused=false local v=(aw.SearchQuery~='')and(p.
-ExpandedSearchW or 168)or(p.BaseSearchW or 132)tween(aQ,0.16,{Size=UDim2.
-fromOffset(v,22)})tween(aP,0.14,{Color=p.IsLight and Color3.fromRGB(0,0,0)or
-Color3.fromRGB(255,255,255),Transparency=p.IsLight and 0.86 or 0.88})if u and aw
-.IsOpen then if#aw._lastMatchedItems>0 then local x=aw._lastMatchedItems[1]aw:
-Close(true)aw:JumpTo(x)elseif#aw._lastFilteredWorkspaces>0 then local x=aw.
-_lastFilteredWorkspaces[1]if x and x.Entry then aw:SwitchTo(x.Entry.Id,true)aw:
-Close(true)end end end end)trackOverlay(aN.MouseButton1Click,function()r=true aO
-.Text=''r=false aw.SearchQuery=''aN.Visible=false if not p.SearchFocused then
-tween(aQ,0.14,{Size=UDim2.fromOffset(p.BaseSearchW or 132,22)})end if aw.IsOpen
-then aw:Refresh()end end)trackOverlay(ad.InputBegan,function(u,v)if not aw.
-IsOpen then return end local x=ad and ad.GetFocusedTextBox and ad:
-GetFocusedTextBox()local z=(x==aO)if u.KeyCode==Enum.KeyCode.Escape then if aw.
-SearchQuery~=''then r=true aO.Text=''r=false aw.SearchQuery=''aN.Visible=false
-pcall(function()aO:ReleaseFocus()end)aw:Refresh()else aw:Close(true)end return
-end if z or v then return end if u.KeyCode==Enum.KeyCode.Left or u.KeyCode==Enum
-.KeyCode.Right then pruneDestroyed()local A=#aw.Workspaces if A>=2 then local B=
-1 for C,F in ipairs(aw.Workspaces)do if F.Id==aw.ActiveId then B=C break end end
-local C=u.KeyCode==Enum.KeyCode.Right and((B%A)+1)or(((B-2)%A)+1)local F=aw.
-Workspaces[C]if F then aw:SwitchTo(F.Id,true)aw:Refresh()end end return end
-local A={[Enum.KeyCode.One]=1,[Enum.KeyCode.Two]=2,[Enum.KeyCode.Three]=3,[Enum.
-KeyCode.Four]=4,[Enum.KeyCode.Five]=5,[Enum.KeyCode.Six]=6,[Enum.KeyCode.Seven]=
-7,[Enum.KeyCode.Eight]=8,[Enum.KeyCode.Nine]=9}local B=A[u.KeyCode]if B and aw.
-Workspaces[B]then aw:SwitchTo(aw.Workspaces[B].Id,true)aw:Close(true)end end)
-return p end local function buildMiniatureDisplay(ax,ay,az)local aA=ay.IsLight
-and Color3.fromHex'#D5DCE7'or Color3.fromHex'#111216'local aB=ay.IsLight and
-Color3.fromHex'#E6EBF3'or Color3.fromHex'#181A20'local aC=make('Frame',{Name=
-'DesktopBackdrop',Size=UDim2.fromScale(1,1),BackgroundColor3=aA,BorderSizePixel=
-0,ClipsDescendants=true,ZIndex=1,Parent=ax},{make('UICorner',{CornerRadius=UDim.
-new(0,8)}),make('UIGradient',{Rotation=135,Color=ColorSequence.new{
-ColorSequenceKeypoint.new(0,aA),ColorSequenceKeypoint.new(1,aB)}})})local aD=(ay
-.ActiveTabTitle~=''and ay.ActiveTabTitle)or ay.Title if ay.LayoutMode=='NewForm'
-then local aE=ay.NavBarPosition or'Bottom'local aF=aE=='Top'local aG=aE=='Left'
-local aH=aE=='Right'local aI=aG or aH local aJ=aI and Vector2.new(0.5,0.5)or
-Vector2.new(0.5,0)local aK=aF and UDim2.new(0.5,0,0,17)or(aG and UDim2.new(0.5,6
-,0.5,0))or(aH and UDim2.new(0.5,-6,0.5,0))or UDim2.new(0.5,0,0,7)local aL=aF and
-UDim2.new(0.5,0,0,19)or(aG and UDim2.new(0.5,6,0.5,2))or(aH and UDim2.new(0.5,-6
-,0.5,2))or UDim2.new(0.5,0,0,9)make('Frame',{Name='MiniWindowShadow',Size=UDim2.
-fromOffset(124,54),Position=aL,AnchorPoint=aJ,BackgroundColor3=Color3.fromRGB(0,
-0,0),BackgroundTransparency=ay.IsLight and 0.88 or 0.7,BorderSizePixel=0,ZIndex=
-1,Parent=aC},{make('UICorner',{CornerRadius=UDim.new(0,7)})})local aM=make(
-'Frame',{Name='MiniWindow_NewForm',Size=UDim2.fromOffset(122,54),Position=aK,
+function()r.Window:ToggleKeybindMenu()end)end end)local r=false local u=0
+trackOverlay(aO:GetPropertyChangedSignal'Text',function()if r then return end
+local v=aO.Text or''aw.SearchQuery=v aN.Visible=v~=''if aw.IsOpen then if#aw.
+Workspaces>16 then u=u+1 local x=u task.delay(0.06,function()if x==u and aw.
+IsOpen then aw:Refresh()end end)else aw:Refresh()end end end)trackOverlay(aO.
+Focused,function()p.SearchFocused=true tween(aQ,0.16,{Size=UDim2.fromOffset(p.
+ExpandedSearchW or 168,22)})tween(aP,0.14,{Color=p.AccentColor or Color3.fromHex
+'#0A84FF',Transparency=0.25})end)trackOverlay(aO.FocusLost,function(v)p.
+SearchFocused=false local x=(aw.SearchQuery~='')and(p.ExpandedSearchW or 168)or(
+p.BaseSearchW or 132)tween(aQ,0.16,{Size=UDim2.fromOffset(x,22)})tween(aP,0.14,{
+Color=p.IsLight and Color3.fromRGB(0,0,0)or Color3.fromRGB(255,255,255),
+Transparency=p.IsLight and 0.86 or 0.88})if v and aw.IsOpen then if#aw.
+_lastMatchedItems>0 then local z=aw._lastMatchedItems[1]aw:Close(true)aw:JumpTo(
+z)elseif#aw._lastFilteredWorkspaces>0 then local z=aw._lastFilteredWorkspaces[1]
+if z and z.Entry then aw:SwitchTo(z.Entry.Id,true)aw:Close(true)end end end end)
+trackOverlay(aN.MouseButton1Click,function()r=true aO.Text=''r=false aw.
+SearchQuery=''aN.Visible=false if not p.SearchFocused then tween(aQ,0.14,{Size=
+UDim2.fromOffset(p.BaseSearchW or 132,22)})end if aw.IsOpen then aw:Refresh()end
+end)trackOverlay(ad.InputBegan,function(v,x)if not aw.IsOpen then return end
+local z=ad and ad.GetFocusedTextBox and ad:GetFocusedTextBox()local A=(z==aO)if
+v.KeyCode==Enum.KeyCode.Escape then if aw.SearchQuery~=''then r=true aO.Text=''r
+=false aw.SearchQuery=''aN.Visible=false pcall(function()aO:ReleaseFocus()end)aw
+:Refresh()else aw:Close(true)end return end if A or x then return end if v.
+KeyCode==Enum.KeyCode.Left or v.KeyCode==Enum.KeyCode.Right then pruneDestroyed(
+)local B=#aw.Workspaces if B>=2 then local C=1 for F,G in ipairs(aw.Workspaces)
+do if G.Id==aw.ActiveId then C=F break end end local F=v.KeyCode==Enum.KeyCode.
+Right and((C%B)+1)or(((C-2)%B)+1)local G=aw.Workspaces[F]if G then aw:SwitchTo(G
+.Id,true)aw:Refresh()end end return end local B={[Enum.KeyCode.One]=1,[Enum.
+KeyCode.Two]=2,[Enum.KeyCode.Three]=3,[Enum.KeyCode.Four]=4,[Enum.KeyCode.Five]=
+5,[Enum.KeyCode.Six]=6,[Enum.KeyCode.Seven]=7,[Enum.KeyCode.Eight]=8,[Enum.
+KeyCode.Nine]=9}local C=B[v.KeyCode]if C and aw.Workspaces[C]then aw:SwitchTo(aw
+.Workspaces[C].Id,true)aw:Close(true)end end)return p end local function
+buildMiniatureDisplay(ax,ay,az)local aA=ay.IsLight and Color3.fromHex'#D5DCE7'or
+Color3.fromHex'#111216'local aB=ay.IsLight and Color3.fromHex'#E6EBF3'or Color3.
+fromHex'#181A20'local aC=make('Frame',{Name='DesktopBackdrop',Size=UDim2.
+fromScale(1,1),BackgroundColor3=aA,BorderSizePixel=0,ClipsDescendants=true,
+ZIndex=1,Parent=ax},{make('UICorner',{CornerRadius=UDim.new(0,8)}),make(
+'UIGradient',{Rotation=135,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
+aA),ColorSequenceKeypoint.new(1,aB)}})})local aD=(ay.ActiveTabTitle~=''and ay.
+ActiveTabTitle)or ay.Title if ay.LayoutMode=='NewForm'then local aE=ay.
+NavBarPosition or'Bottom'local aF=aE=='Top'local aG=aE=='Left'local aH=aE==
+'Right'local aI=aG or aH local aJ=aI and Vector2.new(0.5,0.5)or Vector2.new(0.5,
+0)local aK=aF and UDim2.new(0.5,0,0,17)or(aG and UDim2.new(0.5,6,0.5,0))or(aH
+and UDim2.new(0.5,-6,0.5,0))or UDim2.new(0.5,0,0,7)local aL=aF and UDim2.new(0.5
+,0,0,19)or(aG and UDim2.new(0.5,6,0.5,2))or(aH and UDim2.new(0.5,-6,0.5,2))or
+UDim2.new(0.5,0,0,9)make('Frame',{Name='MiniWindowShadow',Size=UDim2.fromOffset(
+124,54),Position=aL,AnchorPoint=aJ,BackgroundColor3=Color3.fromRGB(0,0,0),
+BackgroundTransparency=ay.IsLight and 0.88 or 0.7,BorderSizePixel=0,ZIndex=1,
+Parent=aC},{make('UICorner',{CornerRadius=UDim.new(0,7)})})local aM=make('Frame'
+,{Name='MiniWindow_NewForm',Size=UDim2.fromOffset(122,54),Position=aK,
 AnchorPoint=aJ,BackgroundColor3=ay.WindowBg,BackgroundTransparency=0.04,
 BorderSizePixel=0,ClipsDescendants=true,ZIndex=2,Parent=aC},{make('UICorner',{
 CornerRadius=UDim.new(0,6)}),make('UIStroke',{Thickness=1,Color=ay.BorderColor,
@@ -2587,304 +2589,311 @@ UDim2.fromOffset(0,0)end ax.Shelf.Size=UDim2.fromOffset(aT,e)ax.ShelfShadow.Size
 HorizontalAlignment.Left or Enum.HorizontalAlignment.Center ax.CardsScroll.
 CanvasSize=UDim2.fromOffset(aU and(aP+am*2)or 0,0)ax.CardsScroll.
 ScrollingEnabled=aU ax.CardsScroll.ScrollBarThickness=aU and 3 or 0 local f=aL
-local g=ad and ad.TouchEnabled and not ad.MouseEnabled local h=1 if aJ==0 then
-make('TextLabel',{Name='EmptySearchLabel',Size=UDim2.fromOffset(math.max(200,aT-
-am*2),ak),BackgroundTransparency=1,Text=aE~=''and(
-'No workspaces or elements matching "'..aE..'"')or'No workspaces',TextSize=11,
-FontFace=Font.new(az.Font,Enum.FontWeight.Medium),TextColor3=aC,TextTransparency
-=0.15,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.
-TextYAlignment.Center,TextTruncate=Enum.TextTruncate.AtEnd,Parent=ax.CardsScroll
-})else for i,l in ipairs(aG)do local m=l.Entry local p=l.Meta local r=(m.Id==aw.
-ActiveId)if r then h=i end local u=make('TextButton',{Name='WorkspaceCard_'..
-tostring(i),Size=UDim2.fromOffset(aj,ak),BackgroundColor3=aD,
-BackgroundTransparency=1,BorderSizePixel=0,Text='',AutoButtonColor=false,
-LayoutOrder=i,Parent=ax.CardsScroll},{make('UICorner',{CornerRadius=UDim.new(0,
-10)})})local v=make('UIStroke',{Thickness=r and 1.8 or 1,Color=r and p.
-AccentColor or aD,Transparency=r and 0.04 or(aA and 0.86 or 0.85)})local x=make(
+local g=ad and ad.TouchEnabled and not ad.MouseEnabled local h=1 for i,l in
+ipairs(aG)do if l.Entry.Id==aw.ActiveId then h=i break end end ax.RenderToken=(
+ax.RenderToken or 0)+1 local i=ax.RenderToken local function scrollToActiveCard(
+)if not ax or not ax.CardsScroll or not ax.CardsScroll.Parent then return end if
+aU then local l=aP+am*2 local m=am+(h-1)*(aj+al)+aj*0.5 local p=math.max(0,l-aT)
+local r=math.clamp(math.floor(m-aT*0.5+0.5),0,p)pcall(function()ax.CardsScroll.
+CanvasPosition=Vector2.new(r,0)end)else pcall(function()ax.CardsScroll.
+CanvasPosition=Vector2.new(0,0)end)end end if aJ==0 then make('TextLabel',{Name=
+'EmptySearchLabel',Size=UDim2.fromOffset(math.max(200,aT-am*2),ak),
+BackgroundTransparency=1,Text=aE~=''and('No workspaces or elements matching "'..
+aE..'"')or'No workspaces',TextSize=11,FontFace=Font.new(az.Font,Enum.FontWeight.
+Medium),TextColor3=aC,TextTransparency=0.15,TextXAlignment=Enum.TextXAlignment.
+Center,TextYAlignment=Enum.TextYAlignment.Center,TextTruncate=Enum.TextTruncate.
+AtEnd,Parent=ax.CardsScroll})else local function renderWorkspaceCard(l,m)local p
+=m.Entry local r=m.Meta local u=(p.Id==aw.ActiveId)local v=make('TextButton',{
+Name='WorkspaceCard_'..tostring(l),Size=UDim2.fromOffset(aj,ak),BackgroundColor3
+=aD,BackgroundTransparency=1,BorderSizePixel=0,Text='',AutoButtonColor=false,
+LayoutOrder=l,Parent=ax.CardsScroll},{make('UICorner',{CornerRadius=UDim.new(0,
+10)})})local x=make('UIStroke',{Thickness=u and 1.8 or 1,Color=u and r.
+AccentColor or aD,Transparency=u and 0.04 or(aA and 0.86 or 0.85)})local z=make(
 'Frame',{Name='DisplayPreview',Size=UDim2.fromOffset(146,80),Position=UDim2.
-fromOffset(4,4),BackgroundColor3=p.WindowBg,BorderSizePixel=0,ClipsDescendants=
-true,ZIndex=2,Parent=u},{make('UICorner',{CornerRadius=UDim.new(0,8)}),v})
-buildMiniatureDisplay(x,p,aA)if p.IsMinimized or p.IsLibraryHidden then make(
+fromOffset(4,4),BackgroundColor3=r.WindowBg,BorderSizePixel=0,ClipsDescendants=
+true,ZIndex=2,Parent=v},{make('UICorner',{CornerRadius=UDim.new(0,8)}),x})
+buildMiniatureDisplay(z,r,aA)if r.IsMinimized or r.IsLibraryHidden then make(
 'TextLabel',{Name='StateTag',AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.
 fromOffset(0,13),Position=UDim2.fromOffset(5,5),BackgroundColor3=Color3.fromRGB(
-0,0,0),BackgroundTransparency=0.42,BorderSizePixel=0,Text=p.IsMinimized and'Min'
-or'Hidden',TextSize=8,FontFace=Font.new(p.Font,Enum.FontWeight.SemiBold),
-TextColor3=Color3.fromRGB(245,245,247),ZIndex=8,Parent=x},{make('UICorner',{
+0,0,0),BackgroundTransparency=0.42,BorderSizePixel=0,Text=r.IsMinimized and'Min'
+or'Hidden',TextSize=8,FontFace=Font.new(r.Font,Enum.FontWeight.SemiBold),
+TextColor3=Color3.fromRGB(245,245,247),ZIndex=8,Parent=z},{make('UICorner',{
 CornerRadius=UDim.new(0,4)}),make('UIPadding',{PaddingLeft=UDim.new(0,4),
-PaddingRight=UDim.new(0,4)})})end if aE~=''and l.MatchCount>0 then make(
+PaddingRight=UDim.new(0,4)})})end if aE~=''and m.MatchCount>0 then make(
 'TextLabel',{Name='MatchTag',AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.
 fromOffset(0,13),Position=UDim2.new(1,-5,1,-5),AnchorPoint=Vector2.new(1,1),
 BackgroundColor3=Color3.fromRGB(16,17,22),BackgroundTransparency=0.22,
-BorderSizePixel=0,Text=tostring(l.MatchCount)..(l.MatchCount==1 and' hit'or
-' hits'),TextSize=8,FontFace=Font.new(p.Font,Enum.FontWeight.SemiBold),
-TextColor3=Color3.fromRGB(245,245,247),ZIndex=9,Parent=x},{make('UICorner',{
+BorderSizePixel=0,Text=tostring(m.MatchCount)..(m.MatchCount==1 and' hit'or
+' hits'),TextSize=8,FontFace=Font.new(r.Font,Enum.FontWeight.SemiBold),
+TextColor3=Color3.fromRGB(245,245,247),ZIndex=9,Parent=z},{make('UICorner',{
 CornerRadius=UDim.new(0,4)}),make('UIPadding',{PaddingLeft=UDim.new(0,4),
-PaddingRight=UDim.new(0,4)})})end local z=make('TextButton',{Name=
+PaddingRight=UDim.new(0,4)})})end local A=make('TextButton',{Name=
 'DestroyWorkspaceBtn',Size=UDim2.fromOffset(16,16),Position=UDim2.new(1,-4,0,4),
 AnchorPoint=Vector2.new(1,0),BackgroundColor3=Color3.fromRGB(20,20,24),
 BackgroundTransparency=g and 0.34 or 1,BorderSizePixel=0,Text='',AutoButtonColor
-=false,ZIndex=10,Parent=x},{make('UICorner',{CornerRadius=UDim.new(0,999)})})
-local A if f then A=make('ImageLabel',{Name='XIcon',Size=UDim2.fromOffset(9,9),
+=false,ZIndex=10,Parent=z},{make('UICorner',{CornerRadius=UDim.new(0,999)})})
+local B if f then B=make('ImageLabel',{Name='XIcon',Size=UDim2.fromOffset(9,9),
 Position=UDim2.fromScale(0.5,0.5),AnchorPoint=Vector2.new(0.5,0.5),
 BackgroundTransparency=1,Image=f[1],ImageRectSize=(f[2]and f[2].ImageRectSize)or
 Vector2.zero,ImageRectOffset=(f[2]and f[2].ImageRectPosition)or Vector2.zero,
 ImageColor3=Color3.fromRGB(245,245,247),ImageTransparency=g and 0.1 or 1,ZIndex=
-11,Parent=z})else A=make('TextLabel',{Name='XText',Size=UDim2.fromScale(1,1),
-BackgroundTransparency=1,Text='\u{d7}',TextSize=11,FontFace=Font.new(p.Font,Enum
+11,Parent=A})else B=make('TextLabel',{Name='XText',Size=UDim2.fromScale(1,1),
+BackgroundTransparency=1,Text='\u{d7}',TextSize=11,FontFace=Font.new(r.Font,Enum
 .FontWeight.Bold),TextColor3=Color3.fromRGB(245,245,247),TextTransparency=g and
-0.1 or 1,ZIndex=11,Parent=z})end local B=make('Frame',{Name='HubLabel',Size=
+0.1 or 1,ZIndex=11,Parent=A})end local C=make('Frame',{Name='HubLabel',Size=
 UDim2.fromOffset(146,22),Position=UDim2.fromOffset(4,88),BackgroundTransparency=
-1,ClipsDescendants=true,ZIndex=2,Parent=u},{make('UIListLayout',{FillDirection=
+1,ClipsDescendants=true,ZIndex=2,Parent=v},{make('UIListLayout',{FillDirection=
 Enum.FillDirection.Horizontal,VerticalAlignment=Enum.VerticalAlignment.Center,
 HorizontalAlignment=Enum.HorizontalAlignment.Center,SortOrder=Enum.SortOrder.
-LayoutOrder,Padding=UDim.new(0,5)})})if r then make('Frame',{Name='ActiveDot',
-Size=UDim2.fromOffset(5,5),BackgroundColor3=p.AccentColor,BorderSizePixel=0,
-LayoutOrder=1,Parent=B},{make('UICorner',{CornerRadius=UDim.new(0,999)})})end
-local C=resolveEntryIcon(m,p.Icon)if C then local F=make('ImageLabel',{Name=
+LayoutOrder,Padding=UDim.new(0,5)})})if u then make('Frame',{Name='ActiveDot',
+Size=UDim2.fromOffset(5,5),BackgroundColor3=r.AccentColor,BorderSizePixel=0,
+LayoutOrder=1,Parent=C},{make('UICorner',{CornerRadius=UDim.new(0,999)})})end
+local F=resolveEntryIcon(p,r.Icon)if F then local G=make('ImageLabel',{Name=
 'HubIcon',Size=UDim2.fromOffset(13,13),BackgroundTransparency=1,LayoutOrder=2,
-Parent=B})applyIconToImage(F,C,r and aB or aC,isTintableIconName(p.Icon,p.
-IconThemed))end local F=146-(r and 10 or 0)-(C and 18 or 0)make('TextLabel',{
+Parent=C})applyIconToImage(G,F,u and aB or aC,isTintableIconName(r.Icon,r.
+IconThemed))end local G=146-(u and 10 or 0)-(F and 18 or 0)make('TextLabel',{
 Name='HubTitle',AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0),
-BackgroundTransparency=1,Text=p.Title,TextSize=11,FontFace=Font.new(p.Font,r and
-Enum.FontWeight.SemiBold or Enum.FontWeight.Medium),TextColor3=r and aB or aC,
-TextTruncate=Enum.TextTruncate.AtEnd,LayoutOrder=3,Parent=B},{make(
-'UISizeConstraint',{MaxSize=Vector2.new(math.max(48,F),22)})})local function
-setDestroyVisible(G)if g then return end tween(z,0.12,{BackgroundTransparency=G
-and 0.34 or 1})if A:IsA'ImageLabel'then tween(A,0.12,{ImageTransparency=G and
-0.12 or 1})else tween(A,0.12,{TextTransparency=G and 0.12 or 1})end end
-trackCard(u.MouseEnter,function()setDestroyVisible(true)if not r then tween(v,
-0.12,{Transparency=aA and 0.62 or 0.56})end tween(u,0.12,{BackgroundTransparency
-=0.94})end)trackCard(u.MouseLeave,function()setDestroyVisible(false)if not r
-then tween(v,0.12,{Transparency=aA and 0.86 or 0.85})end tween(u,0.12,{
-BackgroundTransparency=1})end)trackCard(z.MouseEnter,function()
-setDestroyVisible(true)tween(z,0.1,{BackgroundColor3=Color3.fromHex'#FF453A',
-BackgroundTransparency=0.08})end)trackCard(z.MouseLeave,function()tween(z,0.1,{
+BackgroundTransparency=1,Text=r.Title,TextSize=11,FontFace=Font.new(r.Font,u and
+Enum.FontWeight.SemiBold or Enum.FontWeight.Medium),TextColor3=u and aB or aC,
+TextTruncate=Enum.TextTruncate.AtEnd,LayoutOrder=3,Parent=C},{make(
+'UISizeConstraint',{MaxSize=Vector2.new(math.max(48,G),22)})})local function
+setDestroyVisible(H)if g then return end tween(A,0.12,{BackgroundTransparency=H
+and 0.34 or 1})if B:IsA'ImageLabel'then tween(B,0.12,{ImageTransparency=H and
+0.12 or 1})else tween(B,0.12,{TextTransparency=H and 0.12 or 1})end end
+trackCard(v.MouseEnter,function()setDestroyVisible(true)if not u then tween(x,
+0.12,{Transparency=aA and 0.62 or 0.56})end tween(v,0.12,{BackgroundTransparency
+=0.94})end)trackCard(v.MouseLeave,function()setDestroyVisible(false)if not u
+then tween(x,0.12,{Transparency=aA and 0.86 or 0.85})end tween(v,0.12,{
+BackgroundTransparency=1})end)trackCard(A.MouseEnter,function()
+setDestroyVisible(true)tween(A,0.1,{BackgroundColor3=Color3.fromHex'#FF453A',
+BackgroundTransparency=0.08})end)trackCard(A.MouseLeave,function()tween(A,0.1,{
 BackgroundColor3=Color3.fromRGB(20,20,24),BackgroundTransparency=0.34})end)
-trackCard(z.MouseButton1Click,function()aw:DestroyWorkspace(m.Id)end)trackCard(u
-.MouseButton1Click,function()aw:SwitchTo(m.Id,true)aw:Close(true)end)end end if
-b then local i=aT-(am-2)*2 local l=aI>=2 for m,p in ipairs(aH)do local r=make(
-'TextButton',{Name='MatchRow_'..tostring(m),Size=UDim2.new(1,0,0,as),
-BackgroundColor3=aD,BackgroundTransparency=1,BorderSizePixel=0,Text='',
-AutoButtonColor=false,LayoutOrder=m,Parent=ax.MatchScroll},{make('UICorner',{
-CornerRadius=UDim.new(0,7)})})local u,v=resolveTypeIcon(p.Entry,p.ElementType,p.
-IconName)local x=make('ImageLabel',{Name='Icon',Size=UDim2.fromOffset(12,12),
-Position=UDim2.new(0,8,0.5,0),AnchorPoint=Vector2.new(0,0.5),
-BackgroundTransparency=1,Parent=r})applyIconToImage(x,u,aC,v)local z=make(
-'Frame',{Name='RightMeta',AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,
-1,0),Position=UDim2.new(1,-6,0,0),AnchorPoint=Vector2.new(1,0),
-BackgroundTransparency=1,Parent=r},{make('UIListLayout',{FillDirection=Enum.
-FillDirection.Horizontal,VerticalAlignment=Enum.VerticalAlignment.Center,
-HorizontalAlignment=Enum.HorizontalAlignment.Right,SortOrder=Enum.SortOrder.
-LayoutOrder,Padding=UDim.new(0,4)})})local A=14 local B=p.ValueText or p.
-TypeLabel if type(B)=='string'and B~=''then if#B>12 then B=string.sub(B,1,11)..
-'\u{2026}'end local C={make('UICorner',{CornerRadius=UDim.new(0,4)}),make(
-'UIPadding',{PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5)}),make(
+trackCard(A.MouseButton1Click,function()aw:DestroyWorkspace(p.Id)end)trackCard(v
+.MouseButton1Click,function()aw:SwitchTo(p.Id,true)aw:Close(true)end)end local l
+=(aJ>16)and 12 or aJ for m=1,l do renderWorkspaceCard(m,aG[m])end if l<aJ then
+task.spawn(function()local m=l+1 local p=(h<=l)while m<=aJ do task.wait()if ax.
+RenderToken~=i or not ax.Gui or not ax.Gui.Parent then return end local r=math.
+min(aJ,m+13)for u=m,r do renderWorkspaceCard(u,aG[u])end if not p and r>=h then
+p=true scrollToActiveCard()end m=r+1 end end)end end if b then local l=aT-(am-2)
+*2 local m=aI>=2 for p,r in ipairs(aH)do local u=make('TextButton',{Name=
+'MatchRow_'..tostring(p),Size=UDim2.new(1,0,0,as),BackgroundColor3=aD,
+BackgroundTransparency=1,BorderSizePixel=0,Text='',AutoButtonColor=false,
+LayoutOrder=p,Parent=ax.MatchScroll},{make('UICorner',{CornerRadius=UDim.new(0,7
+)})})local v,x=resolveTypeIcon(r.Entry,r.ElementType,r.IconName)local z=make(
+'ImageLabel',{Name='Icon',Size=UDim2.fromOffset(12,12),Position=UDim2.new(0,8,
+0.5,0),AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,Parent=u})
+applyIconToImage(z,v,aC,x)local A=make('Frame',{Name='RightMeta',AutomaticSize=
+Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0),Position=UDim2.new(1,-6,0,0),
+AnchorPoint=Vector2.new(1,0),BackgroundTransparency=1,Parent=u},{make(
 'UIListLayout',{FillDirection=Enum.FillDirection.Horizontal,VerticalAlignment=
-Enum.VerticalAlignment.Center,SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.
-new(0,3)})}if p.ToggleOn~=nil then table.insert(C,make('Frame',{Name='Dot',Size=
-UDim2.fromOffset(5,5),BackgroundColor3=p.ToggleOn and Color3.fromHex'#30D158'or
-aC,BackgroundTransparency=p.ToggleOn and 0 or 0.45,BorderSizePixel=0,LayoutOrder
-=1},{make('UICorner',{CornerRadius=UDim.new(0,999)})}))end table.insert(C,make(
-'TextLabel',{Name='Text',AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1
-,0),BackgroundTransparency=1,Text=B,TextSize=9,FontFace=Font.new(az.Font,Enum.
-FontWeight.Medium),TextColor3=p.ToggleOn and(aA and Color3.fromHex'#1F7A38'or
-Color3.fromHex'#63E683')or aC,LayoutOrder=2}))make('Frame',{Name='ValuePill',
-AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.fromOffset(0,16),BackgroundColor3=
-aD,BackgroundTransparency=aA and 0.93 or 0.92,BorderSizePixel=0,LayoutOrder=1,
-Parent=z},C)A=A+math.min(72,#B*6+18)end if l then local C=tostring(p.
-WorkspaceTitle or'Hub')if#C>14 then C=string.sub(C,1,13)..'\u{2026}'end make(
-'Frame',{Name='HubPill',AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.
-fromOffset(0,16),BackgroundColor3=p.IsActiveWorkspace and ax.AccentColor or aD,
-BackgroundTransparency=p.IsActiveWorkspace and 0.84 or(aA and 0.92 or 0.92),
-BorderSizePixel=0,LayoutOrder=2,Parent=z},{make('UICorner',{CornerRadius=UDim.
+Enum.VerticalAlignment.Center,HorizontalAlignment=Enum.HorizontalAlignment.Right
+,SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,4)})})local B=14 local
+C=r.ValueText or r.TypeLabel if type(C)=='string'and C~=''then if#C>12 then C=
+string.sub(C,1,11)..'\u{2026}'end local F={make('UICorner',{CornerRadius=UDim.
 new(0,4)}),make('UIPadding',{PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5
-)}),make('TextLabel',{AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0)
-,BackgroundTransparency=1,Text=C,TextSize=9,FontFace=Font.new(az.Font,Enum.
-FontWeight.Medium),TextColor3=p.IsActiveWorkspace and aB or aC})})A=A+math.min(
-92,#C*6+14)end local C=math.max(90,i-30-A)local F=p.Title if p.Subtitle and p.
-Subtitle~=''and p.Kind=='Element'then F=p.Title..'  \u{b7}  '..p.Subtitle end
-make('TextLabel',{Name='Title',Size=UDim2.new(0,C,1,0),Position=UDim2.
-fromOffset(26,0),BackgroundTransparency=1,Text=F,TextSize=11,FontFace=Font.new(
-az.Font,Enum.FontWeight.Medium),TextColor3=aB,TextXAlignment=Enum.TextXAlignment
-.Left,TextTruncate=Enum.TextTruncate.AtEnd,Parent=r})trackMatch(r.MouseEnter,
-function()tween(r,0.1,{BackgroundTransparency=aA and 0.92 or 0.91})end)
-trackMatch(r.MouseLeave,function()tween(r,0.1,{BackgroundTransparency=1})end)
-trackMatch(r.MouseButton1Click,function()aw:Close(true)aw:JumpTo(p)end)end end
-if aU then local i=aP+am*2 local l=am+(h-1)*(aj+al)+aj*0.5 local m=math.max(0,i-
-aT)local p=math.clamp(math.floor(l-aT*0.5+0.5),0,m)pcall(function()ax.
-CardsScroll.CanvasPosition=Vector2.new(p,0)end)else pcall(function()ax.
-CardsScroll.CanvasPosition=Vector2.new(0,0)end)end end function aw.Subscribe(ax,
-ay)if type(ay)~='function'then return function()end end table.insert(aw.
-Listeners,ay)return function()for az=#aw.Listeners,1,-1 do if aw.Listeners[az]==
-ay then table.remove(aw.Listeners,az)break end end end end function aw.
-GetWorkspaces(ax)pruneDestroyed()local ay={}for az,aA in ipairs(aw.Workspaces)do
-local aB=extractWorkspaceMeta(aA)aB.Active=(aA.Id==aw.ActiveId)aB.Window=aA.
-Window table.insert(ay,aB)end return ay end function aw.GetCount(ax)
-pruneDestroyed()return#aw.Workspaces end function aw.GetActive(ax)local ay=
-getActiveEntry()return ay and ay.Window or nil,ay and ay.Id or nil end function
-aw.Register(ax,ay,az,aA,aB)pruneDestroyed()if not ay then return nil end for aC,
-aD in ipairs(aw.Workspaces)do if aD.Window==ay then return aD.Id end end aw.
-NextSeq=aw.NextSeq+1 local aC='ws_'..tostring(aw.NextSeq)local aD={Id=aC,Window=
-ay,WindUI=az,Creator=aA,CreatedAt=os.clock()}ay._WorkspaceId=aC ay.
-WorkspaceSuspended=false table.insert(aw.Workspaces,aD)aw.ById[aC]=aD local aE=
-true if typeof(aB)=='table'and aB.AutoFocus==false then aE=false end if not aw.
-ActiveId or aE then local aF=aw.ActiveId if aF and aF~=aC and aw.ById[aF]then
-setEntrySurfaceEnabled(aw.ById[aF],false)end aw.ActiveId=aC
-setEntrySurfaceEnabled(aD,true)else setEntrySurfaceEnabled(aD,false)end if aw.
-IsOpen then renderOverlay()end notifyListeners('register',aC)return aC end
-function aw.SwitchTo(ax,ay,az)pruneDestroyed()local aA=aw.ById[ay]if not aA and
-type(ay)=='string'then local aB=string.lower(ay)for aC,aD in ipairs(aw.
-Workspaces)do if aD.Window and string.lower(tostring(aD.Window.Title or''))==aB
-then aA=aD break end end elseif not aA and type(ay)=='number'then aA=aw.
-Workspaces[ay]end if not aA or not aA.Window or aA.Window.Destroyed then return
-false end local aB=(aw.ActiveId==aA.Id)for aC,aD in ipairs(aw.Workspaces)do if
-aD.Id~=aA.Id then setEntrySurfaceEnabled(aD,false)end end aw.ActiveId=aA.Id
-setEntrySurfaceEnabled(aA,true)local aC=aA.Window if aC.Closed and aC.Open then
-pcall(function()aC:Open()end)elseif aC.LibraryHidden and aC.SetLibraryHidden
-then pcall(function()aC:SetLibraryHidden(false)end)elseif az~=false and not aB
-then local aD=aA.WindUI and aA.WindUI.UIScaleObj if aD and typeof(aD.Scale)==
-'number'then local aE=math.max(aA.WindUI.UIScale or aD.Scale or 1,0.1)aD.Scale=
-aE*0.96 tween(aD,0.18,{Scale=aE},Enum.EasingStyle.Quint,Enum.EasingDirection.Out
-)end end if aw.IsOpen then renderOverlay()end notifyListeners('switch',aA.Id)
-return true end function aw.Unregister(ax,ay)local az=ay and aw.ById[ay]or nil
-if not az then pruneDestroyed()return end local aA=1 for aB,aC in ipairs(aw.
-Workspaces)do if aC.Id==ay then aA=aB table.remove(aw.Workspaces,aB)break end
-end aw.ById[ay]=nil local aB=(aw.ActiveId==ay)if aB then aw.ActiveId=nil end
-pruneDestroyed()if#aw.Workspaces==0 then destroyOverlay()notifyListeners(
-'unregister',ay)return end if aB then local aC=math.clamp(aA,1,#aw.Workspaces)
-local aD=aw.Workspaces[aC]if aD then aw:SwitchTo(aD.Id,true)end elseif aw.IsOpen
-then renderOverlay()end notifyListeners('unregister',ay)end function aw.
-DestroyWorkspace(ax,ay)local az=aw.ById[ay]if not az then return false end local
-aA=az.Window aw:Unregister(ay)if aA and not aA.Destroyed and aA.Destroy then
-pcall(function()aA:Destroy()end)end return true end function aw.Refresh(ax)
-pruneDestroyed()if aw.IsOpen then if#aw.Workspaces==0 then destroyOverlay()else
-renderOverlay()end end end function aw.SetSearchQuery(ax,ay)local az=type(ay)==
-'string'and ay or''aw.SearchQuery=az local aA=aw._overlay if aA and aA.SearchBox
-and aA.SearchBox.Text~=az then aA.SearchBox.Text=az end if aw.IsOpen then
-renderOverlay()end end function aw.Open(ax,ay)pruneDestroyed()if#aw.Workspaces==
-0 then return false end local az=ensureOverlay()if not az then return false end
-aw.SearchQuery=''if az.SearchBox and az.SearchBox.Text~=''then az.SearchBox.Text
-=''end if az.SearchClearBtn then az.SearchClearBtn.Visible=false end
-renderOverlay()aw._animToken=aw._animToken+1 local aA=aw._animToken aw.IsOpen=
-true local aB=az.TargetYOffset local aC=az.IsLight and 0.64 or 0.56 az.Gui.
-Enabled=true if ay==false then az.Scrim.BackgroundTransparency=aC az.Shelf.
-Position=UDim2.new(0.5,0,1,aB)az.ShelfShadow.Position=UDim2.new(0.5,0,1,aB+6)az.
-ShelfScale.Scale=1 else az.Scrim.BackgroundTransparency=1 az.Shelf.Position=
-UDim2.new(0.5,0,1,aB+14)az.ShelfShadow.Position=UDim2.new(0.5,0,1,aB+20)az.
-ShelfScale.Scale=0.95 tween(az.Scrim,0.16,{BackgroundTransparency=aC},Enum.
-EasingStyle.Quad,Enum.EasingDirection.Out)tween(az.Shelf,0.2,{Position=UDim2.
-new(0.5,0,1,aB)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out)tween(az.
-ShelfShadow,0.2,{Position=UDim2.new(0.5,0,1,aB+6)},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out)tween(az.ShelfScale,0.2,{Scale=1},Enum.EasingStyle.Quint,
-Enum.EasingDirection.Out)end notifyListeners('open',aw.ActiveId)return true end
-function aw.Close(ax,ay)if not aw.IsOpen then return false end aw.IsOpen=false
-aw._animToken=aw._animToken+1 local az=aw._animToken local aA=aw._overlay if aA
-and aA.SearchBox then pcall(function()aA.SearchBox:ReleaseFocus()end)end if aA
-and aA.Gui and aA.Gui.Parent then if ay==false then aA.Gui.Enabled=false else
-local aB=aA.TargetYOffset tween(aA.Scrim,0.14,{BackgroundTransparency=1},Enum.
-EasingStyle.Quad,Enum.EasingDirection.Out)tween(aA.Shelf,0.14,{Position=UDim2.
-new(0.5,0,1,aB+12)},Enum.EasingStyle.Quint,Enum.EasingDirection.In)tween(aA.
-ShelfShadow,0.14,{Position=UDim2.new(0.5,0,1,aB+18)},Enum.EasingStyle.Quint,Enum
-.EasingDirection.In)tween(aA.ShelfScale,0.14,{Scale=0.96},Enum.EasingStyle.Quint
-,Enum.EasingDirection.In)task.delay(0.15,function()if aw._animToken==az and not
-aw.IsOpen and aA.Gui and aA.Gui.Parent then aA.Gui.Enabled=false end end)end end
-notifyListeners('close',aw.ActiveId)return true end function aw.Toggle(ax,ay)if
-aw.IsOpen then aw:Close(ay)return false else return aw:Open(ay)end end return aw
-end local function getManager()local aw=getSharedEnv()if aw then local ax=aw[ag]
-if typeof(ax)=='table'and ax.Register and ax.SwitchTo and ax.Toggle and(
-tonumber(ax.Version)or 1)>=ah then return ax end local ay=createManager()if
-typeof(ax)=='table'and typeof(ax.Workspaces)=='table'then if ax.Close then
-pcall(function()ax:Close(false)end)end if ax._overlay and ax._overlay.Gui then
-pcall(function()ax._overlay.Gui:Destroy()end)end ay.NextSeq=tonumber(ax.NextSeq)
-or 0 ay.ActiveId=ax.ActiveId for az,aA in ipairs(ax.Workspaces)do if typeof(aA)
-=='table'and aA.Window and not aA.Window.Destroyed and aA.Id then table.insert(
-ay.Workspaces,aA)ay.ById[aA.Id]=aA end end end aw[ag]=ay return ay end return
-createManager()end return getManager()end function a.w()local aa=a.load'e'local
-ab=aa.New local ad=aa.Tween local ae={Holder=nil,Parent=nil}function ae.Create(
-af,ag,ah,ai,aj)local ak={UICorner=af and 18 or 16,UIPadding=af and 0 or 14,
-Window=ah,WindUI=ai,UIElements={}}ag=ag or'Dialog'if not af then ak.UIElements.
-FullScreen=ab('Frame',{ZIndex=999,BackgroundTransparency=1,BackgroundColor3=
-Color3.fromHex'#000000',BorderSizePixel=0,Size=UDim2.new(1,0,1,0),Active=false,
-Visible=false,Parent=aj or ae.Parent or(ah and ah.UIElements and ah.UIElements.
-Main and ah.UIElements.Main.Main)},{ab('UICorner',{CornerRadius=UDim.new(0,(ah
-and ah.UICorner)or 14)})})end local al=ab('UIStroke',{Thickness=1,
-ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Transparency=1,ThemeTag={Color=
-'WindowBorder'}},{ab('UIGradient',{Rotation=90,Transparency=NumberSequence.new{
-NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.4,0.35),
-NumberSequenceKeypoint.new(1,0.65)}})})local am=ab('UIScale',{Scale=0.94})ak.
-UIElements.Main=ab('Frame',{Size=UDim2.new(0,300,0,0),ThemeTag={BackgroundColor3
-=ag..'Background'},AutomaticSize='Y',BackgroundTransparency=1,Visible=false,
-ZIndex=99999},{ab('UIPadding',{PaddingTop=UDim.new(0,ak.UIPadding),PaddingLeft=
-UDim.new(0,ak.UIPadding),PaddingRight=UDim.new(0,ak.UIPadding),PaddingBottom=
-UDim.new(0,ak.UIPadding)})})ak.UIElements.MainContainer=ab('Frame',{Visible=
-false,BackgroundTransparency=1,BorderSizePixel=0,Parent=(not af and ak.
-UIElements.FullScreen)or aj,Position=UDim2.new(0.5,0,0.5,0),AnchorPoint=Vector2.
-new(0.5,0.5),AutomaticSize='XY',ThemeTag={BackgroundColor3=ag..'Background'},
-ZIndex=9999},{ab('UICorner',{CornerRadius=UDim.new(0,ak.UICorner)}),am,al,ak.
-UIElements.Main})function ak.Open(an)if not af and ak.UIElements.FullScreen then
-ak.UIElements.FullScreen.Visible=true ak.UIElements.FullScreen.Active=true end
-task.spawn(function()ak.UIElements.MainContainer.Visible=true ak.UIElements.Main
-.Visible=true if not af and ak.UIElements.FullScreen then ad(ak.UIElements.
-FullScreen,0.16,{BackgroundTransparency=0.5},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()end ad(ak.UIElements.MainContainer,0.16,{
-BackgroundTransparency=af and 0.04 or 0.02},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ad(al,0.16,{Transparency=0.74},Enum.EasingStyle.Quint
-,Enum.EasingDirection.Out):Play()ad(am,0.22,{Scale=1},Enum.EasingStyle.Back,Enum
-.EasingDirection.Out):Play()end)end function ak.Close(an)if not af and ak.
-UIElements.FullScreen then ad(ak.UIElements.FullScreen,0.14,{
+)}),make('UIListLayout',{FillDirection=Enum.FillDirection.Horizontal,
+VerticalAlignment=Enum.VerticalAlignment.Center,SortOrder=Enum.SortOrder.
+LayoutOrder,Padding=UDim.new(0,3)})}if r.ToggleOn~=nil then table.insert(F,make(
+'Frame',{Name='Dot',Size=UDim2.fromOffset(5,5),BackgroundColor3=r.ToggleOn and
+Color3.fromHex'#30D158'or aC,BackgroundTransparency=r.ToggleOn and 0 or 0.45,
+BorderSizePixel=0,LayoutOrder=1},{make('UICorner',{CornerRadius=UDim.new(0,999)}
+)}))end table.insert(F,make('TextLabel',{Name='Text',AutomaticSize=Enum.
+AutomaticSize.X,Size=UDim2.new(0,0,1,0),BackgroundTransparency=1,Text=C,TextSize
+=9,FontFace=Font.new(az.Font,Enum.FontWeight.Medium),TextColor3=r.ToggleOn and(
+aA and Color3.fromHex'#1F7A38'or Color3.fromHex'#63E683')or aC,LayoutOrder=2}))
+make('Frame',{Name='ValuePill',AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.
+fromOffset(0,16),BackgroundColor3=aD,BackgroundTransparency=aA and 0.93 or 0.92,
+BorderSizePixel=0,LayoutOrder=1,Parent=A},F)B=B+math.min(72,#C*6+18)end if m
+then local F=tostring(r.WorkspaceTitle or'Hub')if#F>14 then F=string.sub(F,1,13)
+..'\u{2026}'end make('Frame',{Name='HubPill',AutomaticSize=Enum.AutomaticSize.X,
+Size=UDim2.fromOffset(0,16),BackgroundColor3=r.IsActiveWorkspace and ax.
+AccentColor or aD,BackgroundTransparency=r.IsActiveWorkspace and 0.84 or(aA and
+0.92 or 0.92),BorderSizePixel=0,LayoutOrder=2,Parent=A},{make('UICorner',{
+CornerRadius=UDim.new(0,4)}),make('UIPadding',{PaddingLeft=UDim.new(0,5),
+PaddingRight=UDim.new(0,5)}),make('TextLabel',{AutomaticSize=Enum.AutomaticSize.
+X,Size=UDim2.new(0,0,1,0),BackgroundTransparency=1,Text=F,TextSize=9,FontFace=
+Font.new(az.Font,Enum.FontWeight.Medium),TextColor3=r.IsActiveWorkspace and aB
+or aC})})B=B+math.min(92,#F*6+14)end local F=math.max(90,l-30-B)local G=r.Title
+if r.Subtitle and r.Subtitle~=''and r.Kind=='Element'then G=r.Title..
+'  \u{b7}  '..r.Subtitle end make('TextLabel',{Name='Title',Size=UDim2.new(0,F,1
+,0),Position=UDim2.fromOffset(26,0),BackgroundTransparency=1,Text=G,TextSize=11,
+FontFace=Font.new(az.Font,Enum.FontWeight.Medium),TextColor3=aB,TextXAlignment=
+Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,Parent=u})
+trackMatch(u.MouseEnter,function()tween(u,0.1,{BackgroundTransparency=aA and
+0.92 or 0.91})end)trackMatch(u.MouseLeave,function()tween(u,0.1,{
+BackgroundTransparency=1})end)trackMatch(u.MouseButton1Click,function()aw:Close(
+true)aw:JumpTo(r)end)end end scrollToActiveCard()end function aw.Subscribe(ax,ay
+)if type(ay)~='function'then return function()end end table.insert(aw.Listeners,
+ay)return function()for az=#aw.Listeners,1,-1 do if aw.Listeners[az]==ay then
+table.remove(aw.Listeners,az)break end end end end function aw.GetWorkspaces(ax)
+pruneDestroyed()local ay={}for az,aA in ipairs(aw.Workspaces)do local aB=
+extractWorkspaceMeta(aA)aB.Active=(aA.Id==aw.ActiveId)aB.Window=aA.Window table.
+insert(ay,aB)end return ay end function aw.GetCount(ax)pruneDestroyed()return#aw
+.Workspaces end function aw.GetActive(ax)local ay=getActiveEntry()return ay and
+ay.Window or nil,ay and ay.Id or nil end function aw.Register(ax,ay,az,aA,aB)
+pruneDestroyed()if not ay then return nil end for aC,aD in ipairs(aw.Workspaces)
+do if aD.Window==ay then return aD.Id end end aw.NextSeq=aw.NextSeq+1 local aC=
+'ws_'..tostring(aw.NextSeq)local aD={Id=aC,Window=ay,WindUI=az,Creator=aA,
+CreatedAt=os.clock()}ay._WorkspaceId=aC ay.WorkspaceSuspended=false table.
+insert(aw.Workspaces,aD)aw.ById[aC]=aD local aE=true if typeof(aB)=='table'and
+aB.AutoFocus==false then aE=false end if not aw.ActiveId or aE then local aF=aw.
+ActiveId if aF and aF~=aC and aw.ById[aF]then setEntrySurfaceEnabled(aw.ById[aF]
+,false)end aw.ActiveId=aC setEntrySurfaceEnabled(aD,true)else
+setEntrySurfaceEnabled(aD,false)end if aw.IsOpen then renderOverlay()end
+notifyListeners('register',aC)return aC end function aw.SwitchTo(ax,ay,az)
+pruneDestroyed()local aA=aw.ById[ay]if not aA and type(ay)=='string'then local
+aB=string.lower(ay)for aC,aD in ipairs(aw.Workspaces)do if aD.Window and string.
+lower(tostring(aD.Window.Title or''))==aB then aA=aD break end end elseif not aA
+and type(ay)=='number'then aA=aw.Workspaces[ay]end if not aA or not aA.Window or
+aA.Window.Destroyed then return false end local aB=(aw.ActiveId==aA.Id)for aC,aD
+in ipairs(aw.Workspaces)do if aD.Id~=aA.Id then setEntrySurfaceEnabled(aD,false)
+end end aw.ActiveId=aA.Id setEntrySurfaceEnabled(aA,true)local aC=aA.Window if
+aC.Closed and aC.Open then pcall(function()aC:Open()end)elseif aC.LibraryHidden
+and aC.SetLibraryHidden then pcall(function()aC:SetLibraryHidden(false)end)
+elseif az~=false and not aB then local aD=aA.WindUI and aA.WindUI.UIScaleObj if
+aD and typeof(aD.Scale)=='number'then local aE=math.max(aA.WindUI.UIScale or aD.
+Scale or 1,0.1)aD.Scale=aE*0.96 tween(aD,0.18,{Scale=aE},Enum.EasingStyle.Quint,
+Enum.EasingDirection.Out)end end if aw.IsOpen then renderOverlay()end
+notifyListeners('switch',aA.Id)return true end function aw.Unregister(ax,ay)
+local az=ay and aw.ById[ay]or nil if not az then pruneDestroyed()return end
+local aA=1 for aB,aC in ipairs(aw.Workspaces)do if aC.Id==ay then aA=aB table.
+remove(aw.Workspaces,aB)break end end aw.ById[ay]=nil local aB=(aw.ActiveId==ay)
+if aB then aw.ActiveId=nil end pruneDestroyed()if#aw.Workspaces==0 then
+destroyOverlay()notifyListeners('unregister',ay)return end if aB then local aC=
+math.clamp(aA,1,#aw.Workspaces)local aD=aw.Workspaces[aC]if aD then aw:SwitchTo(
+aD.Id,true)end elseif aw.IsOpen then renderOverlay()end notifyListeners(
+'unregister',ay)end function aw.DestroyWorkspace(ax,ay)local az=aw.ById[ay]if
+not az then return false end local aA=az.Window aw:Unregister(ay)if aA and not
+aA.Destroyed and aA.Destroy then pcall(function()aA:Destroy()end)end return true
+end function aw.Refresh(ax)pruneDestroyed()if aw.IsOpen then if#aw.Workspaces==0
+then destroyOverlay()else renderOverlay()end end end function aw.SetSearchQuery(
+ax,ay)local az=type(ay)=='string'and ay or''aw.SearchQuery=az local aA=aw.
+_overlay if aA and aA.SearchBox and aA.SearchBox.Text~=az then aA.SearchBox.Text
+=az end if aw.IsOpen then renderOverlay()end end function aw.Open(ax,ay)
+pruneDestroyed()if#aw.Workspaces==0 then return false end local az=
+ensureOverlay()if not az then return false end aw.SearchQuery=''if az.SearchBox
+and az.SearchBox.Text~=''then az.SearchBox.Text=''end if az.SearchClearBtn then
+az.SearchClearBtn.Visible=false end renderOverlay()aw._animToken=aw._animToken+1
+local aA=aw._animToken aw.IsOpen=true local aB=az.TargetYOffset local aC=az.
+IsLight and 0.64 or 0.56 az.Gui.Enabled=true if ay==false then az.Scrim.
+BackgroundTransparency=aC az.Shelf.Position=UDim2.new(0.5,0,1,aB)az.ShelfShadow.
+Position=UDim2.new(0.5,0,1,aB+6)az.ShelfScale.Scale=1 else az.Scrim.
+BackgroundTransparency=1 az.Shelf.Position=UDim2.new(0.5,0,1,aB+14)az.
+ShelfShadow.Position=UDim2.new(0.5,0,1,aB+20)az.ShelfScale.Scale=0.95 tween(az.
+Scrim,0.16,{BackgroundTransparency=aC},Enum.EasingStyle.Quad,Enum.
+EasingDirection.Out)tween(az.Shelf,0.2,{Position=UDim2.new(0.5,0,1,aB)},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out)tween(az.ShelfShadow,0.2,{Position=
+UDim2.new(0.5,0,1,aB+6)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out)tween(
+az.ShelfScale,0.2,{Scale=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out)end
+notifyListeners('open',aw.ActiveId)return true end function aw.Close(ax,ay)if
+not aw.IsOpen then return false end aw.IsOpen=false aw._animToken=aw._animToken+
+1 local az=aw._animToken local aA=aw._overlay if aA and aA.SearchBox then pcall(
+function()aA.SearchBox:ReleaseFocus()end)end if aA and aA.Gui and aA.Gui.Parent
+then if ay==false then aA.Gui.Enabled=false else local aB=aA.TargetYOffset
+tween(aA.Scrim,0.14,{BackgroundTransparency=1},Enum.EasingStyle.Quad,Enum.
+EasingDirection.Out)tween(aA.Shelf,0.14,{Position=UDim2.new(0.5,0,1,aB+12)},Enum
+.EasingStyle.Quint,Enum.EasingDirection.In)tween(aA.ShelfShadow,0.14,{Position=
+UDim2.new(0.5,0,1,aB+18)},Enum.EasingStyle.Quint,Enum.EasingDirection.In)tween(
+aA.ShelfScale,0.14,{Scale=0.96},Enum.EasingStyle.Quint,Enum.EasingDirection.In)
+task.delay(0.15,function()if aw._animToken==az and not aw.IsOpen and aA.Gui and
+aA.Gui.Parent then aA.Gui.Enabled=false end end)end end notifyListeners('close',
+aw.ActiveId)return true end function aw.Toggle(ax,ay)if aw.IsOpen then aw:Close(
+ay)return false else return aw:Open(ay)end end return aw end local function
+getManager()local aw=getSharedEnv()if aw then local ax=aw[ag]if typeof(ax)==
+'table'and ax.Register and ax.SwitchTo and ax.Toggle and(tonumber(ax.Version)or
+1)>=ah then return ax end local ay=createManager()if typeof(ax)=='table'and
+typeof(ax.Workspaces)=='table'then if ax.Close then pcall(function()ax:Close(
+false)end)end if ax._overlay and ax._overlay.Gui then pcall(function()ax.
+_overlay.Gui:Destroy()end)end ay.NextSeq=tonumber(ax.NextSeq)or 0 ay.ActiveId=ax
+.ActiveId for az,aA in ipairs(ax.Workspaces)do if typeof(aA)=='table'and aA.
+Window and not aA.Window.Destroyed and aA.Id then table.insert(ay.Workspaces,aA)
+ay.ById[aA.Id]=aA end end end aw[ag]=ay return ay end return createManager()end
+return getManager()end function a.w()local aa=a.load'e'local ab=aa.New local ad=
+aa.Tween local ae={Holder=nil,Parent=nil}function ae.Create(af,ag,ah,ai,aj)local
+ak={UICorner=af and 18 or 16,UIPadding=af and 0 or 14,Window=ah,WindUI=ai,
+UIElements={}}ag=ag or'Dialog'if not af then ak.UIElements.FullScreen=ab('Frame'
+,{ZIndex=999,BackgroundTransparency=1,BackgroundColor3=Color3.fromHex'#000000',
+BorderSizePixel=0,Size=UDim2.new(1,0,1,0),Active=false,Visible=false,Parent=aj
+or ae.Parent or(ah and ah.UIElements and ah.UIElements.Main and ah.UIElements.
+Main.Main)},{ab('UICorner',{CornerRadius=UDim.new(0,(ah and ah.UICorner)or 14)})
+})end local al=ab('UIStroke',{Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.
+Border,Transparency=1,ThemeTag={Color='WindowBorder'}},{ab('UIGradient',{
+Rotation=90,Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0),
+NumberSequenceKeypoint.new(0.4,0.35),NumberSequenceKeypoint.new(1,0.65)}})})
+local am=ab('UIScale',{Scale=0.94})ak.UIElements.Main=ab('Frame',{Size=UDim2.
+new(0,300,0,0),ThemeTag={BackgroundColor3=ag..'Background'},AutomaticSize='Y',
+BackgroundTransparency=1,Visible=false,ZIndex=99999},{ab('UIPadding',{PaddingTop
+=UDim.new(0,ak.UIPadding),PaddingLeft=UDim.new(0,ak.UIPadding),PaddingRight=UDim
+.new(0,ak.UIPadding),PaddingBottom=UDim.new(0,ak.UIPadding)})})ak.UIElements.
+MainContainer=ab('Frame',{Visible=false,BackgroundTransparency=1,BorderSizePixel
+=0,Parent=(not af and ak.UIElements.FullScreen)or aj,Position=UDim2.new(0.5,0,
+0.5,0),AnchorPoint=Vector2.new(0.5,0.5),AutomaticSize='XY',ThemeTag={
+BackgroundColor3=ag..'Background'},ZIndex=9999},{ab('UICorner',{CornerRadius=
+UDim.new(0,ak.UICorner)}),am,al,ak.UIElements.Main})function ak.Open(an)if not
+af and ak.UIElements.FullScreen then ak.UIElements.FullScreen.Visible=true ak.
+UIElements.FullScreen.Active=true end task.spawn(function()ak.UIElements.
+MainContainer.Visible=true ak.UIElements.Main.Visible=true if not af and ak.
+UIElements.FullScreen then ad(ak.UIElements.FullScreen,0.16,{
+BackgroundTransparency=0.5},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()end ad(ak.UIElements.MainContainer,0.16,{BackgroundTransparency=af and
+0.04 or 0.02},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ad(al,0.16,
+{Transparency=0.74},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ad(am
+,0.22,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()end)end
+function ak.Close(an)if not af and ak.UIElements.FullScreen then ad(ak.
+UIElements.FullScreen,0.14,{BackgroundTransparency=1},Enum.EasingStyle.Quint,
+Enum.EasingDirection.Out):Play()ak.UIElements.FullScreen.Active=false end ak.
+UIElements.Main.Visible=false ad(ak.UIElements.MainContainer,0.14,{
 BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play(
-)ak.UIElements.FullScreen.Active=false end ak.UIElements.Main.Visible=false ad(
-ak.UIElements.MainContainer,0.14,{BackgroundTransparency=1},Enum.EasingStyle.
-Quint,Enum.EasingDirection.Out):Play()ad(al,0.12,{Transparency=1},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ad(am,0.14,{Scale=0.94},Enum.
-EasingStyle.Quint,Enum.EasingDirection.In):Play()task.delay(0.16,function()if
-not af then if ak.UIElements.FullScreen and ak.UIElements.FullScreen.Parent then
-ak.UIElements.FullScreen:Destroy()end else if ak.UIElements.MainContainer and ak
-.UIElements.MainContainer.Parent then ak.UIElements.MainContainer:Destroy()end
-end end)return function()end end return ak end return ae end function a.x()local
-aa={}local ab=a.load'e'local ad=ab.New local ae=ab.Tween function aa.New(af,ag,
-ah,ai,aj,ak,al,am)ai=ai or'Primary'local an=am or(not al and 7 or 999)local ao=
-ai=='Primary'or ai=='Destructive'local ap=ai=='White'local aq=ai=='Secondary'
-local ar=ai=='Tertiary'local as local at=ab.Icon(ag)if ag and ag~=''and at then
-as=ad('ImageLabel',{Image=at[1],ImageRectSize=at[2].ImageRectSize,
-ImageRectOffset=at[2].ImageRectPosition,Size=UDim2.new(0,14,0,14),
-BackgroundTransparency=1,ImageColor3=ap and Color3.new(0,0,0)or(ao and Color3.
-new(1,1,1)or nil),ImageTransparency=ap and 0.2 or 0,ThemeTag={ImageColor3=(not
-ap and not ao)and'Icon'or nil}})end local au if ai=='Primary'then au='Primary'
-elseif ai=='Destructive'then au='Destructive'elseif not ap then au='Button'end
-local av=0 if aq then av=0.06 elseif ar then av=1 elseif not ao and not ap then
-av=0.88 end local aw=ad('UIScale',{Scale=1})local ax=ad('UIStroke',{Thickness=1,
-ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Transparency=ar and 1 or(ao and 0.72
-or 0.82),ThemeTag={Color=ao and'White'or'Outline'}},{not ar and ad('UIGradient',
-{Rotation=90,Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0),
-NumberSequenceKeypoint.new(0.45,0.35),NumberSequenceKeypoint.new(1,0.72)}})or
-nil})local ay=ad('Frame',{Size=UDim2.new(0,0,1,0),AutomaticSize='X',Name='Frame'
-,BorderSizePixel=0,BackgroundColor3=ap and Color3.new(1,1,1)or nil,
-BackgroundTransparency=av,ThemeTag=au and{BackgroundColor3=au}or nil},{ad(
-'UICorner',{CornerRadius=UDim.new(0,an)}),ax,ad('UIPadding',{PaddingLeft=UDim.
-new(0,12),PaddingRight=UDim.new(0,12)}),ad('UIListLayout',{FillDirection=
-'Horizontal',Padding=UDim.new(0,6),VerticalAlignment='Center',
-HorizontalAlignment='Center'}),as,ad('TextLabel',{BackgroundTransparency=1,
-FontFace=Font.new(ab.Font,Enum.FontWeight.SemiBold),Text=af or'Button',ThemeTag=
-{TextColor3=(not ao and not ap)and'Text'or nil},TextColor3=ao and Color3.new(1,1
-,1)or(ap and Color3.new(0,0,0)or nil),AutomaticSize='XY',TextSize=13})})local az
-=ad('TextButton',{Size=UDim2.new(0,0,1,0),AutomaticSize='X',Parent=aj,
-BackgroundTransparency=1,Text='',AutoButtonColor=false},{aw,ay})local function
-syncInnerFillMode()local aA=az.AutomaticSize local aB=aA==Enum.AutomaticSize.
-None or aA=='None'or az.Size.X.Scale>0 or az.Size.X.Offset>0 if aB then ay.
-AutomaticSize=Enum.AutomaticSize.None ay.Size=UDim2.fromScale(1,1)else ay.Size=
-UDim2.new(0,0,1,0)ay.AutomaticSize=Enum.AutomaticSize.X end end ab.AddSignal(az:
-GetPropertyChangedSignal'AutomaticSize',syncInnerFillMode)ab.AddSignal(az:
-GetPropertyChangedSignal'Size',syncInnerFillMode)local aA=ar and 0.9 or(aq and 0
-or(ao and 0.14 or(ap and 0.12 or 0.8)))ab.AddSignal(az.MouseEnter,function()ae(
-ay,0.08,{BackgroundTransparency=aA}):Play()end)ab.AddSignal(az.MouseLeave,
-function()ae(ay,0.08,{BackgroundTransparency=av}):Play()ae(aw,0.1,{Scale=1},Enum
-.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end)ab.AddSignal(az.
-MouseButton1Down,function()ae(aw,0.06,{Scale=0.965},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()end)ab.AddSignal(az.MouseButton1Up,function()ae(aw,
-0.1,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()end)ab.
-AddSignal(az.MouseButton1Click,function()if ak then ak:Close()()end if ah then
-ab.SafeCallback(ah)end end)return az end return aa end function a.y()local aa={}
+)ad(al,0.12,{Transparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()ad(am,0.14,{Scale=0.94},Enum.EasingStyle.Quint,Enum.EasingDirection.In):
+Play()task.delay(0.16,function()if not af then if ak.UIElements.FullScreen and
+ak.UIElements.FullScreen.Parent then ak.UIElements.FullScreen:Destroy()end else
+if ak.UIElements.MainContainer and ak.UIElements.MainContainer.Parent then ak.
+UIElements.MainContainer:Destroy()end end end)return function()end end return ak
+end return ae end function a.x()local aa={}local ab=a.load'e'local ad=ab.New
+local ae=ab.Tween function aa.New(af,ag,ah,ai,aj,ak,al,am)ai=ai or'Primary'local
+an=am or(not al and 7 or 999)local ao=ai=='Primary'or ai=='Destructive'local ap=
+ai=='White'local aq=ai=='Secondary'local ar=ai=='Tertiary'local as local at=ab.
+Icon(ag)if ag and ag~=''and at then as=ad('ImageLabel',{Image=at[1],
+ImageRectSize=at[2].ImageRectSize,ImageRectOffset=at[2].ImageRectPosition,Size=
+UDim2.new(0,14,0,14),BackgroundTransparency=1,ImageColor3=ap and Color3.new(0,0,
+0)or(ao and Color3.new(1,1,1)or nil),ImageTransparency=ap and 0.2 or 0,ThemeTag=
+{ImageColor3=(not ap and not ao)and'Icon'or nil}})end local au if ai=='Primary'
+then au='Primary'elseif ai=='Destructive'then au='Destructive'elseif not ap then
+au='Button'end local av=0 if aq then av=0.06 elseif ar then av=1 elseif not ao
+and not ap then av=0.88 end local aw=ad('UIScale',{Scale=1})local ax=ad(
+'UIStroke',{Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Transparency
+=ar and 1 or(ao and 0.72 or 0.82),ThemeTag={Color=ao and'White'or'Outline'}},{
+not ar and ad('UIGradient',{Rotation=90,Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(0.45,0.35),
+NumberSequenceKeypoint.new(1,0.72)}})or nil})local ay=ad('Frame',{Size=UDim2.
+new(0,0,1,0),AutomaticSize='X',Name='Frame',BorderSizePixel=0,BackgroundColor3=
+ap and Color3.new(1,1,1)or nil,BackgroundTransparency=av,ThemeTag=au and{
+BackgroundColor3=au}or nil},{ad('UICorner',{CornerRadius=UDim.new(0,an)}),ax,ad(
+'UIPadding',{PaddingLeft=UDim.new(0,12),PaddingRight=UDim.new(0,12)}),ad(
+'UIListLayout',{FillDirection='Horizontal',Padding=UDim.new(0,6),
+VerticalAlignment='Center',HorizontalAlignment='Center'}),as,ad('TextLabel',{
+BackgroundTransparency=1,FontFace=Font.new(ab.Font,Enum.FontWeight.SemiBold),
+Text=af or'Button',ThemeTag={TextColor3=(not ao and not ap)and'Text'or nil},
+TextColor3=ao and Color3.new(1,1,1)or(ap and Color3.new(0,0,0)or nil),
+AutomaticSize='XY',TextSize=13})})local az=ad('TextButton',{Size=UDim2.new(0,0,1
+,0),AutomaticSize='X',Parent=aj,BackgroundTransparency=1,Text='',AutoButtonColor
+=false},{aw,ay})local function syncInnerFillMode()local aA=az.AutomaticSize
+local aB=aA==Enum.AutomaticSize.None or aA=='None'or az.Size.X.Scale>0 or az.
+Size.X.Offset>0 if aB then ay.AutomaticSize=Enum.AutomaticSize.None ay.Size=
+UDim2.fromScale(1,1)else ay.Size=UDim2.new(0,0,1,0)ay.AutomaticSize=Enum.
+AutomaticSize.X end end ab.AddSignal(az:GetPropertyChangedSignal'AutomaticSize',
+syncInnerFillMode)ab.AddSignal(az:GetPropertyChangedSignal'Size',
+syncInnerFillMode)local aA=ar and 0.9 or(aq and 0 or(ao and 0.14 or(ap and 0.12
+or 0.8)))ab.AddSignal(az.MouseEnter,function()ae(ay,0.08,{BackgroundTransparency
+=aA}):Play()end)ab.AddSignal(az.MouseLeave,function()ae(ay,0.08,{
+BackgroundTransparency=av}):Play()ae(aw,0.1,{Scale=1},Enum.EasingStyle.Quint,
+Enum.EasingDirection.Out):Play()end)ab.AddSignal(az.MouseButton1Down,function()
+ae(aw,0.06,{Scale=0.965},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+end)ab.AddSignal(az.MouseButton1Up,function()ae(aw,0.1,{Scale=1},Enum.
+EasingStyle.Back,Enum.EasingDirection.Out):Play()end)ab.AddSignal(az.
+MouseButton1Click,function()if ak then ak:Close()()end if ah then ab.
+SafeCallback(ah)end end)return az end return aa end function a.y()local aa={}
 local ab=a.load'e'local ad=ab.New local ae=ab.Tween function aa.new(af,ag)local
 ah={Title=af.Title or'Dialog',Content=af.Content,Icon=af.Icon,IconThemed=af.
 IconThemed,Thumbnail=af.Thumbnail,Buttons=af.Buttons,IconSize=22}local ai=a.load
@@ -7036,11 +7045,12 @@ IsWorkspaceSwitcherOpen()==true local bU=aJ.KeybindMenu and not aJ.KeybindMenu.
 Destroyed and aJ.KeybindMenu.Visible==true bR=bT or bU bS=aJ.IsSearchOpen and aJ
 :IsSearchOpen()==true or false local bV=isLightTheme()if i and h then local bW=(
 aJ.GetWorkspaceCount and aJ:GetWorkspaceCount())or 1 i.Visible=bW>=2 if bW>=2
-then h.Text=bW>9 and'9+'or tostring(bW)i.BackgroundColor3=bV and Color3.fromHex
-'#1C1C1E'or Color3.fromHex'#F2F2F7'h.TextColor3=bV and Color3.fromHex'#FFFFFF'or
-Color3.fromHex'#111114'end end if aR.HubInfoOpen then aX.BackgroundColor3=Color3
-.new(1,1,1)al(aX,0.14,{BackgroundTransparency=bV and 0.06 or 0.82}):Play()if a_
-then a_.Color=bV and Color3.fromHex'#A6ACB8'or Color3.new(1,1,1)al(a_,0.14,{
+then h.Text=bW>99 and'99+'or tostring(bW)i.Size=UDim2.fromOffset(bW>99 and 19 or
+(bW>=10 and 16 or 12),12)i.BackgroundColor3=bV and Color3.fromHex'#1C1C1E'or
+Color3.fromHex'#F2F2F7'h.TextColor3=bV and Color3.fromHex'#FFFFFF'or Color3.
+fromHex'#111114'end end if aR.HubInfoOpen then aX.BackgroundColor3=Color3.new(1,
+1,1)al(aX,0.14,{BackgroundTransparency=bV and 0.06 or 0.82}):Play()if a_ then a_
+.Color=bV and Color3.fromHex'#A6ACB8'or Color3.new(1,1,1)al(a_,0.14,{
 Transparency=bV and 0.48 or 0.68}):Play()end else al(aX,0.14,{
 BackgroundTransparency=1}):Play()if a_ then al(a_,0.14,{Transparency=1}):Play()
 end end setActionBtnActive(a0,a1,b,bQ)setActionBtnActive(d,e,g,bR)
