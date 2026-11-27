@@ -323,18 +323,29 @@ Window:CreateSettingsTab({
     Title = "Hub Settings",
 })
 
--- Switch between Classic Sidebar and macOS NewForm (60 FPS Liquid Oil Bottom Navigate Bar):
+-- Switch between Classic Sidebar and macOS NewForm (Solid macOS Frosted-Glass Navigate Bar):
 Window:SetLayoutMode("NewForm")
 -- Window:SetLayoutMode("Classic")
 
 -- Optional NavBar customization inside WindUI:CreateWindow({ ... }):
+-- NavBarPosition = "Bottom",  -- "Bottom" | "Top" | "Left" | "Right"
 -- NavBar = {
---     LiquidOil = true,       -- 60 FPS thin-film iridescent Liquid Oil Glass Morph shell
---     OilIntensity = 1,       -- 0.0 .. 1.5 sheen strength
---     LiquidGlassLens = true, -- 60 FPS sliding Apple Liquid Glass lens with jelly spring physics
+--     Position = "Bottom",    -- Dock on any of the 4 screen edges ("Bottom" | "Top" | "Left" | "Right")
+--     GlassTransparency = 0,  -- 0 = solid opaque macOS frosted glass (0 .. 0.85)
+--     LiquidOil = true,       -- Subtle living frosted-glass sheen
+--     OilIntensity = 1,       -- 0.0 .. 1.4 sheen strength
+--     LiquidGlassLens = true, -- 60 FPS sliding active-tab glass pill with spring physics
 -- }
 
--- Toggle Liquid Oil shell dynamically at runtime:
+-- Move Navigate Bar across all 4 edges live at runtime (also in Settings -> Interface):
+-- Window:SetNavBarPosition("Left")    -- "Bottom" | "Top" | "Left" | "Right"
+-- Window:GetNavBarPosition()
+
+-- Universal Spotlight Search (Ctrl+K / Cmd+K or NavBar Search button):
+-- Window:OpenSearch()
+-- Window:SearchElements("walk speed")
+
+-- Toggle frosted sheen dynamically at runtime:
 -- Window.NavBar:SetLiquidOil(true)
 
 -- Select the first tab when ready:
@@ -623,18 +634,29 @@ Window:CreateSettingsTab({
     Title = "Hub Settings",
 })
 
--- Đổi qua lại giữa Classic (Sidebar) và NewForm (Liquid Oil Navigate Bar 60 FPS):
+-- Đổi qua lại giữa Classic (Sidebar) và NewForm (Navigate Bar kính mờ macOS):
 Window:SetLayoutMode("NewForm")
 -- Window:SetLayoutMode("Classic")
 
--- Tùy chỉnh hiệu ứng trong WindUI:CreateWindow({ ... }):
+-- Tùy chỉnh vị trí 4 hướng & bề mặt trong WindUI:CreateWindow({ ... }):
+-- NavBarPosition = "Bottom",  -- "Bottom" (dưới) | "Top" (trên) | "Left" (trái) | "Right" (phải)
 -- NavBar = {
---     LiquidOil = true,       -- Hiệu ứng màng dầu Liquid Oil Glass Morph 60 FPS trên vỏ bar
---     OilIntensity = 1,       -- Cường độ ánh dầu (0.0 .. 1.5)
---     LiquidGlassLens = true, -- Thanh kính lỏng Liquid Glass trượt co giãn khi chọn tab
+--     Position = "Bottom",    -- Đặt Navigate Bar ở bất kỳ cạnh nào (Bottom / Top / Left / Right)
+--     GlassTransparency = 0,  -- 0 = nền kính mờ macOS đục gọn mắt (0 .. 0.85)
+--     LiquidOil = true,       -- Hiệu ứng ánh kính mượt nhẹ trên vỏ bar
+--     OilIntensity = 1,       -- Cường độ ánh kính (0.0 .. 1.4)
+--     LiquidGlassLens = true, -- Thanh kính trượt co giãn mượt khi chọn tab
 -- }
 
--- Bật/tắt nhanh Liquid Glass lúc đang chạy:
+-- Đổi hướng Navigate Bar trực tiếp lúc đang chạy (hoặc chọn trong Settings -> Interface):
+-- Window:SetNavBarPosition("Left")    -- "Bottom" | "Top" | "Left" | "Right"
+-- Window:GetNavBarPosition()
+
+-- Mở tìm kiếm Spotlight Elements & Workspaces (Ctrl+K / Cmd+K hoặc nút 🔍 trên NavBar):
+-- Window:OpenSearch()
+-- Window:SearchElements("walk speed")
+
+-- Bật/tắt nhanh hiệu ứng kính lúc đang chạy:
 -- Window.NavBar:SetLiquidOil(true)
 
 -- Lưu ý: Mặc định khi mới mở UI sẽ vào thẳng Tab Welcome (có ảnh nền + hiệu ứng vẽ chữ "hello" kiểu iPadOS).
