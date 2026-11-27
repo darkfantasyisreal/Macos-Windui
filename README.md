@@ -1,8 +1,12 @@
+<p align="center">
+  <img src="assets/banner_intro_glass_oil.png" alt="macOS WindUI — Sequoia & Liquid Glass Edition" width="100%">
+</p>
+
 # macOS WindUI — Sequoia & Liquid Glass Edition
 
 > **Bilingual Documentation / Tài liệu Song ngữ:** [🇺🇸 English](#-english-tutorial--usage-guide) | [🇻🇳 Tiếng Việt](#-hướng-dẫn-sử-dụng-chi-tiết-tiếng-việt)
 
-A modern **macOS Sequoia / Apple Liquid Glass** UI library for Roblox scripts. Features native **Apple SF Symbols 7 (`sfsymbols:`)** + **Lucide Icons**, **Classic Sidebar** & **NewForm (System Settings + Bottom Navigate Bar)** layouts, **macOS Notification Center & Dynamic Island**, **2-Zone Mini Dock**, **Curved Edge Pull-Handles**, **3D/UI Eyedropper Colorpicker**, **Keybind Menu HUD**, and automatic **Mobile & PC scaling**.
+A modern **macOS Sequoia / Apple Liquid Glass** UI library for Roblox scripts. Features **18,273 Zero-AST packed offline icons** (**Apple SF Symbols 7**, **Lucide**, **Solar**, **Craft**, **Geist**, **Gravity**), **Classic Sidebar** & **NewForm (System Settings + 3-Island Liquid Glass Navigate Bar)** layouts, **Multi-Hub Virtual Desktop / Workspace Switcher** (`⌘` 1-tap switching with live Display UI previews & 0% idle CPU), **Sub-0.5s startup engine** (lazy Dropdowns + adaptive 60/20 FPS GPU pacing), **macOS Notification Center & Dynamic Island**, **2-Zone Mini Dock**, **Curved Edge Pull-Handles**, **3D/UI Eyedropper Colorpicker**, **Keybind Menu HUD**, and automatic **Mobile & PC scaling**.
 
 ---
 
@@ -736,6 +740,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Mac
 loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_studio_toolbox.luau"))()
 ```
 
+6. **Multi-Hub Virtual Desktop — 9 Workspaces 100% NewForm** *(Chạy đồng thời 9 Hub độc lập · Bấm 1 chạm nút `⌘` trên NavBar để mở Workspace Switcher xem Display UI preview & chuyển Hub không mất state, 0% CPU nền)*:
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/examples/newform_9_workspaces.luau"))()
+```
 
+---
 
+## Multi-Hub Virtual Desktop (`Workspace Switcher`) & Sub-0.5s Engine
 
+- **1-Tap Workspace Switcher:** Tap the `⌘` button on the NewForm `NavBar` (or Classic Topbar) to open the macOS/Windows 11 compact Workspace Switcher with live miniature Display UI previews for every running WindUI script. Right-click `⌘` or click `Keybinds` in the Switcher header to open the Keybind Menu.
+- **Solo-Active Isolation:** Only 1 Hub renders on screen at a time; background Hubs pause at **0% `RenderStepped` CPU** while preserving all toggles, flags, loops, and callbacks.
+- **Runtime APIs:**
+  - `Window:ToggleWorkspaceSwitcher()` / `WindUI:ToggleWorkspaceSwitcher()`
+  - `Window:SwitchWorkspace(idOrTitle)` / `WindUI:SwitchWorkspace(idOrTitle)`
+  - `Window:GetWorkspaces()` / `WindUI:GetWorkspaces()`
+- **Sub-0.5s Startup & Zero-Lag Mobile Optimization:** Zero-AST packed offline icon blobs (`18,273` icons, `0` GitHub HTTP icon downloads), deferred `Creator.New` parenting & memoized themes, lazy `Dropdown` option rendering on first open, and adaptive **60 FPS active / 20 FPS idle** `NavBar` GPU pacing.
