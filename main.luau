@@ -4577,32 +4577,39 @@ true,Always=true}local al={'Toggle','Hold','Always'}local am={Toggle='TGL',Hold=
 'HLD',Always='ALW'}local an={MouseLeftButton='MB1',MouseRightButton='MB2',
 MouseMiddleButton='MB3',RightShift='\u{21e7}R',LeftShift='\u{21e7}L',
 RightControl='\u{2303}R',LeftControl='\u{2303}L',RightAlt='\u{2325}R',LeftAlt=
-'\u{2325}L',Backspace='\u{232b}',Return='\u{21b5}',Space='\u{2423}'}
-local function NormalizeKeyCode(ao)if ao==nil or ao==''or ao=='None'then return
-'None'end if typeof(ao)=='EnumItem'then return ai[ao]or ao.Name elseif type(ao)
-=='string'then return aj[ao]or ao end return'F'end local function NormalizeMode(
-ao)if type(ao)=='string'and ak[ao]then return ao end return'Toggle'end
-local function FormatShortKey(ao)return an[ao]or tostring(ao or'None')end
-local function GetInputKeyName(ao)if ao.UserInputType==Enum.UserInputType.
-Keyboard then if ao.KeyCode==Enum.KeyCode.Unknown then return nil end return ao.
-KeyCode.Name end return ai[ao.UserInputType]end ag.NormalizeKeyCode=
-NormalizeKeyCode ag.NormalizeMode=NormalizeMode ag.FormatShortKey=FormatShortKey
-ag.GetInputKeyName=GetInputKeyName ag.MODE_ORDER=al ag.MODE_SHORT=am function ag
-.New(ao,ap)local aq=ap.Value~=nil and NormalizeKeyCode(ap.Value)or'F'local ar=
-NormalizeMode(ap.Mode)local as={__type='Keybind',Title=ap.Title or'Keybind',Desc
-=ap.Desc or nil,Locked=ap.Locked or false,LockedTitle=ap.LockedTitle,Value=aq,
-DefaultValue=aq,Mode=ar,DefaultMode=ar,Active=ar=='Always'or ap.Active==true,
-Callback=ap.Callback or function()end,OnStateChanged=ap.OnStateChanged,
-OnKeyChanged=ap.OnKeyChanged,CanChange=ap.CanChange~=false,AllowNone=ap.
-AllowNone~=false,AllowModeChange=ap.AllowModeChange~=false,ShowInMenu=ap.
-ShowInMenu~=false,Target=ap.Target,Blacklist=ap.Blacklist or{},Picking=false,
-UIElements={}}local at={Escape=true}for au,av in next,as.Blacklist do at[
-NormalizeKeyCode(av)]=true end local au=true local function notifyKeybindMenu()
-if ap.Window and ap.Window.UpdateKeybindMenu then ap.Window:UpdateKeybindMenu()
-end end as.KeybindFrame=a.load'J'{Title=as.Title,Desc=as.Desc,Parent=ap.Parent,
-TextOffset=as.AllowModeChange and 134 or 90,Hover=as.CanChange,Tab=ap.Tab,Index=
-ap.Index,Window=ap.Window,ElementTable=as,ParentConfig=ap,Tags=ap.Tags}local av=
-ae('Frame',{Name='KeybindControls',AutomaticSize='X',Size=UDim2.new(0,0,0,26),
+'\u{2325}L',RightMeta='\u{2318}R',LeftMeta='\u{2318}L',RightSuper='\u{2318}R',
+LeftSuper='\u{2318}L',Backspace='\u{232b}',Delete='Del',Return='\u{21b5}',Space=
+'\u{2423}',Tab='Tab',Escape='Esc',CapsLock='Caps',Up='\u{2191}',Down='\u{2193}',
+Left='\u{2190}',Right='\u{2192}',PageUp='PgUp',PageDown='PgDn',Home='Home',End=
+'End',Insert='Ins',Zero='0',One='1',Two='2',Three='3',Four='4',Five='5',Six='6',
+Seven='7',Eight='8',Nine='9',Minus='-',Equals='=',LeftBracket='[',RightBracket=
+']',BackSlash='\\',Semicolon=';',Quote="'",Comma=',',Period='.',Slash='/',
+Backquote='`'}local function NormalizeKeyCode(ao)if ao==nil or ao==''or ao==
+'None'then return'None'end if typeof(ao)=='EnumItem'then return ai[ao]or ao.Name
+elseif type(ao)=='string'then return aj[ao]or ao end return'F'end local function
+NormalizeMode(ao)if type(ao)=='string'and ak[ao]then return ao end return
+'Toggle'end local function FormatShortKey(ao)return an[ao]or tostring(ao or
+'None')end local function GetInputKeyName(ao)if ao.UserInputType==Enum.
+UserInputType.Keyboard then if ao.KeyCode==Enum.KeyCode.Unknown then return nil
+end return ao.KeyCode.Name end return ai[ao.UserInputType]end ag.
+NormalizeKeyCode=NormalizeKeyCode ag.NormalizeMode=NormalizeMode ag.
+FormatShortKey=FormatShortKey ag.GetInputKeyName=GetInputKeyName ag.MODE_ORDER=
+al ag.MODE_SHORT=am function ag.New(ao,ap)local aq=ap.Value~=nil and
+NormalizeKeyCode(ap.Value)or'F'local ar=NormalizeMode(ap.Mode)local as={__type=
+'Keybind',Title=ap.Title or'Keybind',Desc=ap.Desc or nil,Locked=ap.Locked or
+false,LockedTitle=ap.LockedTitle,Value=aq,DefaultValue=aq,Mode=ar,DefaultMode=ar
+,Active=ar=='Always'or ap.Active==true,Callback=ap.Callback or function()end,
+OnStateChanged=ap.OnStateChanged,OnKeyChanged=ap.OnKeyChanged,CanChange=ap.
+CanChange~=false,AllowNone=ap.AllowNone~=false,AllowModeChange=ap.
+AllowModeChange~=false,ShowInMenu=ap.ShowInMenu~=false,Target=ap.Target,
+Blacklist=ap.Blacklist or{},Picking=false,UIElements={}}local at={Escape=true}
+for au,av in next,as.Blacklist do at[NormalizeKeyCode(av)]=true end local au=
+true local function notifyKeybindMenu()if ap.Window and ap.Window.
+UpdateKeybindMenu then ap.Window:UpdateKeybindMenu()end end as.KeybindFrame=a.
+load'J'{Title=as.Title,Desc=as.Desc,Parent=ap.Parent,TextOffset=as.
+AllowModeChange and 134 or 90,Hover=as.CanChange,Tab=ap.Tab,Index=ap.Index,
+Window=ap.Window,ElementTable=as,ParentConfig=ap,Tags=ap.Tags}local av=ae(
+'Frame',{Name='KeybindControls',AutomaticSize='X',Size=UDim2.new(0,0,0,26),
 AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),
 BackgroundTransparency=1,Parent=as.KeybindFrame.UIElements.Content or as.
 KeybindFrame.UIElements.Main},{ae('UIListLayout',{FillDirection='Horizontal',
@@ -8717,164 +8724,283 @@ function()a0:CaptureFocus()end)end)ag.AddSignal(a0:GetPropertyChangedSignal
 bb and not aI and#aK>0 and aK[aL]then executeItem(aK[aL].Item)end end)aB:Open()
 return aB end return af end function a.ar()local aa={}local ae=a.load'e'local af
 =ae.New local ag=ae.Tween local ah=a.load'N'local aj=ah.FormatShortKey local ak=
-ah.MODE_SHORT local al=30 local am=230 function aa.New(an,ao,ap)ap=typeof(ap)==
-'table'and ap or{}local aq={Title=ap.Title or'Keybinds',Visible=ap.Visible~=
-false and ap.Enabled~=false,ShowOnlyActive=ap.ShowOnlyActive==true,ShowToggleKey
-=ap.ShowToggleKey~=false,Collapsed=ap.Collapsed==true,Width=ap.Width or 256,
-Position=ap.Position or UDim2.new(0,20,0.35,0),UIElements={},Destroyed=false}
-local ar={}local function trackConn(as)if as then table.insert(ar,as)end return
-as end local as=ae.Icon'keyboard'local at=ae.Icon'chevron-up'local au=af(
-'TextLabel',{Name='Count',AutomaticSize='X',Size=UDim2.new(0,0,0,18),ThemeTag={
-BackgroundColor3='Primary',TextColor3='Primary'},BackgroundTransparency=0.84,
-Text='0/0',TextSize=11,FontFace=Font.new(ae.Font,Enum.FontWeight.SemiBold),
-LayoutOrder=3},{af('UICorner',{CornerRadius=UDim.new(1,0)}),af('UIPadding',{
-PaddingLeft=UDim.new(0,6),PaddingRight=UDim.new(0,6)})})local av=af('TextButton'
-,{Name='FilterBtn',AutomaticSize='X',Size=UDim2.new(0,0,0,20),ThemeTag={
-BackgroundColor3='Text',TextColor3='Text'},BackgroundTransparency=0.91,
-TextTransparency=0.15,AutoButtonColor=false,Text=aq.ShowOnlyActive and'Active'or
-'All',TextSize=11,FontFace=Font.new(ae.Font,Enum.FontWeight.Medium),LayoutOrder=
-1},{af('UICorner',{CornerRadius=UDim.new(1,0)}),af('UIPadding',{PaddingLeft=UDim
-.new(0,8),PaddingRight=UDim.new(0,8)})})local aw=af('ImageLabel',{Image=at and
-at[1]or'',ImageRectSize=at and at[2]and at[2].ImageRectSize or Vector2.zero,
-ImageRectOffset=at and at[2]and at[2].ImageRectPosition or Vector2.zero,Size=
-UDim2.new(0,14,0,14),Position=UDim2.new(0.5,0,0.5,0),AnchorPoint=Vector2.new(0.5
-,0.5),BackgroundTransparency=1,ImageTransparency=0.25,ThemeTag={ImageColor3=
-'Icon'},Rotation=aq.Collapsed and 180 or 0})local ax=af('TextButton',{Name=
-'CollapseBtn',Size=UDim2.new(0,22,0,22),ThemeTag={BackgroundColor3='Text'},
-BackgroundTransparency=0.92,AutoButtonColor=false,Text='',LayoutOrder=2},{af(
-'UICorner',{CornerRadius=UDim.new(1,0)}),aw})local ay=af('Frame',{Name='Header',
-Size=UDim2.new(1,0,0,38),BackgroundTransparency=1,Active=true,ZIndex=2},{af(
-'Frame',{Name='Left',Size=UDim2.new(1,-86,1,0),Position=UDim2.new(0,12,0,0),
-BackgroundTransparency=1},{af('UIListLayout',{FillDirection='Horizontal',
-VerticalAlignment='Center',SortOrder='LayoutOrder',Padding=UDim.new(0,7)}),af(
-'ImageLabel',{Name='Icon',Image=as and as[1]or'',ImageRectSize=as and as[2]and
-as[2].ImageRectSize or Vector2.zero,ImageRectOffset=as and as[2]and as[2].
-ImageRectPosition or Vector2.zero,Size=UDim2.new(0,15,0,15),
-BackgroundTransparency=1,ImageColor3=Color3.fromHex'#0A84FF',LayoutOrder=1}),af(
-'TextLabel',{Name='Title',AutomaticSize='X',Size=UDim2.new(0,0,1,0),
-BackgroundTransparency=1,Text=aq.Title,TextSize=13,TextXAlignment='Left',
-FontFace=Font.new(ae.Font,Enum.FontWeight.SemiBold),ThemeTag={TextColor3='Text'}
-,LayoutOrder=2}),au}),af('Frame',{Name='Right',AutomaticSize='X',Size=UDim2.new(
-0,0,1,0),Position=UDim2.new(1,-10,0,0),AnchorPoint=Vector2.new(1,0),
-BackgroundTransparency=1},{af('UIListLayout',{FillDirection='Horizontal',
-VerticalAlignment='Center',HorizontalAlignment='Right',SortOrder='LayoutOrder',
-Padding=UDim.new(0,5)}),av,ax})})local az=af('Frame',{Name='Divider',Size=UDim2.
-new(1,-16,0,1),Position=UDim2.new(0.5,0,0,38),AnchorPoint=Vector2.new(0.5,0),
-BorderSizePixel=0,BackgroundTransparency=0.88,ZIndex=2,ThemeTag={
-BackgroundColor3='WindowDivider'},Visible=not aq.Collapsed})local aA=af(
-'ScrollingFrame',{Name='List',Size=UDim2.new(1,0,0,36),Position=UDim2.new(0,0,0,
-40),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=2,
-ScrollBarImageTransparency=0.65,CanvasSize=UDim2.new(0,0,0,0),
-AutomaticCanvasSize='Y',ScrollingDirection='Y',ClipsDescendants=true,ZIndex=2,
-Visible=not aq.Collapsed},{af('UIPadding',{PaddingTop=UDim.new(0,5),
-PaddingBottom=UDim.new(0,7),PaddingLeft=UDim.new(0,8),PaddingRight=UDim.new(0,8)
-}),af('UIListLayout',{SortOrder='LayoutOrder',Padding=UDim.new(0,4)})})local aB=
-af('UIScale',{Scale=aq.Visible and 1 or 0.94})local aC=af('Frame',{Name=
-'Backdrop',Size=UDim2.new(1,0,1,0),BackgroundTransparency=0.08,BorderSizePixel=0
-,ZIndex=1,ThemeTag={BackgroundColor3='WindowBackground'}},{af('UICorner',{
-CornerRadius=UDim.new(0,15)}),af('UIGradient',{Rotation=90,Color=ColorSequence.
-new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,255,255)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(228,232,240))}})})local aD=af(
-'CanvasGroup',{Name='WindUI_KeybindMenu',Size=UDim2.new(0,aq.Width,0,78),
-Position=aq.Position,BackgroundTransparency=1,GroupColor3=Color3.new(1,1,1),
-GroupTransparency=aq.Visible and 0 or 1,Visible=aq.Visible,Active=true,ZIndex=
-115,Parent=ap.Parent or ao.ScreenGui},{af('UICorner',{CornerRadius=UDim.new(0,15
-)}),af('UIStroke',{Thickness=1,Transparency=0.82,ThemeTag={Color='WindowBorder'}
-}),aB,aC,ay,az,aA})aq.UIElements.Root=aD aq.UIElements.Header=ay aq.UIElements.
-List=aA local aE=ae.Drag(aD,{ay},function(aE)if not aE then aq.Position=aD.
-Position end end)local function clearListRows()for aF,aG in ipairs(aA:
-GetChildren())do if aG:IsA'GuiObject'then aG:Destroy()end end end local function
-createRow(aF)local aG=aF.Active==true local aH=aF.Picking==true local aI=af(
-'Frame',{Name='KeybindRow',Size=UDim2.new(1,0,0,al),BackgroundTransparency=aG
-and 0.86 or 0.95,LayoutOrder=aF.Order or 1,ThemeTag={BackgroundColor3=aG and
-'Primary'or'Text'},Parent=aA},{af('UICorner',{CornerRadius=UDim.new(0,9)}),af(
-'UIPadding',{PaddingLeft=UDim.new(0,8),PaddingRight=UDim.new(0,6)})})af('Frame',
-{Name='Dot',Size=UDim2.new(0,6,0,6),Position=UDim2.new(0,0,0.5,0),AnchorPoint=
-Vector2.new(0,0.5),BackgroundColor3=aG and Color3.fromHex'#30D158'or Color3.
-fromHex'#8E8E93',BackgroundTransparency=aG and 0 or 0.35,Parent=aI},{af(
-'UICorner',{CornerRadius=UDim.new(1,0)})})local aJ=af('Frame',{Name='Right',
-AutomaticSize='X',Size=UDim2.new(0,0,1,0),Position=UDim2.new(1,0,0.5,0),
-AnchorPoint=Vector2.new(1,0.5),BackgroundTransparency=1,Parent=aI},{af(
-'UIListLayout',{FillDirection='Horizontal',VerticalAlignment='Center',
-HorizontalAlignment='Right',SortOrder='LayoutOrder',Padding=UDim.new(0,4)})})
-local aK=af('TextButton',{Name='TitleBtn',Size=UDim2.new(1,aF.CanClear and-118
-or-98,1,0),Position=UDim2.new(0,12,0,0),BackgroundTransparency=1,AutoButtonColor
-=false,Text=tostring(aF.Title or'Keybind'),TextSize=12,TextXAlignment='Left',
-TextTruncate='AtEnd',TextTransparency=aG and 0 or 0.28,FontFace=Font.new(ae.Font
-,aG and Enum.FontWeight.SemiBold or Enum.FontWeight.Medium),ThemeTag={TextColor3
-='Text'},Parent=aI})if aF.OnToggle then aK.MouseButton1Click:Connect(function()
-aF.OnToggle()end)end if aF.ModeText then local aL=af('TextButton',{Name=
-'ModePill',Size=UDim2.new(0,32,0,20),BackgroundTransparency=0.91,AutoButtonColor
-=false,Text=aF.ModeText,TextSize=10,TextTransparency=aG and 0 or 0.32,FontFace=
-Font.new(ae.Font,Enum.FontWeight.SemiBold),LayoutOrder=1,ThemeTag={
-BackgroundColor3='Text',TextColor3=aG and'Primary'or'Text'},Parent=aJ},{af(
-'UICorner',{CornerRadius=UDim.new(0,6)})})if aF.OnCycleMode then aL.
-MouseButton1Click:Connect(function()aF.OnCycleMode()end)end end local aL=aH and
-'...'or aj(aF.KeyText)local aM=af('TextButton',{Name='KeyPill',AutomaticSize='X'
-,Size=UDim2.new(0,28,0,20),BackgroundTransparency=aH and 0.12 or 0.14,
-AutoButtonColor=false,Text=aL,TextSize=11,FontFace=Font.new(ae.Font,Enum.
-FontWeight.SemiBold),LayoutOrder=2,ThemeTag={BackgroundColor3=aH and'Primary'or
-'ElementBackground',TextColor3=aH and'White'or'Text'},Parent=aJ},{af('UICorner',
-{CornerRadius=UDim.new(0,6)}),af('UIStroke',{Transparency=aH and 0.2 or 0.84,
-Thickness=1,ThemeTag={Color=aH and'Primary'or'ElementBorder'}}),af('UIPadding',{
-PaddingLeft=UDim.new(0,6),PaddingRight=UDim.new(0,6)})})if aF.OnRebind then aM.
-MouseButton1Click:Connect(function()aF.OnRebind()end)end if aF.CanClear and aF.
-OnClear then local aN=af('TextButton',{Name='ClearBtn',Size=UDim2.new(0,18,0,18)
-,BackgroundTransparency=0.92,AutoButtonColor=false,Text='\u{d7}',TextSize=12,
-TextTransparency=0.35,FontFace=Font.new(ae.Font,Enum.FontWeight.Bold),
-LayoutOrder=3,ThemeTag={BackgroundColor3='Text',TextColor3='Text'},Parent=aJ},{
-af('UICorner',{CornerRadius=UDim.new(1,0)})})aN.MouseButton1Click:Connect(
-function()aF.OnClear()end)end return aI end function aq.Refresh(aF)if aq.
-Destroyed then return end clearListRows()local aG=0 local aH=0 local aI=0 local
-aJ=0 if aq.ShowToggleKey and an and an.ToggleKey then local aK=typeof(an.
-ToggleKey)=='EnumItem'and an.ToggleKey.Name or tostring(an.ToggleKey)if aK~=''
-and aK~='None'then aJ=aJ+1 aI=aI+1 createRow{Order=aJ,Title='Menu Toggle',
-KeyText=aK,ModeText='UI',Active=not an.Closed,OnToggle=function()if an.Toggle
-then an:Toggle()end end}end end local aK=(an and an.Keybinds)or{}for aL,aM in
-ipairs(aK)do if aM and aM.ShowInMenu~=false then aG=aG+1 local aN=aM.GetState
-and aM:GetState()or aM.Active==true if aN then aH=aH+1 end local aO=(not aq.
-ShowOnlyActive)or aN or aM.Picking if aO then aJ=aJ+1 aI=aI+1 createRow{Order=aJ
-,Title=aM.Title or'Keybind',KeyText=aM.Value or'None',ModeText=ak[aM.Mode]or
-'TGL',Active=aN,Picking=aM.Picking,CanClear=aM.AllowNone~=false and aM.Value~=
-'None'and aM.CanChange~=false,OnToggle=function()if aM.SetState and not aM.
-Locked then aM:SetState(not aN,true)end end,OnCycleMode=aM.AllowModeChange~=
-false and function()if aM.CycleMode and not aM.Locked then aM:CycleMode()end end
-or nil,OnRebind=aM.CanChange~=false and function()if aM.StartPicking and not aM.
-Locked then aM:StartPicking()end end or nil,OnClear=function()if aM.Clear and
-not aM.Locked then aM:Clear()end end}end end end if aI==0 then af('TextLabel',{
-Name='EmptyHint',Size=UDim2.new(1,0,0,26),BackgroundTransparency=1,Text=aq.
-ShowOnlyActive and'No active keybinds'or'No keybinds registered',TextSize=12,
-TextTransparency=0.45,FontFace=Font.new(ae.Font,Enum.FontWeight.Medium),ThemeTag
-={TextColor3='Text'},Parent=aA})aI=1 end au.Text=tostring(aH)..'/'..tostring(aG)
-av.Text=aq.ShowOnlyActive and'Active'or'All'local aL=math.min((aI*al)+math.max(
-aI-1,0)*4+14,am)aA.Size=UDim2.new(1,0,0,aL)local aM=aq.Collapsed and 38 or(40+aL
-)ag(aD,0.22,{Size=UDim2.new(0,aq.Width,0,aM)},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()end function aq.SetCollapsed(aF,aG)aq.Collapsed=aG
-and true or false az.Visible=not aq.Collapsed aA.Visible=not aq.Collapsed ag(aw,
-0.2,{Rotation=aq.Collapsed and 180 or 0},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()aq:Refresh()end function aq.SetShowOnlyActive(aF,aG)
-aq.ShowOnlyActive=aG and true or false aq:Refresh()end function aq.SetVisible(aF
-,aG)if aq.Destroyed then return end aq.Visible=aG and true or false if aq.
-Visible then aD.Visible=true aq:Refresh()ag(aD,0.24,{GroupTransparency=0},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ag(aB,0.28,{Scale=1},Enum.
-EasingStyle.Back,Enum.EasingDirection.Out):Play()else ag(aD,0.2,{
-GroupTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ag(
-aB,0.2,{Scale=0.94},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()task.
-spawn(function()task.wait(0.22)if not aq.Visible and not aq.Destroyed then aD.
-Visible=false end end)end end function aq.Show(aF)aq:SetVisible(true)end
-function aq.Open(aF)aq:SetVisible(true)end function aq.Hide(aF)aq:SetVisible(
-false)end function aq.Close(aF)aq:SetVisible(false)end function aq.Toggle(aF)aq:
-SetVisible(not aq.Visible)return aq.Visible end function aq.SetPosition(aF,aG)if
-typeof(aG)=='UDim2'then aq.Position=aG aD.Position=aG end end function aq.
-Destroy(aF)if aq.Destroyed then return end aq.Destroyed=true for aG=#ar,1,-1 do
-pcall(function()ar[aG]:Disconnect()end)end table.clear(ar)if aE and aE.Destroy
-then aE:Destroy()end if aD and aD.Parent then aD:Destroy()end end trackConn(av.
-MouseButton1Click:Connect(function()aq:SetShowOnlyActive(not aq.ShowOnlyActive)
-end))trackConn(ax.MouseButton1Click:Connect(function()aq:SetCollapsed(not aq.
-Collapsed)end))aq:Refresh()return aq end return aa end function a.as()local aa={
-}local ae=(cloneref or clonereference or function(ae)return ae end)local af=ae(
-game:GetService'RunService')local ag=a.load'e'local ah=ag.New local aj=ag.Tween
-local ak=
+ah.MODE_SHORT local al='rbxassetid://8992230677'local am=Rect.new(99,99,99,99)
+local an=204 local ao=28 local ap=23 local aq=2 local ar=4 local as=5 local at=
+186 local au=11 local av=Color3.fromHex'#30D158'local aw=Color3.fromHex'#8E8E93'
+local function isLightTheme()if ae.IsThemeDark then return not ae.IsThemeDark(ae
+.Theme)end local ax=string.lower(tostring(ae.Theme or''))return string.find(ax,
+'light',1,true)~=nil end local function resolveMacPanelBaseColor(ax)local ay=ax
+and Color3.fromHex'#F4F5F9'or Color3.fromHex'#1A1B20'local az if ae.
+GetThemeProperty and ae.Theme then local aA=ae.GetThemeProperty(
+'WindowBackground',ae.Theme)if typeof(aA)=='Color3'then az=aA else local aB=ae.
+GetThemeProperty('Background',ae.Theme)if typeof(aB)=='Color3'then az=aB end end
+end if typeof(az)=='Color3'then local aA=ay:Lerp(az,ax and 0.16 or 0.24)if ax
+then return Color3.new(math.clamp(aA.R,0.9,0.98),math.clamp(aA.G,0.91,0.98),math
+.clamp(aA.B,0.93,0.99))else return Color3.new(math.clamp(aA.R,0.08,0.16),math.
+clamp(aA.G,0.08,0.16),math.clamp(aA.B,0.1,0.19))end end return ay end
+local function resolvePrimaryColor(ax)if ae.GetThemeProperty and ae.Theme then
+local ay=ae.GetThemeProperty('Primary',ae.Theme)if typeof(ay)=='Color3'then
+return ay end end return ax and Color3.fromHex'#007AFF'or Color3.fromHex
+'#0A84FF'end local function resolveIcon(ax,ay)local az=ae.Icon(ax)if az and
+type(az[1])=='string'and az[1]~=''then return az end return ae.Icon(ay)end
+local function iconImageProps(ax)local ay=ax and ax[2]return ax and ax[1]or'',ay
+and ay.ImageRectSize or Vector2.zero,ay and ay.ImageRectPosition or Vector2.zero
+end local function createHeaderIconButton(ax,ay,az,aA,aB)local aC,aD,aE=
+iconImageProps(ay)local aF=af('ImageLabel',{Name='Icon',Image=aC,ImageRectSize=
+aD,ImageRectOffset=aE,Size=UDim2.fromOffset(az,az),Position=UDim2.fromScale(0.5,
+0.5),AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,ImageTransparency
+=0.28,Rotation=aB or 0})local aG=af('TextButton',{Name=ax,Size=UDim2.fromOffset(
+18,18),BackgroundTransparency=1,AutoButtonColor=false,Text='',LayoutOrder=aA},{
+af('UICorner',{CornerRadius=UDim.new(0,5)}),aF})return aG,aF end function aa.New
+(ax,ay,az)az=typeof(az)=='table'and az or{}local aA={Title=az.Title or'Keybinds'
+,Visible=az.Visible~=false and az.Enabled~=false,ShowOnlyActive=az.
+ShowOnlyActive==true,ShowToggleKey=az.ShowToggleKey~=false,Collapsed=az.
+Collapsed==true,Width=az.Width or an,Position=az.Position or UDim2.new(0,20,0.35
+,0),UIElements={},Destroyed=false}local aB={}local function trackConn(aC)if aC
+then table.insert(aB,aC)end return aC end local aC=resolveIcon(
+'sfsymbols:command','keyboard')local aD=resolveIcon('sfsymbols:chevronUp',
+'chevron-up')local aE=resolveIcon('sfsymbols:xmark','x')local aF,aG,aH=
+iconImageProps(aC)local aI=af('ImageLabel',{Name='Icon',Image=aF,ImageRectSize=
+aG,ImageRectOffset=aH,Size=UDim2.fromOffset(11,11),BackgroundTransparency=1,
+ImageTransparency=0.24,LayoutOrder=1})local aJ=af('TextLabel',{Name='Title',
+AutomaticSize='X',Size=UDim2.new(0,0,1,0),BackgroundTransparency=1,Text=aA.Title
+,TextSize=11.5,TextXAlignment='Left',FontFace=Font.new(ae.Font,Enum.FontWeight.
+SemiBold),LayoutOrder=2})local aK=af('TextLabel',{Name='Count',AutomaticSize='X'
+,Size=UDim2.new(0,0,1,0),BackgroundTransparency=1,Text='0/0',TextSize=10,
+TextTransparency=0.48,TextXAlignment='Left',FontFace=Font.new(ae.Font,Enum.
+FontWeight.Medium),LayoutOrder=3})local aL=af('TextButton',{Name='FilterBtn',
+AutomaticSize='X',Size=UDim2.fromOffset(0,18),BackgroundTransparency=1,
+TextTransparency=0.42,AutoButtonColor=false,Text=aA.ShowOnlyActive and'Active'or
+'All',TextSize=10,FontFace=Font.new(ae.Font,aA.ShowOnlyActive and Enum.
+FontWeight.SemiBold or Enum.FontWeight.Medium),LayoutOrder=1},{af('UICorner',{
+CornerRadius=UDim.new(0,5)}),af('UIPadding',{PaddingLeft=UDim.new(0,5),
+PaddingRight=UDim.new(0,5)})})local aM,aN=createHeaderIconButton('CollapseBtn',
+aD,10,2,aA.Collapsed and 180 or 0)local aO,aP=createHeaderIconButton('CloseBtn',
+aE,9,3,0)local aQ=af('Frame',{Name='Left',Size=UDim2.new(1,-86,1,0),Position=
+UDim2.new(0,9,0,0),BackgroundTransparency=1,ClipsDescendants=true},{af(
+'UIListLayout',{FillDirection='Horizontal',VerticalAlignment='Center',SortOrder=
+'LayoutOrder',Padding=UDim.new(0,5)}),aI,aJ,aK})local aR=af('Frame',{Name=
+'Right',AutomaticSize='X',Size=UDim2.new(0,0,1,0),Position=UDim2.new(1,-6,0,0),
+AnchorPoint=Vector2.new(1,0),BackgroundTransparency=1},{af('UIListLayout',{
+FillDirection='Horizontal',VerticalAlignment='Center',HorizontalAlignment=
+'Right',SortOrder='LayoutOrder',Padding=UDim.new(0,2)}),aL,aM,aO})local aS=af(
+'Frame',{Name='Header',Size=UDim2.new(1,0,0,ao),BackgroundTransparency=1,Active=
+true,ZIndex=3},{aQ,aR})local aT=af('Frame',{Name='Divider',Size=UDim2.new(1,-12,
+0,1),Position=UDim2.new(0.5,0,0,ao),AnchorPoint=Vector2.new(0.5,0),
+BorderSizePixel=0,BackgroundTransparency=0.9,ZIndex=3,Visible=not aA.Collapsed})
+local aU=af('ScrollingFrame',{Name='List',Size=UDim2.new(1,0,0,32),Position=
+UDim2.new(0,0,0,ao+1),BackgroundTransparency=1,BorderSizePixel=0,
+ScrollBarThickness=2,ScrollBarImageTransparency=0.65,CanvasSize=UDim2.new(0,0,0,
+0),AutomaticCanvasSize='Y',ScrollingDirection='Y',ClipsDescendants=true,ZIndex=3
+,Visible=not aA.Collapsed},{af('UIPadding',{PaddingTop=UDim.new(0,ar),
+PaddingBottom=UDim.new(0,as),PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5
+)}),af('UIListLayout',{SortOrder='LayoutOrder',Padding=UDim.new(0,aq)})})local
+aV=af('UIGradient',{Rotation=90})local aW=af('Frame',{Name='SurfaceFrost',Size=
+UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0
+,BorderSizePixel=0,ZIndex=1},{af('UICorner',{CornerRadius=UDim.new(0,au)}),aV})
+local aX=af('Frame',{Name='TopMeniscus',Size=UDim2.new(1,-20,0,1),Position=UDim2
+.new(0.5,0,0,0),AnchorPoint=Vector2.new(0.5,0),BackgroundColor3=Color3.new(1,1,1
+),BackgroundTransparency=0.56,BorderSizePixel=0,ZIndex=2},{af('UIGradient',{
+Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,1),
+NumberSequenceKeypoint.new(0.18,0),NumberSequenceKeypoint.new(0.82,0),
+NumberSequenceKeypoint.new(1,1)}})})local aZ=af('UIGradient',{Rotation=90})local
+a_=af('UIStroke',{Name='OpticalRim',Thickness=1,Transparency=0.18,
+ApplyStrokeMode=Enum.ApplyStrokeMode.Border},{aZ})local a0=af('Frame',{Name=
+'Surface',Size=UDim2.fromScale(1,1),BackgroundTransparency=0.12,BorderSizePixel=
+0,ClipsDescendants=true,ZIndex=1},{af('UICorner',{CornerRadius=UDim.new(0,au)}),
+a_,aW,aX,aS,aT,aU})local a2=af('ImageLabel',{Name='Shadow',Image=al,ScaleType=
+Enum.ScaleType.Slice,SliceCenter=am,Size=UDim2.new(1,28,1,28),Position=UDim2.
+new(0.5,0,0.5,4),AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,
+ImageColor3=Color3.new(0,0,0),ImageTransparency=0.58,ZIndex=0})local a3=af(
+'UIScale',{Scale=aA.Visible and 1 or 0.94})local a5=af('Frame',{Name=
+'WindUI_KeybindMenu',Size=UDim2.fromOffset(aA.Width,ao),Position=aA.Position,
+BackgroundTransparency=1,ClipsDescendants=false,Visible=aA.Visible,Active=true,
+ZIndex=115,Parent=az.Parent or ay.ScreenGui},{a3,a2,a0})aA.UIElements.Root=a5 aA
+.UIElements.Surface=a0 aA.UIElements.Shadow=a2 aA.UIElements.Header=aS aA.
+UIElements.List=aU aA.UIElements.FilterButton=aL aA.UIElements.CollapseButton=aM
+aA.UIElements.CloseButton=aO local a6=ae.Drag(a5,{aS},function(a6)if not a6 then
+aA.Position=a5.Position end end)local function syncHeaderLeftWidth()local a7=aR.
+AbsoluteSize.X local a8=(a7>0 and a7 or 70)+18 aQ.Size=UDim2.new(1,-a8,1,0)end
+trackConn(aR:GetPropertyChangedSignal'AbsoluteSize':Connect(syncHeaderLeftWidth)
+)local function getThemeOpacities(a7)return a7 and 0.08 or 0.12,a7 and 0.8 or
+0.58,a7 and 0.22 or 0.18,a7 and 0.2 or 0.56 end local function
+updateFilterButtonVisual(a7)local a8=isLightTheme()local a9=resolvePrimaryColor(
+a8)local b=a8 and Color3.fromHex'#1D1D1F'or Color3.fromHex'#F2F3F7'local ba=a8
+and Color3.new(0,0,0)or Color3.new(1,1,1)aL.Text=aA.ShowOnlyActive and'Active'or
+'All'aL.FontFace=Font.new(ae.Font,aA.ShowOnlyActive and Enum.FontWeight.SemiBold
+or Enum.FontWeight.Medium)if aA.ShowOnlyActive then aL.BackgroundColor3=a9 aL.
+BackgroundTransparency=a7 and 0.82 or 0.88 aL.TextColor3=a9 aL.TextTransparency=
+0.04 else aL.BackgroundColor3=ba aL.BackgroundTransparency=a7 and(a8 and 0.92 or
+0.9)or 1 aL.TextColor3=b aL.TextTransparency=a7 and 0.16 or 0.44 end end
+local function bindIconHover(a7,a8)trackConn(a7.MouseEnter:Connect(function()
+local a9=isLightTheme()a7.BackgroundColor3=a9 and Color3.new(0,0,0)or Color3.
+new(1,1,1)ag(a7,0.1,{BackgroundTransparency=a9 and 0.92 or 0.9}):Play()ag(a8,0.1
+,{ImageTransparency=0.04}):Play()end))trackConn(a7.MouseLeave:Connect(function()
+ag(a7,0.12,{BackgroundTransparency=1}):Play()ag(a8,0.12,{ImageTransparency=0.28}
+):Play()end))end bindIconHover(aM,aN)bindIconHover(aO,aP)trackConn(aL.MouseEnter
+:Connect(function()updateFilterButtonVisual(true)end))trackConn(aL.MouseLeave:
+Connect(function()updateFilterButtonVisual(false)end))local function
+applySurfaceTheme(a7)if aA.Destroyed then return end local a8=isLightTheme()
+local a9,b,ba,bb=getThemeOpacities(a8)local bc=a8 and Color3.fromHex'#1D1D1F'or
+Color3.fromHex'#F5F5F7'local bd=a8 and Color3.fromHex'#3A3A40'or Color3.fromHex
+'#DCDFE8'a0.BackgroundColor3=resolveMacPanelBaseColor(a8)if aA.Visible then a0.
+BackgroundTransparency=a9 a2.ImageTransparency=b a_.Transparency=ba aX.
+BackgroundTransparency=bb end if a8 then aV.Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
+0.55,Color3.fromHex'#EEF1F7'),ColorSequenceKeypoint.new(1,Color3.fromHex
+'#FFFFFF')}aV.Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.46)
+,NumberSequenceKeypoint.new(0.42,0.9),NumberSequenceKeypoint.new(0.85,0.95),
+NumberSequenceKeypoint.new(1,0.82)}aX.BackgroundColor3=Color3.new(1,1,1)a_.Color
+=Color3.new(1,1,1)aZ.Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.
+fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.5,Color3.fromHex'#A8AFBC'),
+ColorSequenceKeypoint.new(1,Color3.fromHex'#C8CEDB')}aZ.Transparency=
+NumberSequence.new{NumberSequenceKeypoint.new(0,0.16),NumberSequenceKeypoint.
+new(0.5,0.6),NumberSequenceKeypoint.new(1,0.44)}aT.BackgroundColor3=Color3.new(0
+,0,0)aT.BackgroundTransparency=0.9 aU.ScrollBarImageColor3=Color3.fromHex
+'#6E6E73'else aV.Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.
+fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.45,Color3.fromHex'#E6ECF8'),
+ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF')}aV.Transparency=
+NumberSequence.new{NumberSequenceKeypoint.new(0,0.93),NumberSequenceKeypoint.
+new(0.28,0.985),NumberSequenceKeypoint.new(0.78,1),NumberSequenceKeypoint.new(1,
+0.98)}aX.BackgroundColor3=Color3.new(1,1,1)a_.Color=Color3.new(1,1,1)aZ.Color=
+ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),
+ColorSequenceKeypoint.new(0.5,Color3.fromHex'#9DA3B2'),ColorSequenceKeypoint.
+new(1,Color3.fromHex'#D5DBE8')}aZ.Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.38),NumberSequenceKeypoint.new(0.5,0.84),
+NumberSequenceKeypoint.new(1,0.66)}aT.BackgroundColor3=Color3.new(1,1,1)aT.
+BackgroundTransparency=0.91 aU.ScrollBarImageColor3=Color3.fromHex'#AEAEB2'end
+aI.ImageColor3=bd aJ.TextColor3=bc aK.TextColor3=bd aN.ImageColor3=bd aP.
+ImageColor3=bd updateFilterButtonVisual(false)if not a7 then aA:Refresh(true)end
+end local function clearListRows()for a7,a8 in ipairs(aU:GetChildren())do if a8:
+IsA'GuiObject'then a8:Destroy()end end end local function createRow(a7,a8,a9)
+local b=a7.Active==true local ba=a7.Picking==true local bb=not ba and(a7.KeyText
+==nil or a7.KeyText==''or a7.KeyText=='None')local bc=a8 and Color3.fromHex
+'#141416'or Color3.fromHex'#F5F5F7'local bd=a8 and Color3.new(0,0,0)or Color3.
+new(1,1,1)local be=a8 and 0.93 or 0.92 local bf=af('Frame',{Name='KeybindRow',
+Size=UDim2.new(1,0,0,ap),BackgroundColor3=bd,BackgroundTransparency=1,
+LayoutOrder=a7.Order or 1,Parent=aU},{af('UICorner',{CornerRadius=UDim.new(0,6)}
+),af('UIPadding',{PaddingLeft=UDim.new(0,6),PaddingRight=UDim.new(0,4)})})bf.
+MouseEnter:Connect(function()ag(bf,0.09,{BackgroundTransparency=be}):Play()end)
+bf.MouseLeave:Connect(function()ag(bf,0.12,{BackgroundTransparency=1}):Play()end
+)af('Frame',{Name='Dot',Size=UDim2.fromOffset(4,4),Position=UDim2.new(0,0,0.5,0)
+,AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=b and av or aw,
+BackgroundTransparency=b and 0 or 0.68,Parent=bf},{af('UICorner',{CornerRadius=
+UDim.new(1,0)})})local bg=af('Frame',{Name='Right',AutomaticSize='X',Size=UDim2.
+new(0,0,1,0),Position=UDim2.new(1,0,0.5,0),AnchorPoint=Vector2.new(1,0.5),
+BackgroundTransparency=1,Parent=bf},{af('UIListLayout',{FillDirection=
+'Horizontal',VerticalAlignment='Center',HorizontalAlignment='Right',SortOrder=
+'LayoutOrder',Padding=UDim.new(0,4)})})local bh=af('TextButton',{Name='TitleBtn'
+,Size=UDim2.new(1,-(a7.ModeText and 66 or 38),1,0),Position=UDim2.new(0,10,0,0),
+BackgroundTransparency=1,AutoButtonColor=false,Text=tostring(a7.Title or
+'Keybind'),TextSize=11.5,TextXAlignment='Left',TextTruncate='AtEnd',TextColor3=
+bc,TextTransparency=b and 0.02 or 0.44,FontFace=Font.new(ae.Font,b and Enum.
+FontWeight.SemiBold or Enum.FontWeight.Medium),Parent=bf})local function
+syncTitleWidth()local bi=bg.AbsoluteSize.X if bi>0 then bh.Size=UDim2.new(1,-(bi
++15),1,0)end end bg:GetPropertyChangedSignal'AbsoluteSize':Connect(
+syncTitleWidth)if a7.OnToggle then bh.MouseButton1Click:Connect(function()a7.
+OnToggle()end)end if a7.ModeText then local bi=b and 0.34 or 0.6 local bj=af(
+'TextButton',{Name='ModePill',AutomaticSize='X',Size=UDim2.fromOffset(0,17),
+BackgroundColor3=bd,BackgroundTransparency=1,AutoButtonColor=false,Text=a7.
+ModeText,TextSize=9.5,TextColor3=bc,TextTransparency=bi,FontFace=Font.new(ae.
+Font,Enum.FontWeight.SemiBold),LayoutOrder=1,Parent=bg},{af('UICorner',{
+CornerRadius=UDim.new(0,4)}),af('UIPadding',{PaddingLeft=UDim.new(0,3),
+PaddingRight=UDim.new(0,3)})})if a7.OnCycleMode then bj.MouseEnter:Connect(
+function()ag(bj,0.09,{BackgroundTransparency=a8 and 0.91 or 0.89,
+TextTransparency=0.08}):Play()end)bj.MouseLeave:Connect(function()ag(bj,0.12,{
+BackgroundTransparency=1,TextTransparency=bi}):Play()end)bj.MouseButton1Click:
+Connect(function()a7.OnCycleMode()end)end end local bi=ba and'...'or(bb and
+'\u{2014}'or aj(a7.KeyText))local bj=ba and a9 or Color3.new(1,1,1)local bk=ba
+and 0.08 or(a8 and 0.08 or 0.9)local bl=ba and 0.04 or(a8 and 0 or 0.84)local bm
+=ba and a9 or(a8 and Color3.new(0,0,0)or Color3.new(1,1,1))local bn=ba and 0.15
+or(a8 and 0.84 or(bb and 0.87 or 0.8))local bo=ba and Color3.new(1,1,1)or bc
+local bp=ba and 0 or(bb and 0.52 or(b and 0.04 or 0.22))local bq=af('TextButton'
+,{Name='KeyPill',AutomaticSize='X',Size=UDim2.fromOffset(0,17),BackgroundColor3=
+bj,BackgroundTransparency=bk,AutoButtonColor=false,Text=bi,TextSize=10.5,
+TextColor3=bo,TextTransparency=bp,FontFace=Font.new(ae.Font,Enum.FontWeight.
+SemiBold),LayoutOrder=2,Parent=bg},{af('UISizeConstraint',{MinSize=Vector2.new(
+20,17)}),af('UICorner',{CornerRadius=UDim.new(0,5)}),af('UIStroke',{Color=bm,
+Transparency=bn,Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border}),af(
+'UIPadding',{PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5)})})if a7.
+OnRebind then bq.MouseEnter:Connect(function()ag(bq,0.09,{BackgroundTransparency
+=bl}):Play()end)bq.MouseLeave:Connect(function()ag(bq,0.12,{
+BackgroundTransparency=bk}):Play()end)bq.MouseButton1Click:Connect(function()a7.
+OnRebind()end)end if a7.CanClear and a7.OnClear then bq.MouseButton2Click:
+Connect(function()a7.OnClear()end)end return bf end local a7 local a8=0 local a9
+=0 local function notifyNavUtilityState()if ax and ax.NavBar and ax.NavBar.
+RefreshUtilityState then pcall(function()ax.NavBar:RefreshUtilityState()end)end
+end function aA.Refresh(b,ba)if aA.Destroyed then return end clearListRows()
+local bb=isLightTheme()local bc=resolvePrimaryColor(bb)local bd=0 local be=0
+local bf=0 local bg=0 if aA.ShowToggleKey and ax and ax.ToggleKey then local bh=
+typeof(ax.ToggleKey)=='EnumItem'and ax.ToggleKey.Name or tostring(ax.ToggleKey)
+if bh~=''and bh~='None'then bg=bg+1 bf=bf+1 createRow({Order=bg,Title=
+'Menu Toggle',KeyText=bh,ModeText='UI',Active=not ax.Closed,OnToggle=function()
+if ax.Toggle then ax:Toggle()end end},bb,bc)end end local bh=(ax and ax.Keybinds
+)or{}for bi,bj in ipairs(bh)do if bj and bj.ShowInMenu~=false then bd=bd+1 local
+bk=bj.GetState and bj:GetState()or bj.Active==true if bk then be=be+1 end local
+bl=(not aA.ShowOnlyActive)or bk or bj.Picking if bl then bg=bg+1 bf=bf+1
+createRow({Order=bg,Title=bj.Title or'Keybind',KeyText=bj.Value or'None',
+ModeText=ak[bj.Mode]or'TGL',Active=bk,Picking=bj.Picking,CanClear=bj.AllowNone~=
+false and bj.Value~='None'and bj.CanChange~=false,OnToggle=function()if bj.
+SetState and not bj.Locked then bj:SetState(not bk,true)end end,OnCycleMode=bj.
+AllowModeChange~=false and function()if bj.CycleMode and not bj.Locked then bj:
+CycleMode()end end or nil,OnRebind=bj.CanChange~=false and function()if bj.
+StartPicking and not bj.Locked then bj:StartPicking()end end or nil,OnClear=
+function()if bj.Clear and not bj.Locked then bj:Clear()end end},bb,bc)end end
+end if bf==0 then af('TextLabel',{Name='EmptyHint',Size=UDim2.new(1,0,0,ap),
+BackgroundTransparency=1,Text=aA.ShowOnlyActive and'No active binds'or
+'No keybinds',TextSize=11,TextColor3=bb and Color3.fromHex'#3A3A40'or Color3.
+fromHex'#D4D6DC',TextTransparency=0.5,FontFace=Font.new(ae.Font,Enum.FontWeight.
+Medium),Parent=aU})bf=1 end aK.Text=tostring(be)..'/'..tostring(bd)
+updateFilterButtonVisual(false)local bi=(bf*ap)+math.max(bf-1,0)*aq+ar+as local
+bj=math.min(bi,at)aU.Size=UDim2.new(1,0,0,bj)local bk=aA.Collapsed and ao or(ao+
+1+bj)if a7==nil or ba then a5.Size=UDim2.fromOffset(aA.Width,bk)elseif bk~=a7
+then ag(a5,0.18,{Size=UDim2.fromOffset(aA.Width,bk)},Enum.EasingStyle.Quint,Enum
+.EasingDirection.Out):Play()end a7=bk end function aA.SetCollapsed(b,ba)aA.
+Collapsed=ba and true or false a9=a9+1 local bb=a9 ag(aN,0.18,{Rotation=aA.
+Collapsed and 180 or 0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+if aA.Collapsed then aT.Visible=false aA:Refresh()task.delay(0.18,function()if
+a9==bb and aA.Collapsed and not aA.Destroyed then aU.Visible=false end end)else
+aT.Visible=true aU.Visible=true aA:Refresh()end end function aA.
+SetShowOnlyActive(b,ba)aA.ShowOnlyActive=ba and true or false aA:Refresh()end
+function aA.SetVisible(b,ba)if aA.Destroyed then return end local bb=ba and true
+or false local bc=aA.Visible aA.Visible=bb a8=a8+1 local bd=a8 local be=
+isLightTheme()local bf,bg,bh,bi=getThemeOpacities(be)if bb then if not bc or not
+a5.Visible then a3.Scale=0.94 a0.BackgroundTransparency=0.42 aW.
+BackgroundTransparency=1 a2.ImageTransparency=1 a_.Transparency=1 aX.
+BackgroundTransparency=1 end a5.Visible=true aA:Refresh(true)ag(a3,0.2,{Scale=1}
+,Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ag(a0,0.16,{
+BackgroundTransparency=bf},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()ag(aW,0.16,{BackgroundTransparency=0},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()ag(a2,0.18,{ImageTransparency=bg},Enum.EasingStyle.
+Quint,Enum.EasingDirection.Out):Play()ag(a_,0.16,{Transparency=bh},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out):Play()ag(aX,0.16,{
+BackgroundTransparency=bi},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()else ag(a3,0.14,{Scale=0.95},Enum.EasingStyle.Quint,Enum.EasingDirection.
+Out):Play()ag(a0,0.13,{BackgroundTransparency=0.55},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()ag(aW,0.12,{BackgroundTransparency=1},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out):Play()ag(a2,0.12,{ImageTransparency=
+1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ag(a_,0.12,{
+Transparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ag(aX,
+0.12,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out)
+:Play()task.delay(0.14,function()if a8==bd and not aA.Visible and not aA.
+Destroyed then a5.Visible=false end end)end notifyNavUtilityState()end function
+aA.Show(b)aA:SetVisible(true)end function aA.Open(b)aA:SetVisible(true)end
+function aA.Hide(b)aA:SetVisible(false)end function aA.Close(b)aA:SetVisible(
+false)end function aA.Toggle(b)aA:SetVisible(not aA.Visible)return aA.Visible
+end function aA.SetPosition(b,ba)if typeof(ba)=='UDim2'then aA.Position=ba a5.
+Position=ba end end function aA.Destroy(b)if aA.Destroyed then return end aA.
+Destroyed=true for ba=#aB,1,-1 do local bb=aB[ba]pcall(function()if type(bb)==
+'function'then bb()elseif bb and bb.Disconnect then bb:Disconnect()end end)end
+table.clear(aB)if a6 and a6.Destroy then a6:Destroy()end if a5 and a5.Parent
+then a5:Destroy()end end trackConn(aL.MouseButton1Click:Connect(function()aA:
+SetShowOnlyActive(not aA.ShowOnlyActive)end))trackConn(aM.MouseButton1Click:
+Connect(function()aA:SetCollapsed(not aA.Collapsed)end))trackConn(aO.
+MouseButton1Click:Connect(function()aA:Hide()end))if ae.OnThemeChange then
+trackConn(ae:OnThemeChange(function()applySurfaceTheme(false)end))end
+applySurfaceTheme(true)aA:Refresh(true)return aA end return aa end function a.as
+()local aa={}local ae=(cloneref or clonereference or function(ae)return ae end)
+local af=ae(game:GetService'RunService')local ag=a.load'e'local ah=ag.New local
+aj=ag.Tween local ak=
 [[https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/assets/welcome_hello_sheet.png]]
 local al=
 [[https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/refs/heads/main/assets/welcome_bg.png]]
