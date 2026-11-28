@@ -3760,30 +3760,32 @@ YOffset or 0 local ay=ao.Span or aj local az=(ao.Protrusion and(ao.Protrusion+6)
 IdleShrinkDuration or 0.4 local aM=ar and UDim2.fromOffset(ay,az)or UDim2.
 fromOffset(az,ay)local aN=UDim2.fromOffset(al,al)local aO=clamp(ao.InitialFrac
 or 0.5,0,1)local aP='Straight'local function getParentSpanPx()local aQ=ao.Parent
-if aQ and aQ.AbsoluteSize then local aR=ar and aQ.AbsoluteSize.X or aQ.
-AbsoluteSize.Y if aR and aR>20 then return aR end end return ar and 844 or 420
-end local function getStatePosition(aQ)local aR=(aP=='Straight'and az or al)+6
-if aP=='Start'then if ap=='Bottom'then return UDim2.new(0,0,1,aQ and aR or 0)
-elseif ap=='Top'then return UDim2.new(0,0,0,aQ and-aR or 0)elseif ap=='Left'then
-return UDim2.new(0,aQ and-aR or 0,0,av)else return UDim2.new(1,aQ and aR or 0,0,
-av)end elseif aP=='End'then if ap=='Bottom'then return UDim2.new(1,0,1,aQ and aR
-or 0)elseif ap=='Top'then return UDim2.new(1,0,0,aQ and-aR or 0)elseif ap==
-'Left'then return UDim2.new(0,aQ and-aR or 0,1,-aw)else return UDim2.new(1,aQ
-and aR or 0,1,-aw)end else if ap=='Bottom'then return UDim2.new(aO,0,1,aQ and aR
-or 0)elseif ap=='Top'then return UDim2.new(aO,0,0,aQ and-aR or 0)elseif ap==
-'Left'then return UDim2.new(0,aQ and-aR or 0,aO,aO==0.5 and ax or 0)else return
-UDim2.new(1,aQ and aR or 0,aO,aO==0.5 and ax or 0)end end end local function
-getStateAnchor()if aP=='Start'then return aq.StartAnchor elseif aP=='End'then
-return aq.EndAnchor end return aq.StraightAnchor end local function getStateSize
-()return(aP=='Straight')and aM or aN end local function getStateIconProps(aQ)if
-aP=='Start'then return aq.StartIconPos,aq.StartIconRot elseif aP=='End'then
-return aq.EndIconPos,aq.EndIconRot end return(aQ and aq.StraightIconHover or aq.
-StraightIconPos),0 end local aQ=af.Image(ao.Icon or aq.BaseIcon,ao.Name or
-'EdgeHandle',0,ao.Folder,'EdgeHandle',true,false,'Text')aQ.Size=UDim2.
-fromOffset(aA,aA)aQ.AnchorPoint=Vector2.new(0.5,0.5)aQ.Position=aq.
-StraightIconPos aQ.ZIndex=5 local aR=aQ:FindFirstChild'ImageLabel'if aR then aR.
-ImageTransparency=0.1 end local aS=ag('UIScale',{Scale=1})local aT=ag(
-'ImageLabel',{Name='StraightFill',Size=UDim2.fromOffset(ay,az),AnchorPoint=
+local aR=0 if aQ and aQ.AbsoluteSize then aR=ar and aQ.AbsoluteSize.X or aQ.
+AbsoluteSize.Y end if aR and aR>20 then return aR end local aS=workspace and
+workspace.CurrentCamera if aS and aS.ViewportSize then local aT=ar and aS.
+ViewportSize.X or aS.ViewportSize.Y if aT and aT>20 then return aT end end
+return ar and 844 or 420 end local function getStatePosition(aQ)local aR=(aP==
+'Straight'and az or al)+6 if aP=='Start'then if ap=='Bottom'then return UDim2.
+new(0,0,1,aQ and aR or 0)elseif ap=='Top'then return UDim2.new(0,0,0,aQ and-aR
+or 0)elseif ap=='Left'then return UDim2.new(0,aQ and-aR or 0,0,av)else return
+UDim2.new(1,aQ and aR or 0,0,av)end elseif aP=='End'then if ap=='Bottom'then
+return UDim2.new(1,0,1,aQ and aR or 0)elseif ap=='Top'then return UDim2.new(1,0,
+0,aQ and-aR or 0)elseif ap=='Left'then return UDim2.new(0,aQ and-aR or 0,1,-aw)
+else return UDim2.new(1,aQ and aR or 0,1,-aw)end else if ap=='Bottom'then return
+UDim2.new(aO,0,1,aQ and aR or 0)elseif ap=='Top'then return UDim2.new(aO,0,0,aQ
+and-aR or 0)elseif ap=='Left'then return UDim2.new(0,aQ and-aR or 0,aO,aO==0.5
+and ax or 0)else return UDim2.new(1,aQ and aR or 0,aO,aO==0.5 and ax or 0)end
+end end local function getStateAnchor()if aP=='Start'then return aq.StartAnchor
+elseif aP=='End'then return aq.EndAnchor end return aq.StraightAnchor end
+local function getStateSize()return(aP=='Straight')and aM or aN end
+local function getStateIconProps(aQ)if aP=='Start'then return aq.StartIconPos,aq
+.StartIconRot elseif aP=='End'then return aq.EndIconPos,aq.EndIconRot end return
+(aQ and aq.StraightIconHover or aq.StraightIconPos),0 end local aQ=af.Image(ao.
+Icon or aq.BaseIcon,ao.Name or'EdgeHandle',0,ao.Folder,'EdgeHandle',true,false,
+'Text')aQ.Size=UDim2.fromOffset(aA,aA)aQ.AnchorPoint=Vector2.new(0.5,0.5)aQ.
+Position=aq.StraightIconPos aQ.ZIndex=5 local aR=aQ:FindFirstChild'ImageLabel'if
+aR then aR.ImageTransparency=0.1 end local aS=ag('UIScale',{Scale=1})local aT=
+ag('ImageLabel',{Name='StraightFill',Size=UDim2.fromOffset(ay,az),AnchorPoint=
 Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Rotation=aq.NotchRot,
 BackgroundTransparency=1,BorderSizePixel=0,ImageTransparency=1,ScaleType=Enum.
 ScaleType.Stretch,ThemeTag={ImageColor3='DialogBackground'},ZIndex=1})local aU=
@@ -3806,10 +3808,10 @@ ApplyStrokeMode.Border,Color=Color3.new(1,1,1),Transparency=0.72})local aY=ag(
 aq.StraightAnchor.Y),BackgroundTransparency=aB,BorderSizePixel=0,ThemeTag={
 BackgroundColor3='DialogBackground'},Visible=false,ZIndex=1},{ag('UICorner',{
 CornerRadius=UDim.new(1,0)}),aX})local b=ag('TextButton',{Name='HitArea',Size=
-UDim2.new(1,8,1,8),AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5
-,0.5),BackgroundTransparency=1,BorderSizePixel=0,Text='',AutoButtonColor=false,
-Active=true,ZIndex=6})local d=ag('Frame',{Name=ao.Name or'MacEdgeHandle',Size=aM
-,AnchorPoint=aq.StraightAnchor,Position=getStatePosition(true),
+UDim2.new(1,20,1,24),AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(
+0.5,0.5),BackgroundTransparency=1,BorderSizePixel=0,Text='',AutoButtonColor=
+false,Active=true,ZIndex=6})local d=ag('Frame',{Name=ao.Name or'MacEdgeHandle',
+Size=aM,AnchorPoint=aq.StraightAnchor,Position=getStatePosition(true),
 BackgroundTransparency=1,BorderSizePixel=0,ClipsDescendants=false,Visible=false,
 Active=true,ZIndex=ao.ZIndex or 110,Parent=ao.Parent},{aS,aT,aU,aV,aW,aY,aQ,b})
 local e={Edge=ap,Root=d,HitArea=b,Icon=aQ,ScaleObj=aS,RestPosition=
@@ -3855,93 +3857,113 @@ e.Visible or e.Destroyed or i or l then return end task.delay(aG,function()if h
 applyVisualState(1-aH,aJ,Enum.EasingStyle.Sine,Enum.EasingDirection.Out)task.
 delay(aK,function()if h~=r or not e.Visible or e.Destroyed or i or l then return
 end ah(aS,aL,{Scale=aI},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-end)end)end function e.GetCornerState(r)return aP end function e.SetEdgePosition
-(r,u,v)local x=getParentSpanPx()local z=clamp(u or 0.5,0,1)*x local A='Straight'
-if at and z<=(av+am)then A='Start'aO=0 elseif au and z>=(x-aw-am)then A='End'aO=
-1 else local B=ay*0.5 local C=math.min(x*0.5,av+B*0.65)local F=math.max(x*0.5,x-
-aw-B*0.65)aO=clamp(z,C,F)/math.max(x,1)end e.EdgeFrac=aO syncCornerMorph(A,v~=
-false)local B=getStatePosition(not e.Visible)if v~=false and e.Visible then ah(d
-,0.16,{Position=B},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()else d
-.Position=B end end function e.Wake(r,u,v)if e.Destroyed or not e.Visible then
-return end cancelIdle()e.IsIdle=false local x=getStatePosition(false)e.
-RestPosition=x if u==false then d.Position=x aS.Scale=1 applyVisualState(1,0)
-else ah(d,0.18,{Position=x},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
-Play()ah(aS,0.22,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play(
-)applyVisualState(1,0.18,Enum.EasingStyle.Quint,Enum.EasingDirection.Out)end if
-not v then scheduleIdle()end end function e.EnterIdle(r,u)if e.Destroyed or not
-e.Visible then return end cancelIdle()local v=h e.IsIdle=true if u==false then
+end)end)end function e.GetCornerState(r)return aP end local r local function
+cancelPosTween()if r then pcall(function()r:Cancel()end)r=nil end end
+local function playPosTween(u,v,x,z)cancelPosTween()r=ah(d,u,{Position=v},x or
+Enum.EasingStyle.Quint,z or Enum.EasingDirection.Out)r:Play()end function e.
+SetEdgePosition(u,v,x)local z=getParentSpanPx()local A=clamp(v or 0.5,0,1)*z
+local B='Straight'if at and A<=(av+am)then B='Start'aO=0 elseif au and A>=(z-aw-
+am)then B='End'aO=1 else local C=ay*0.5 local F=math.min(z*0.5,av+C*0.65)local G
+=math.max(z*0.5,z-aw-C*0.65)aO=clamp(A,F,G)/math.max(z,1)end e.EdgeFrac=aO
+syncCornerMorph(B,x~=false)local C=getStatePosition(not e.Visible)if x~=false
+and e.Visible then playPosTween(0.16,C,Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out)else cancelPosTween()d.Position=C end end function e.Wake(u,
+v,x)if e.Destroyed or not e.Visible then return end cancelIdle()e.IsIdle=false
+local z=getStatePosition(false)e.RestPosition=z if v==false then if not l then
+cancelPosTween()d.Position=z end aS.Scale=1 applyVisualState(1,0)else if not l
+then playPosTween(0.18,z,Enum.EasingStyle.Quint,Enum.EasingDirection.Out)end ah(
+aS,0.22,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
+applyVisualState(1,0.18,Enum.EasingStyle.Quint,Enum.EasingDirection.Out)end if
+not x then scheduleIdle()end end function e.EnterIdle(u,v)if e.Destroyed or not
+e.Visible then return end cancelIdle()local x=h e.IsIdle=true if v==false then
 aS.Scale=aI applyVisualState(1-aH,0)return end applyVisualState(1-aH,aJ,Enum.
-EasingStyle.Sine,Enum.EasingDirection.Out)task.delay(aK,function()if h==v and e.
+EasingStyle.Sine,Enum.EasingDirection.Out)task.delay(aK,function()if h==x and e.
 Visible and not e.Destroyed then ah(aS,aL,{Scale=aI},Enum.EasingStyle.Quint,Enum
-.EasingDirection.Out):Play()end end)end function e.SetIdleEnabled(r,u)e.
-IdleEnabled=u and true or false if e.IdleEnabled then if e.Visible then
+.EasingDirection.Out):Play()end end)end function e.SetIdleEnabled(u,v)e.
+IdleEnabled=v and true or false if e.IdleEnabled then if e.Visible then
 scheduleIdle()end else cancelIdle()if e.Visible and e.IsIdle then e:Wake(true,
-true)end end end function e.Show(r,u)if e.Destroyed then return end e.Visible=
-true e.IsIdle=false g=g+1 cancelIdle()local v=getStatePosition(false)local x=
-getStatePosition(true)e.RestPosition=v e.HiddenPosition=x if u==false then d.
-Visible=true d.AnchorPoint=getStateAnchor()d.Size=getStateSize()d.Position=v aS.
-Scale=1 applyVisualState(1,0)scheduleIdle()return end d.Visible=true d.
-AnchorPoint=getStateAnchor()d.Size=getStateSize()d.Position=x aS.Scale=1
-applyVisualState(0,0)ah(d,0.24,{Position=v},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()applyVisualState(1,0.22,Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out)scheduleIdle()end function e.Hide(r,u)if e.Destroyed then
+true)end end end function e.Show(u,v)if e.Destroyed then return end e.Visible=
+true e.IsIdle=false g=g+1 cancelIdle()cancelPosTween()local x=getStatePosition(
+false)local z=getStatePosition(true)e.RestPosition=x e.HiddenPosition=z if v==
+false then d.Visible=true d.AnchorPoint=getStateAnchor()d.Size=getStateSize()d.
+Position=x aS.Scale=1 applyVisualState(1,0)scheduleIdle()return end d.Visible=
+true d.AnchorPoint=getStateAnchor()d.Size=getStateSize()d.Position=z aS.Scale=1
+applyVisualState(0,0)playPosTween(0.24,x,Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out)applyVisualState(1,0.22,Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out)scheduleIdle()end function e.Hide(u,v)if e.Destroyed then
 return end e.Visible=false e.IsIdle=false i=false l=false g=g+1 cancelIdle()
-local v=g local x=getStatePosition(true)e.HiddenPosition=x if u==false then d.
-Position=x aS.Scale=1 applyVisualState(0,0)d.Visible=false return end if not d.
-Visible then return end ah(d,0.16,{Position=x},Enum.EasingStyle.Quint,Enum.
-EasingDirection.In):Play()applyVisualState(0,0.14,Enum.EasingStyle.Quint,Enum.
-EasingDirection.In)task.delay(0.17,function()if g==v and not e.Visible and not e
-.Destroyed then aS.Scale=1 d.Visible=false end end)end local r=Vector2.new(0,0)
-local u='None'local v=false local x track(b.MouseEnter,function()i=true e:Wake(
-true,true)local z=getStateIconProps(true)ah(aQ,0.15,{Position=z},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()end)track(b.MouseLeave,
-function()i=false if not l then local z=getStateIconProps(false)ah(aQ,0.15,{
-Position=z},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+cancelPosTween()local x=g local z=getStatePosition(true)e.HiddenPosition=z if v
+==false then d.Position=z aS.Scale=1 applyVisualState(0,0)d.Visible=false return
+end if not d.Visible then return end playPosTween(0.16,z,Enum.EasingStyle.Quint,
+Enum.EasingDirection.In)applyVisualState(0,0.14,Enum.EasingStyle.Quint,Enum.
+EasingDirection.In)task.delay(0.17,function()if g==x and not e.Visible and not e
+.Destroyed then aS.Scale=1 d.Visible=false end end)end local u=Vector2.new(0,0)
+local v=0 local x='None'local z=false local A=0 local B=false local C
+local function getCurrentCenterAlongPx(F)if aP=='Start'then return av+al*0.5
+elseif aP=='End'then return F-aw-al*0.5 end local G=aO*F if not ar and aO==0.5
+then G=G+ax end return G end local function enterSlideMode(F)if x=='Slide'then
+return end x='Slide'cancelPosTween()if F then ah(aS,0.14,{Scale=1.08},Enum.
+EasingStyle.Back,Enum.EasingDirection.Out):Play()end end local function
+handleDragMove(F)if not l or e.Destroyed then return end local G=F.X-u.X local H
+=F.Y-u.Y local J,L if ap=='Bottom'then J=-H L=G elseif ap=='Top'then J=H L=G
+elseif ap=='Left'then J=G L=H else J=-G L=H end local M=math.abs(L)local N=math.
+abs(J)if x=='None'then if as and M>=5 and M>=N*0.6 then enterSlideMode(true)
+elseif J>=16 and N>M*1.5 and not B then x='Pull'end elseif x=='Pull'and as and M
+>=14 and not z then enterSlideMode(true)end if x=='Slide'then cancelPosTween()
+local O=getParentSpanPx()local P=v+L local Q='Straight'if at and P<=(av+am)then
+Q='Start'aO=0 elseif au and P>=(O-aw-am)then Q='End'aO=1 else local R=ay*0.5
+local S=math.min(O*0.5,av+R*0.55)local T=math.max(O*0.5,O-aw-R*0.55)aO=clamp(P,S
+,T)/math.max(O,1)end e.EdgeFrac=aO if Q~=aP then syncCornerMorph(Q,true)else e.
+RestPosition=getStatePosition(false)end d.Position=getStatePosition(false)elseif
+x=='Pull'then cancelPosTween()local O=clamp(J,0,aE+8)local P=getStatePosition(
+false)if ap=='Bottom'then d.Position=UDim2.new(P.X.Scale,P.X.Offset,P.Y.Scale,P.
+Y.Offset-math.floor(O*0.36))elseif ap=='Top'then d.Position=UDim2.new(P.X.Scale,
+P.X.Offset,P.Y.Scale,P.Y.Offset+math.floor(O*0.36))elseif ap=='Left'then d.
+Position=UDim2.new(P.X.Scale,P.X.Offset+math.floor(O*0.36),P.Y.Scale,P.Y.Offset)
+else d.Position=UDim2.new(P.X.Scale,P.X.Offset-math.floor(O*0.36),P.Y.Scale,P.Y.
+Offset)end if J>=aE and not z then z=true l=false A=A+1 fireTrigger()end end end
+local function finishDrag(F)if not l or e.Destroyed then return end l=false A=A+
+1 if C then pcall(function()C:Disconnect()end)C=nil end ah(aS,0.18,{Scale=1},
+Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()if x=='Slide'or B then
+playPosTween(0.16,getStatePosition(false),Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out)if not i then scheduleIdle()end elseif not z then local G=F
+and(F-u).Magnitude or 0 if G<10 then fireTrigger()else playPosTween(0.18,
+getStatePosition(false),Enum.EasingStyle.Quint,Enum.EasingDirection.Out)if not i
+then scheduleIdle()end end end x='None'B=false end track(b.MouseEnter,function()
+i=true e:Wake(true,true)local F=getStateIconProps(true)ah(aQ,0.15,{Position=F},
+Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end)track(b.MouseLeave,
+function()i=false if not l then local F=getStateIconProps(false)ah(aQ,0.15,{
+Position=F},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 applyVisualState(e.Visible and 1 or 0,0.14)scheduleIdle()end end)track(b.
-InputBegan,function(z)if z.UserInputType==Enum.UserInputType.MouseButton1 or z.
-UserInputType==Enum.UserInputType.Touch then l=true x=z u='None'v=false r=
-Vector2.new(z.Position.X,z.Position.Y)e:Wake(true,true)end end)track(ad.
-InputChanged,function(z)if not l or e.Destroyed then return end if x and x.
-UserInputType==Enum.UserInputType.Touch then if z~=x then return end elseif z.
-UserInputType~=Enum.UserInputType.MouseMovement then return end local A=z.
-Position.X-r.X local B=z.Position.Y-r.Y local C,F if ap=='Bottom'then C=-B F=A
-elseif ap=='Top'then C=B F=A elseif ap=='Left'then C=A F=B else C=-A F=B end if
-u=='None'then local G=math.abs(F)local H=math.abs(C)if as and G>7 and G>=H*0.85
-then u='Slide'elseif C>8 and H>G then u='Pull'end end if u=='Slide'then local G=
-ao.Parent local H=(G and G.AbsolutePosition)and(ar and G.AbsolutePosition.X or G
-.AbsolutePosition.Y)or 0 local J=getParentSpanPx()local L=(ar and z.Position.X
-or z.Position.Y)-H local M='Straight'if at and L<=(av+am)then M='Start'aO=0
-elseif au and L>=(J-aw-am)then M='End'aO=1 else local N=ay*0.5 local O=math.min(
-J*0.5,av+N*0.6)local P=math.max(J*0.5,J-aw-N*0.6)aO=clamp(L,O,P)/math.max(J,1)
-end e.EdgeFrac=aO if M~=aP then syncCornerMorph(M,true)else e.RestPosition=
-getStatePosition(false)end d.Position=getStatePosition(false)elseif u=='Pull'
-then local G=clamp(C,0,aE+8)local H=getStatePosition(false)if ap=='Bottom'then d
-.Position=UDim2.new(H.X.Scale,H.X.Offset,H.Y.Scale,H.Y.Offset-math.floor(G*0.36)
-)elseif ap=='Top'then d.Position=UDim2.new(H.X.Scale,H.X.Offset,H.Y.Scale,H.Y.
-Offset+math.floor(G*0.36))elseif ap=='Left'then d.Position=UDim2.new(H.X.Scale,H
-.X.Offset+math.floor(G*0.36),H.Y.Scale,H.Y.Offset)else d.Position=UDim2.new(H.X.
-Scale,H.X.Offset-math.floor(G*0.36),H.Y.Scale,H.Y.Offset)end if C>=aE and not v
-then v=true l=false fireTrigger()end end end)track(ad.InputEnded,function(z)if
-not l or e.Destroyed then return end if x and x.UserInputType==Enum.
-UserInputType.Touch then if z~=x then return end elseif z.UserInputType~=Enum.
-UserInputType.MouseButton1 then return end l=false x=nil if u=='Slide'then ah(d,
-0.16,{Position=getStatePosition(false)},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()if not i then scheduleIdle()end elseif not v then
-local A=(Vector2.new(z.Position.X,z.Position.Y)-r).Magnitude if A<10 then
-fireTrigger()else ah(d,0.18,{Position=getStatePosition(false)},Enum.EasingStyle.
-Quint,Enum.EasingDirection.Out):Play()if not i then scheduleIdle()end end end u=
-'None'end)function e.Destroy(z)if e.Destroyed then return end e.Destroyed=true
-cancelIdle()if p then pcall(p)p=nil end for A=#an.Listeners,1,-1 do if an.
-Listeners[A]==onCurvesReady then table.remove(an.Listeners,A)break end end for A
-,B in ipairs(f)do if B and B.Disconnect then pcall(function()B:Disconnect()end)
-end end table.clear(f)if d and d.Parent then d:Destroy()end end return e end
-return aa end function a.G()local aa=(cloneref or clonereference or function(aa)
-return aa end)local ab=aa(game:GetService'RunService')local ad=aa(game:
-GetService'HttpService')local ae local af af={Folder=nil,Path=nil,Configs={},
-Parser={Colorpicker={Save=function(ag)return{__type=ag.__type,value=ag.Default:
-ToHex(),transparency=ag.Transparency or nil}end,Load=function(ag,ah)if ag and ag
-.Update then ag:Update(Color3.fromHex(ah.value),ah.transparency or nil)end end},
-Dropdown={Save=function(ag)return{__type=ag.__type,value=ag.Value}end,Load=
+InputBegan,function(F)if F.UserInputType==Enum.UserInputType.MouseButton1 or F.
+UserInputType==Enum.UserInputType.Touch then cancelPosTween()l=true x='None'z=
+false B=false u=Vector2.new(F.Position.X,F.Position.Y)v=getCurrentCenterAlongPx(
+getParentSpanPx())e:Wake(true,true)A=A+1 local G=A if as then task.delay(0.16,
+function()if A==G and l and not e.Destroyed and x=='None'then B=true
+enterSlideMode(true)end end)end if C then pcall(function()C:Disconnect()end)C=
+nil end pcall(function()C=F.Changed:Connect(function()if F.UserInputState==Enum.
+UserInputState.End or F.UserInputState==Enum.UserInputState.Cancel then
+finishDrag(Vector2.new(F.Position.X,F.Position.Y))end end)end)end end)
+local function onInputChanged(F)if not l or e.Destroyed then return end if F.
+UserInputType~=Enum.UserInputType.MouseMovement and F.UserInputType~=Enum.
+UserInputType.Touch then return end handleDragMove(Vector2.new(F.Position.X,F.
+Position.Y))end track(ad.InputChanged,onInputChanged)track(b.InputChanged,
+onInputChanged)track(ad.InputEnded,function(F)if not l or e.Destroyed then
+return end if F.UserInputType~=Enum.UserInputType.MouseButton1 and F.
+UserInputType~=Enum.UserInputType.Touch then return end finishDrag(Vector2.new(F
+.Position.X,F.Position.Y))end)function e.Destroy(F)if e.Destroyed then return
+end e.Destroyed=true A=A+1 cancelIdle()cancelPosTween()if C then pcall(function(
+)C:Disconnect()end)C=nil end if p then pcall(p)p=nil end for G=#an.Listeners,1,-
+1 do if an.Listeners[G]==onCurvesReady then table.remove(an.Listeners,G)break
+end end for G,H in ipairs(f)do if H and H.Disconnect then pcall(function()H:
+Disconnect()end)end end table.clear(f)if d and d.Parent then d:Destroy()end end
+return e end return aa end function a.G()local aa=(cloneref or clonereference or
+function(aa)return aa end)local ab=aa(game:GetService'RunService')local ad=aa(
+game:GetService'HttpService')local ae local af af={Folder=nil,Path=nil,Configs={
+},Parser={Colorpicker={Save=function(ag)return{__type=ag.__type,value=ag.Default
+:ToHex(),transparency=ag.Transparency or nil}end,Load=function(ag,ah)if ag and
+ag.Update then ag:Update(Color3.fromHex(ah.value),ah.transparency or nil)end end
+},Dropdown={Save=function(ag)return{__type=ag.__type,value=ag.Value}end,Load=
 function(ag,ah)if ag and ag.Select then ag:Select(ah.value)end end},Input={Save=
 function(ag)return{__type=ag.__type,value=ag.Value}end,Load=function(ag,ah)if ag
 and ag.Set then ag:Set(ah.value)end end},Keybind={Save=function(ag)return{__type
