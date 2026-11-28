@@ -36,7 +36,7 @@ local Window = WindUI:CreateWindow({
 	Desc = "Advanced System Settings • macOS Cursor • Tahoe 26 Liquid Glass",
 	Author = "WindUI macOS",
 	Version = "v1.6.66",
-	Icon = "sfsymbols:gearshapeFill",
+	Icon = "sfsymbols:sparkles",
 	Folder = "WindUI_SuperSettings",
 	Theme = "MacOS",
 	LayoutMode = "NewForm",
@@ -94,8 +94,8 @@ ToggleSec:Toggle({
 
 ToggleSec:Segmented({
 	Title = "Switch Toggle Style Live",
-	Values = { "LiquidGlass", "Classic" },
-	Value = "LiquidGlass",
+	Values = { "Glass", "Classic" },
+	Value = "Glass",
 	Callback = function(style)
 		Window:SetToggleStyle(style)
 	end,

@@ -2810,192 +2810,201 @@ Window and not aA.Window.Destroyed and aA.Id then table.insert(ay.Workspaces,aA)
 ay.ById[aA.Id]=aA end end end aw[ag]=ay return ay end return createManager()end
 return getManager()end function a.w()local aa={}local ab=a.load'e'local ad=ab.
 New local ae=ab.Tween local af=(cloneref or clonereference or function(af)return
-af end)local ag=af(game:GetService'UserInputService')local ah=
-'rbxassetid://8992230677'local ai=Rect.new(99,99,99,99)local aj={Id=
+af end)local ag=af(game:GetService'UserInputService')local ah={Id=
 'rbxassetid://77297718671545',MirroredId='rbxassetid://92258969882244',Size=
-Vector2.new(102,128),Total=80,Cols=10}local ak='LiquidGlass'local al={}
-local function normalizeStyle(am)if type(am)~='string'then return'LiquidGlass'
-end local an=string.lower((string.gsub(am,'[%s_%-]+','')))if an=='classic'or an
-=='sequoia'or an=='standard'or an=='compact'then return'Classic'end return
+Vector2.new(102,128),Total=80,Cols=10}local ai='LiquidGlass'local aj={}
+local function normalizeStyle(ak)if type(ak)~='string'then return'LiquidGlass'
+end local al=string.lower((string.gsub(ak,'[%s_%-]+','')))if al=='classic'or al
+=='sequoia'or al=='standard'or al=='compact'then return'Classic'end return
 'LiquidGlass'end local function isLightTheme()if ab.IsThemeDark then return not
-ab.IsThemeDark(ab.Theme)end local am=string.lower(tostring(ab.Theme or''))return
-string.find(am,'light',1,true)~=nil end function aa.GetGlobalStyle()return ak
-end function aa.SetGlobalStyle(am)local an=normalizeStyle(am)ak=an for ao=#al,1,
--1 do local ap=al[ao]if not ap or not ap.Root or not ap.Root.Parent then table.
-remove(al,ao)elseif ap.ApplyStyle then pcall(ap.ApplyStyle,an)end end return an
-end local function getGlassFrame(am)local an=aj local ao if am<=0.4 then ao=math
-.floor((am/0.4)*(an.Total-1))elseif am<0.6 then ao=an.Total-1 else ao=math.
-floor(((am-0.6)/0.4)*(an.Total-1))end ao=math.clamp(ao,0,an.Total-1)local ap=am
->=0.6 if ap then ao=(an.Total-1)-ao end local aq=ap and an.MirroredId or an.Id
-return aq,an.Size,Vector2.new((ao%an.Cols)*an.Size.X,math.floor(ao/an.Cols)*an.
-Size.Y)end function aa.New(am,an,ao,ap,aq,ar,as)local at={GlassSpritesheet=aj,
-Style=(as and as.Style and normalizeStyle(as.Style))or ak}function at.
-GetGlassFrame(au,av)return getGlassFrame(av)end local au=am and true or false
-local av=at.Style local aw,ax,ay,az,aA,aB,aC local function computeMetrics(aD)if
-aD=='Classic'then aw,ax=40,22 ay,az=18,18 aA=2 else aw,ax=46,24 ay,az=26,20 aA=2
-end aB=aA aC=aw-ay-aA end computeMetrics(av)local aD local aE=an and an~=''and
-ab.Icon(an)or nil if aE then aD=ad('ImageLabel',{Size=UDim2.fromOffset(11,11),
+ab.IsThemeDark(ab.Theme)end local ak=string.lower(tostring(ab.Theme or''))return
+string.find(ak,'light',1,true)~=nil end function aa.GetGlobalStyle()return ai
+end function aa.SetGlobalStyle(ak)local al=normalizeStyle(ak)ai=al for am=#aj,1,
+-1 do local an=aj[am]if not an or not an.Root or not an.Root.Parent then table.
+remove(aj,am)elseif an.ApplyStyle then pcall(an.ApplyStyle,al)end end return al
+end local function getGlassFrame(ak)local al=ah local am if ak<=0.4 then am=math
+.floor((ak/0.4)*(al.Total-1))elseif ak<0.6 then am=al.Total-1 else am=math.
+floor(((ak-0.6)/0.4)*(al.Total-1))end am=math.clamp(am,0,al.Total-1)local an=ak
+>=0.6 if an then am=(al.Total-1)-am end local ao=an and al.MirroredId or al.Id
+return ao,al.Size,Vector2.new((am%al.Cols)*al.Size.X,math.floor(am/al.Cols)*al.
+Size.Y)end function aa.New(ak,al,am,an,ao,ap,aq)local ar={GlassSpritesheet=ah,
+Style=(aq and aq.Style and normalizeStyle(aq.Style))or ai}function ar.
+GetGlassFrame(as,at)return getGlassFrame(at)end local as=ak and true or false
+local at=ar.Style local au,av,aw,ax,ay,az,aA local function computeMetrics(aB)if
+aB=='Classic'then au,av=40,22 aw,ax=18,18 ay=2 else au,av=48,24 aw,ax=28,20 ay=2
+end az=ay aA=au-aw-ay end computeMetrics(at)local aB local aC=al and al~=''and
+ab.Icon(al)or nil if aC then aB=ad('ImageLabel',{Size=UDim2.fromOffset(12,12),
 BackgroundTransparency=1,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5
-,0,0.5,0),Image=aE[1],ImageRectOffset=aE[2].ImageRectPosition,ImageRectSize=aE[2
-].ImageRectSize,ImageTransparency=au and 0 or 1,ImageColor3=Color3.fromHex
-'#111114',ZIndex=9})end local aF=ad('Frame',{Name='LiquidGlassToggle',Size=UDim2
-.fromOffset(aw,ax),BackgroundTransparency=1,Parent=ap})local aG=ad('UIGradient',
-{Rotation=90,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(
-0,0,0)),ColorSequenceKeypoint.new(0.55,Color3.fromRGB(160,165,175)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))},Transparency=
-NumberSequence.new{NumberSequenceKeypoint.new(0,0.52),NumberSequenceKeypoint.
-new(0.5,0.88),NumberSequenceKeypoint.new(1,0.62)}})local aH=ad('UIStroke',{Name=
-'TrackRim',Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Color=Color3.
-new(1,1,1),Transparency=0.25},{aG})local aI=ad('Frame',{Name='Layer',Size=UDim2.
-fromScale(1,1),BackgroundTransparency=au and 0 or 1,BorderSizePixel=0,ThemeTag={
-BackgroundColor3='Toggle'},ZIndex=2},{ad('UICorner',{CornerRadius=UDim.new(1,0)}
-),ad('UIGradient',{Rotation=90,Color=ColorSequence.new{ColorSequenceKeypoint.
-new(0,Color3.fromRGB(246,255,249)),ColorSequenceKeypoint.new(0.45,Color3.
-fromRGB(255,255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(224,232,228))}}
-)})local aJ=ad('Frame',{Name='InnerDepth',Size=UDim2.new(1,-2,0.48,0),Position=
-UDim2.fromOffset(1,0),BackgroundColor3=Color3.new(0,0,0),BackgroundTransparency=
-0.88,BorderSizePixel=0,ZIndex=1},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),
-ad('UIGradient',{Rotation=90,Transparency=NumberSequence.new{
-NumberSequenceKeypoint.new(0,0.15),NumberSequenceKeypoint.new(1,1)}})})local aK=
-ad('UIScale',{Scale=1})local aL=ad('ImageLabel',{Name='ThumbShadow',Size=UDim2.
-new(1,10,1,10),Position=UDim2.new(0.5,0,0.5,2),AnchorPoint=Vector2.new(0.5,0.5),
-BackgroundTransparency=1,Image=ah,ImageColor3=Color3.new(0,0,0),
-ImageTransparency=0.72,ScaleType=Enum.ScaleType.Slice,SliceCenter=ai,ZIndex=3})
-local aM=ad('Frame',{Name='PorcelainFill',Size=UDim2.fromScale(1,1),
-BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0,BorderSizePixel=0,
-ZIndex=5},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation
-=90,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF')
-,ColorSequenceKeypoint.new(0.75,Color3.fromHex'#F5F6FA'),ColorSequenceKeypoint.
-new(1,Color3.fromHex'#E9ECF3')}})})local aN=ad('Frame',{Name='GlassTintBody',
-Size=UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=1,BorderSizePixel=0,ZIndex=4},{ad('UICorner',{
-CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation=112,Color=ColorSequence.
+,0,0.5,0),Image=aC[1],ImageRectOffset=aC[2].ImageRectPosition,ImageRectSize=aC[2
+].ImageRectSize,ImageTransparency=as and 0 or 1,ImageColor3=Color3.fromHex
+'#111114',ZIndex=10})end local aD=ad('Frame',{Name='LiquidGlassToggle',Size=
+UDim2.fromOffset(au,av),BackgroundTransparency=1,ClipsDescendants=false,Parent=
+an})local aE=ad('UIGradient',{Rotation=90,Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(
+0.55,Color3.fromRGB(165,170,182)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255
+,255,255))},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.64),
+NumberSequenceKeypoint.new(0.5,0.94),NumberSequenceKeypoint.new(1,0.7)}})local
+aF=ad('UIStroke',{Name='TrackRim',Thickness=1,ApplyStrokeMode=Enum.
+ApplyStrokeMode.Border,Color=Color3.new(1,1,1),Transparency=0.44},{aE})local aG=
+ad('Frame',{Name='Layer',Size=UDim2.fromScale(1,1),BackgroundTransparency=as and
+0 or 1,BorderSizePixel=0,ThemeTag={BackgroundColor3='Toggle'},ZIndex=2},{ad(
+'UICorner',{CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation=90,Color=
+ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(246,255,249)),
+ColorSequenceKeypoint.new(0.45,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(1,Color3.fromRGB(228,236,232))}})})local aH=ad('Frame'
+,{Name='ThumbShadow',Size=UDim2.new(1,2,1,2),Position=UDim2.new(0.5,0,0.5,1),
+AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.new(0,0,0),
+BackgroundTransparency=0.82,BorderSizePixel=0,ZIndex=3},{ad('UICorner',{
+CornerRadius=UDim.new(1,0)})})local aI=ad('UIScale',{Scale=1})local aJ=ad(
+'UIGradient',{Rotation=124,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
+Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.46,Color3.fromHex'#B4BCCB')
+,ColorSequenceKeypoint.new(1,Color3.fromHex'#F5F7FC')},Transparency=
+NumberSequence.new{NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(
+0.48,0.54),NumberSequenceKeypoint.new(1,0.16)}})local aK=ad('UIStroke',{Name=
+'OuterFresnelRim',Thickness=1.25,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
+Color=Color3.new(1,1,1),Transparency=1},{aJ})local aL=ad('UIGradient',{Rotation=
+304,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF')
+,ColorSequenceKeypoint.new(0.5,Color3.fromHex'#D4DBE8'),ColorSequenceKeypoint.
+new(1,Color3.fromHex'#FFFFFF')},Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.12),NumberSequenceKeypoint.new(0.5,0.8),
+NumberSequenceKeypoint.new(1,0.32)}})local aM=ad('UIStroke',{Name=
+'InnerBevelStroke',Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Color
+=Color3.new(1,1,1),Transparency=1},{aL})local aN=ad('Frame',{Name=
+'InnerGlassBevel',Size=UDim2.new(1,-2,1,-2),Position=UDim2.fromScale(0.5,0.5),
+AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,BorderSizePixel=0,
+ZIndex=9},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),aM})local aO=ad('Frame',{
+Name='GlassTintBody',Size=UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,1
+),BackgroundTransparency=1,BorderSizePixel=0,ZIndex=5},{ad('UICorner',{
+CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation=96,Color=ColorSequence.
 new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.
-new(0.5,Color3.fromHex'#DCE4F2'),ColorSequenceKeypoint.new(1,Color3.fromHex
-'#FFFFFF')},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.68),
-NumberSequenceKeypoint.new(0.5,0.88),NumberSequenceKeypoint.new(1,0.74)}})})
-local aO=ad('ImageLabel',{Name='Glass',Size=UDim2.fromScale(1,1),
-BackgroundTransparency=1,Image='',ImageTransparency=1,ImageColor3=Color3.new(1,1
-,1),ZIndex=6},{ad('UICorner',{CornerRadius=UDim.new(1,0)})})local aP=ad(
-'UIGradient',{Rotation=128,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
-Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.48,Color3.fromHex'#B6BCC8')
-,ColorSequenceKeypoint.new(1,Color3.fromHex'#F4F6FA')},Transparency=
-NumberSequence.new{NumberSequenceKeypoint.new(0,0.02),NumberSequenceKeypoint.
-new(0.48,0.66),NumberSequenceKeypoint.new(1,0.24)}})local aQ=ad('UIStroke',{Name
-='SpecularRim',Thickness=1.25,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Color=
-Color3.new(1,1,1),Transparency=0.64},{aP})local aR=ad('Frame',{Name=
-'TopMeniscus',Size=UDim2.new(1,-10,0,1),Position=UDim2.new(0.5,0,0,1),
-AnchorPoint=Vector2.new(0.5,0),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=0.56,BorderSizePixel=0,ZIndex=7},{ad('UICorner',{
-CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Transparency=NumberSequence.new{
-NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(0.22,0.18),
-NumberSequenceKeypoint.new(0.5,0),NumberSequenceKeypoint.new(0.78,0.18),
-NumberSequenceKeypoint.new(1,1)}})})local aS=ad('Frame',{Name='BottomCaustic',
-Size=UDim2.new(1,-12,0,1),Position=UDim2.new(0.5,0,1,-1),AnchorPoint=Vector2.
-new(0.5,1),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,
-BorderSizePixel=0,ZIndex=7},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),ad(
-'UIGradient',{Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,1),
-NumberSequenceKeypoint.new(0.5,0.12),NumberSequenceKeypoint.new(1,1)}})})local
-aT=ad('Frame',{Name='Bar',Size=UDim2.fromScale(1,1),AnchorPoint=Vector2.new(0.5,
-0.5),Position=UDim2.fromScale(0.5,0.5),BackgroundTransparency=1,BorderSizePixel=
-0,ZIndex=4},{aK,aL,aN,aM,aO,aQ,aR,aS,aD})local aU=ad('Frame',{Name='Frame',Size=
-UDim2.fromOffset(ay,az),Position=UDim2.new(0,au and aC or aB,0.5,0),AnchorPoint=
-Vector2.new(0,0.5),BackgroundTransparency=1,BorderSizePixel=0,ZIndex=4},{aT})
-local aV=ad('TextButton',{Name='Hitbox',Size=UDim2.fromScale(1,1),Position=UDim2
-.fromScale(0.5,0.5),AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,
-Text='',AutoButtonColor=false,ZIndex=12})local aW=ad('Frame',{Name='ToggleFrame'
-,Size=UDim2.fromOffset(aw,ax),AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(
-1,0,0.5,0),BackgroundColor3=isLightTheme()and Color3.fromHex'#D2D3DA'or Color3.
-fromHex'#3A3A40',BackgroundTransparency=0,BorderSizePixel=0,Parent=aF},{ad(
-'UICorner',{CornerRadius=UDim.new(1,0)}),aJ,aI,aH,aU,aV})local function
-refreshTrackSurface()local aX=isLightTheme()aW.BackgroundColor3=aX and Color3.
-fromHex'#D0D2DA'or Color3.fromHex'#3A3A40'aJ.BackgroundTransparency=aX and 0.9
-or 0.84 aH.Transparency=aX and 0.42 or 0.28 end refreshTrackSurface()local aX if
-ab.OnThemeChange then aX=ab:OnThemeChange(refreshTrackSurface)end local aY=0
-local function setLiquidGlassState(b,d,e)local f=e or 0.18 if av~='LiquidGlass'
-then ae(aM,f,{BackgroundTransparency=0}):Play()ae(aN,f,{BackgroundTransparency=1
-}):Play()ae(aO,f,{ImageTransparency=1}):Play()ae(aQ,f,{Transparency=0.72}):Play(
-)ae(aR,f,{BackgroundTransparency=0.7}):Play()ae(aS,f,{BackgroundTransparency=1})
-:Play()ae(aK,f,{Scale=b and 0.96 or 1},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()return end if b then ae(aK,f,{Scale=d or 1.18},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aM,f*0.85,{
-BackgroundTransparency=0.85},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
-Play()ae(aN,f,{BackgroundTransparency=0.18},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ae(aO,f,{ImageTransparency=0.48},Enum.EasingStyle.
-Quint,Enum.EasingDirection.Out):Play()ae(aQ,f,{Transparency=0.06},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aR,f,{
-BackgroundTransparency=0.08},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
-Play()ae(aS,f,{BackgroundTransparency=0.36},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ae(aL,f,{ImageTransparency=0.62},Enum.EasingStyle.
-Quint,Enum.EasingDirection.Out):Play()else ae(aK,f+0.04,{Scale=1},Enum.
-EasingStyle.Back,Enum.EasingDirection.Out):Play()ae(aM,f,{BackgroundTransparency
-=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aN,f,{
-BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play(
-)ae(aO,f,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
-Play()ae(aQ,f,{Transparency=0.64},Enum.EasingStyle.Quint,Enum.EasingDirection.
-Out):Play()ae(aR,f,{BackgroundTransparency=0.56},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ae(aS,f,{BackgroundTransparency=1},Enum.EasingStyle.
-Quint,Enum.EasingDirection.Out):Play()ae(aL,f,{ImageTransparency=0.72},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()end end local function
-applyStyle(b)av=normalizeStyle(b)at.Style=av computeMetrics(av)aF.Size=UDim2.
-fromOffset(aw,ax)aW.Size=UDim2.fromOffset(aw,ax)aU.Size=UDim2.fromOffset(ay,az)
-aU.Position=UDim2.new(0,au and aC or aB,0.5,0)setLiquidGlassState(false,1,0.14)
-end local b={Root=aF,ApplyStyle=applyStyle}table.insert(al,b)local d local e
-local f=false local function cleanupDrag()if d then d:Disconnect()d=nil end if e
-then e:Disconnect()e=nil end if f then f=false if as and as.Window then as.
-Window.IsToggleDragging=false end if as and as.WindUI then as.WindUI.
-CurrentInput=nil end end end aF.Destroying:Once(function()cleanupDrag()if aX
-then pcall(aX)aX=nil end for g=#al,1,-1 do if al[g]==b then table.remove(al,g)
-break end end end)aV.MouseEnter:Connect(function()if not f then ae(aQ,0.14,{
-Transparency=0.36}):Play()end end)aV.MouseLeave:Connect(function()if not f then
-ae(aQ,0.16,{Transparency=0.64}):Play()end end)function at.SetStyle(g,h)
-applyStyle(h)end function at.Set(g,h,i,l)local m=au au=h and true or false local
-p=au and aC or aB local r,u,v=getGlassFrame(au and 1 or 0)aO.Image=r aO.
-ImageRectSize=u aO.ImageRectOffset=v if l then aY=aY+1 aU.Size=UDim2.fromOffset(
-ay,az)aU.Position=UDim2.new(0,p,0.5,0)aI.BackgroundTransparency=au and 0 or 1 if
-aD then aD.ImageTransparency=au and 0 or 1 end aM.BackgroundTransparency=0 aN.
-BackgroundTransparency=1 aO.ImageTransparency=1 aK.Scale=1 else aY=aY+1 local x=
-aY local z=(m~=au)ae(aI,0.22,{BackgroundTransparency=au and 0 or 1},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()if aD then ae(aD,0.14,{
-ImageTransparency=au and 0 or 1}):Play()end if z and av=='LiquidGlass'then local
-A=ay+4 local B=au and math.max(aB,p-4)or aB aP.Rotation=au and 112 or 144
-setLiquidGlassState(true,1.12,0.11)ae(aU,0.14,{Size=UDim2.fromOffset(A,az-1),
-Position=UDim2.new(0,B,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
-Play()task.delay(0.13,function()if aY~=x or not aF.Parent then return end ae(aU,
-0.22,{Size=UDim2.fromOffset(ay,az),Position=UDim2.new(0,p,0.5,0)},Enum.
-EasingStyle.Back,Enum.EasingDirection.Out):Play()if not f then
-setLiquidGlassState(false,1,0.2)end end)else if z then local A=ay+3 ae(aU,0.12,{
-Size=UDim2.fromOffset(A,az),Position=UDim2.new(0,p,0.5,0)},Enum.EasingStyle.
-Quint,Enum.EasingDirection.Out):Play()task.delay(0.11,function()if aY~=x or not
-aF.Parent then return end ae(aU,0.18,{Size=UDim2.fromOffset(ay,az),Position=
-UDim2.new(0,p,0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()end)
-else ae(aU,0.24,{Size=UDim2.fromOffset(ay,az),Position=UDim2.new(0,p,0.5,0)},
-Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()end end end i=i~=false
-task.spawn(function()if aq and i then ab.SafeCallback(aq,au)end end)end function
-at.Animate(g,h,i)if not as or not as.Window or as.Window.IsToggleDragging then
-return end as.Window.IsToggleDragging=true f=true aY=aY+1 local l=h.Position.X
-local m=aU.Position.X.Offset local p=h local r=h.UserInputType==Enum.
-UserInputType.Touch local u=false setLiquidGlassState(true,1.18,0.18)if av==
-'LiquidGlass'then ae(aU,0.16,{Size=UDim2.fromOffset(ay+3,az)},Enum.EasingStyle.
-Quint,Enum.EasingDirection.Out):Play()end if d then d:Disconnect()end d=ag.
-InputChanged:Connect(function(v)if not as.Window.IsToggleDragging then return
-end if r then if v~=p then return end elseif v.UserInputType~=Enum.UserInputType
-.MouseMovement then return end local x=math.abs(v.Position.X-l)if not u and x>5
-then u=true end local z=v.Position.X-l local A=math.clamp(m+z,aB,aC)local B=math
-.max(aC-aB,1)local C=math.clamp((A-aB)/B,0,1)local F,G,H=getGlassFrame(C)aO.
-Image=F aO.ImageRectSize=G aO.ImageRectOffset=H aP.Rotation=110+C*36 aI.
-BackgroundTransparency=1-C ae(aU,0.08,{Position=UDim2.new(0,A,0.5,0)},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()end)if e then e:Disconnect()
-end e=ag.InputEnded:Connect(function(v)if not as.Window.IsToggleDragging then
-return end if r then if v~=p then return end elseif v.UserInputType~=Enum.
-UserInputType.MouseButton1 then return end cleanupDrag()if not u then i:Set(not
-i.Value,true,false)else local x=aU.Position.X.Offset local z=x+ay*0.5 local A=z>
-aw*0.5 i:Set(A,true,false)setLiquidGlassState(false,1,0.22)ae(aU,0.22,{Size=
-UDim2.fromOffset(ay,az)},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
-end end)end return aF,at end return aa end function a.x()local aa={}local ab=(
-cloneref or clonereference or function(ab)return ab end)local ad=ab(game:
-GetService'RunService')local ae=ab(game:GetService'UserInputService')local af=
-ab(game:GetService'CoreGui')local ag=ab(game:GetService'Players')local ah=ab(
+new(0.45,Color3.fromHex'#DCE6F5'),ColorSequenceKeypoint.new(1,Color3.fromHex
+'#FFFFFF')},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.54),
+NumberSequenceKeypoint.new(0.32,0.9),NumberSequenceKeypoint.new(0.68,0.93),
+NumberSequenceKeypoint.new(1,0.66)}})})local aP=ad('UIGradient',{Rotation=-22,
+Offset=Vector2.new(-0.35,0),Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
+Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.5,Color3.fromHex'#FFFFFF'),
+ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF')},Transparency=
+NumberSequence.new{NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(
+0.32,0.9),NumberSequenceKeypoint.new(0.5,0.42),NumberSequenceKeypoint.new(0.68,
+0.9),NumberSequenceKeypoint.new(1,1)}})local aQ=ad('Frame',{Name=
+'GlassSheenSweep',Size=UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,1),
+BackgroundTransparency=1,BorderSizePixel=0,ZIndex=8},{ad('UICorner',{
+CornerRadius=UDim.new(1,0)}),aP})local aR=ad('Frame',{Name='PorcelainFill',Size=
+UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0
+,BorderSizePixel=0,ZIndex=7},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),ad(
+'UIGradient',{Rotation=90,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
+Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.76,Color3.fromHex'#F6F7FA')
+,ColorSequenceKeypoint.new(1,Color3.fromHex'#ECEEF4')}})})local aS=ad('Frame',{
+Name='Bar',Size=UDim2.fromScale(1,1),AnchorPoint=Vector2.new(0.5,0.5),Position=
+UDim2.fromScale(0.5,0.5),BackgroundTransparency=1,BorderSizePixel=0,ZIndex=4},{
+ad('UICorner',{CornerRadius=UDim.new(1,0)}),aI,aK,aO,aR,aQ,aN,aB})local aT=ad(
+'Frame',{Name='Frame',Size=UDim2.fromOffset(aw,ax),Position=UDim2.new(0,as and
+aA or az,0.5,0),AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,
+BorderSizePixel=0,ZIndex=4},{aH,aS})local aU=ad('TextButton',{Name='Hitbox',Size
+=UDim2.new(1,6,1,12),Position=UDim2.fromScale(0.5,0.5),AnchorPoint=Vector2.new(
+0.5,0.5),BackgroundTransparency=1,Text='',AutoButtonColor=false,ZIndex=12})local
+aV=ad('Frame',{Name='ToggleFrame',Size=UDim2.fromOffset(au,av),AnchorPoint=
+Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),BackgroundColor3=isLightTheme()
+and Color3.fromHex'#D0D2DA'or Color3.fromHex'#39393F',BackgroundTransparency=0,
+BorderSizePixel=0,ClipsDescendants=false,Parent=aD},{ad('UICorner',{CornerRadius
+=UDim.new(1,0)}),aG,aF,aT,aU})local function refreshTrackSurface()local aW=
+isLightTheme()aV.BackgroundColor3=aW and Color3.fromHex'#D0D2DA'or Color3.
+fromHex'#39393F'aF.Transparency=aW and 0.56 or 0.44 aH.BackgroundTransparency=aW
+and 0.86 or 0.8 end refreshTrackSurface()local aW if ab.OnThemeChange then aW=ab
+:OnThemeChange(refreshTrackSurface)end local aX=0 local aY=false local b=false
+local function setLiquidGlassState(d,e,f)local g=f or 0.18 local h=isLightTheme(
+)if at~='LiquidGlass'then ae(aR,g,{BackgroundTransparency=0}):Play()ae(aO,g,{
+BackgroundTransparency=1}):Play()ae(aQ,g,{BackgroundTransparency=1}):Play()ae(aK
+,g,{Transparency=1}):Play()ae(aM,g,{Transparency=1}):Play()ae(aH,g,{
+BackgroundTransparency=h and 0.86 or 0.8}):Play()ae(aI,g,{Scale=d and 0.96 or 1}
+,Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()return end if d then ae(
+aI,g,{Scale=e or 1.22},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+ae(aR,g*0.8,{BackgroundTransparency=0.92},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()ae(aO,g,{BackgroundTransparency=0.22},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aQ,g,{
+BackgroundTransparency=0.34},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()ae(aK,g,{Transparency=0.06},Enum.EasingStyle.Quint,Enum.EasingDirection.
+Out):Play()ae(aM,g,{Transparency=0.28},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()ae(aH,g,{BackgroundTransparency=0.96},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out):Play()if aB then ae(aB,g,{
+ImageColor3=Color3.new(1,1,1)}):Play()end else ae(aI,g+0.04,{Scale=aY and 1.03
+or 1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()ae(aR,g,{
+BackgroundTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play(
+)ae(aO,g,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.
+Out):Play()ae(aQ,g,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()ae(aK,g,{Transparency=aY and 0.65 or 1},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aM,g,{Transparency=1},Enum.
+EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aH,g,{
+BackgroundTransparency=h and 0.86 or 0.8},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()if aB then ae(aB,g,{ImageColor3=Color3.fromHex
+'#111114'}):Play()end end end local function applyStyle(d)at=normalizeStyle(d)ar
+.Style=at computeMetrics(at)aD.Size=UDim2.fromOffset(au,av)aV.Size=UDim2.
+fromOffset(au,av)aT.Size=UDim2.fromOffset(aw,ax)aT.Position=UDim2.new(0,as and
+aA or az,0.5,0)setLiquidGlassState(false,1,0.14)end local d={Root=aD,ApplyStyle=
+applyStyle}table.insert(aj,d)local e local f local g=false local function
+cleanupDrag()if e then e:Disconnect()e=nil end if f then f:Disconnect()f=nil end
+if g then g=false if aq and aq.Window then aq.Window.IsToggleDragging=false end
+if aq and aq.WindUI then aq.WindUI.CurrentInput=nil end end end aD.Destroying:
+Once(function()cleanupDrag()if aW then pcall(aW)aW=nil end for h=#aj,1,-1 do if
+aj[h]==d then table.remove(aj,h)break end end end)aU.MouseEnter:Connect(function
+()aY=true if not g and at=='LiquidGlass'then ae(aK,0.14,{Transparency=0.65}):
+Play()ae(aI,0.16,{Scale=1.03},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()end end)aU.MouseLeave:Connect(function()aY=false if not g then ae(aK,0.16,
+{Transparency=1}):Play()ae(aI,0.18,{Scale=1},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()end end)function ar.SetStyle(h,i)applyStyle(i)end
+function ar.Set(h,i,l,m)local p=as as=i and true or false local r=as and aA or
+az if m then aX=aX+1 aT.Size=UDim2.fromOffset(aw,ax)aT.Position=UDim2.new(0,r,
+0.5,0)aG.BackgroundTransparency=as and 0 or 1 if aB then aB.ImageTransparency=as
+and 0 or 1 aB.ImageColor3=Color3.fromHex'#111114'end aR.BackgroundTransparency=0
+aO.BackgroundTransparency=1 aQ.BackgroundTransparency=1 aK.Transparency=1 aM.
+Transparency=1 aI.Scale=1 else aX=aX+1 local u=aX local v=(p~=as)ae(aG,0.22,{
+BackgroundTransparency=as and 0 or 1},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()if aB then ae(aB,0.16,{ImageTransparency=as and 0 or
+1}):Play()end if b then ae(aT,0.22,{Size=UDim2.fromOffset(aw,ax),Position=UDim2.
+new(0,r,0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
+setLiquidGlassState(false,1,0.22)elseif v and at=='LiquidGlass'then local x=aw+3
+local z=as and math.max(az,r-3)or az aJ.Rotation=as and 108 or 140 aL.Rotation=
+as and 288 or 320 aP.Offset=Vector2.new(as and-0.55 or 0.55,0)
+setLiquidGlassState(true,1.18,0.11)ae(aP,0.22,{Offset=Vector2.new(as and 0.55 or
+-0.55,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aT,0.14,{
+Size=UDim2.fromOffset(x,ax),Position=UDim2.new(0,z,0.5,0)},Enum.EasingStyle.
+Quint,Enum.EasingDirection.Out):Play()task.delay(0.13,function()if aX~=u or not
+aD.Parent then return end ae(aT,0.22,{Size=UDim2.fromOffset(aw,ax),Position=
+UDim2.new(0,r,0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()if
+not g then setLiquidGlassState(false,1,0.2)end end)else if v then local x=aw+3
+local z=as and math.max(az,r-3)or az ae(aT,0.12,{Size=UDim2.fromOffset(x,ax),
+Position=UDim2.new(0,z,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()task.delay(0.11,function()if aX~=u or not aD.Parent then return end ae(aT,
+0.18,{Size=UDim2.fromOffset(aw,ax),Position=UDim2.new(0,r,0.5,0)},Enum.
+EasingStyle.Back,Enum.EasingDirection.Out):Play()end)else ae(aT,0.22,{Size=UDim2
+.fromOffset(aw,ax),Position=UDim2.new(0,r,0.5,0)},Enum.EasingStyle.Back,Enum.
+EasingDirection.Out):Play()if not g then setLiquidGlassState(false,1,0.2)end end
+end end l=l~=false task.spawn(function()if ao and l then ab.SafeCallback(ao,as)
+end end)end function ar.Animate(h,i,l)if not aq or not aq.Window or aq.Window.
+IsToggleDragging then return end aq.Window.IsToggleDragging=true g=true aX=aX+1
+local m=i.Position.X local p=aT.Position.X.Offset local r=i local u=i.
+UserInputType==Enum.UserInputType.Touch local v=false setLiquidGlassState(true,
+1.22,0.18)if at=='LiquidGlass'then local x=aw+3 local z=as and math.max(az,aA-3)
+or az ae(aT,0.16,{Size=UDim2.fromOffset(x,ax),Position=UDim2.new(0,z,0.5,0)},
+Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end if e then e:
+Disconnect()end e=ag.InputChanged:Connect(function(x)if not aq.Window.
+IsToggleDragging then return end if u then if x~=r then return end elseif x.
+UserInputType~=Enum.UserInputType.MouseMovement then return end local z=math.
+abs(x.Position.X-m)if not v and z>5 then v=true end local A=(at=='LiquidGlass')
+and(aw+3)or aw local B=math.max(az,au-A-ay)local C=x.Position.X-m local F=math.
+clamp(p+C,az,B)local G=math.max(B-az,1)local H=math.clamp((F-az)/G,0,1)aJ.
+Rotation=104+H*40 aL.Rotation=284+H*40 aP.Offset=Vector2.new(-0.45+H*0.9,0)aG.
+BackgroundTransparency=1-H if aB then aB.ImageTransparency=1-H end ae(aT,0.08,{
+Position=UDim2.new(0,F,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()end)if f then f:Disconnect()end f=ag.InputEnded:Connect(function(x)if not
+aq.Window.IsToggleDragging then return end if u then if x~=r then return end
+elseif x.UserInputType~=Enum.UserInputType.MouseButton1 then return end
+cleanupDrag()if not v then l:Set(not l.Value,true,false)else local z=aT.Position
+.X.Offset local A=z+aT.Size.X.Offset*0.5 local B=A>au*0.5 b=true l:Set(B,true,
+false)b=false end end)end return aD,ar end return aa end function a.x()local aa=
+{}local ab=(cloneref or clonereference or function(ab)return ab end)local ad=ab(
+game:GetService'RunService')local ae=ab(game:GetService'UserInputService')local
+af=ab(game:GetService'CoreGui')local ag=ab(game:GetService'Players')local ah=ab(
 game:GetService'TweenService')local ai=a.load'e'local aj=protectgui or(syn and
 syn.protect_gui)or function()end local ak=
 [[https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/main/assets/]]
@@ -7799,119 +7808,120 @@ table.sort(ay)av=ap:Dropdown{Title='Theme',Values=ay,Value=am:GetCurrentTheme(),
 Flag=an.ThemeFlag or'_WindUI_Theme',Callback=function(az)am:SetTheme(az)
 refreshThemeCards()end}ap:Segmented{Title='Toggle Style',Desc=
 [[macOS Tahoe 26 Liquid Glass droplet or Classic Sequoia switch]],Values={
-'LiquidGlass','Classic'},Value=ag.GetGlobalStyle(),Flag=an.ToggleStyleFlag or
-'_WindUI_ToggleStyle',Callback=function(az)ag.SetGlobalStyle(az)end}ap:Toggle{
-Title='Transparent Background',Value=am:GetTransparency(),Flag=an.
-TransparentFlag or'_WindUI_Transparent',Callback=function(az)al:
-ToggleTransparency(az)end}ap:Slider{Title='UI Scale',Step=0.05,Value={Min=0.4,
-Max=1.4,Default=math.clamp(math.floor((al:GetUIScale()or 1)*20+0.5)/20,0.4,1.4)}
-,Flag=an.ScaleFlag or'_WindUI_UIScale',Callback=function(az)al:SetUIScale(az)end
-}end local function buildChromeSection(ak,al,am,an,ao)if an.ShowLayoutPreview==
-false and an.ShowNavBarPosition==false then return end local ap=ak:Section{Title
-=an.ChromeTitle or'Layout, Topbar & Navigate Bar',Opened=true}local aq local ar=
-getSectionContentParent(ap)if ar and an.ShowLayoutPreview~=false then local as=
-makePreviewWrapper(ar,'ChromeDisplayPreview',122)local at=ah('Frame',{Name=
-'DisplayStage',Size=UDim2.fromOffset(224,100),Position=UDim2.fromScale(0.5,0.5),
-AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromHex'#14161D',
-BorderSizePixel=0,ClipsDescendants=true,Parent=as},{ah('UICorner',{CornerRadius=
-UDim.new(0,9)}),ah('UIStroke',{Thickness=1,Color=Color3.new(1,1,1),Transparency=
-0.84}),ah('UIGradient',{Rotation=132,Color=ColorSequence.new{
-ColorSequenceKeypoint.new(0,Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.
-new(1,Color3.fromRGB(190,202,224))}})})local au=ah('Frame',{Name='MiniWindow',
-Size=UDim2.fromOffset(154,68),Position=UDim2.new(0.5,0,0.5,-5),AnchorPoint=
-Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromHex'#1F2026',BorderSizePixel=0,
-ClipsDescendants=true,ZIndex=2,Parent=at},{ah('UICorner',{CornerRadius=UDim.new(
-0,6)}),ah('UIStroke',{Name='WinStroke',Thickness=1,Color=Color3.new(1,1,1),
-Transparency=0.82})})local av=ah('Frame',{Name='MiniTopbar',Size=UDim2.new(1,0,0
-,14),BackgroundColor3=Color3.fromHex'#25262E',BorderSizePixel=0,ZIndex=4,Parent=
-au},{ah('Frame',{Size=UDim2.fromOffset(4,4),Position=UDim2.new(0,6,0.5,0),
-AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.fromHex'#FF5F57',
+'Glass','Classic'},Value=ag.GetGlobalStyle()=='Classic'and'Classic'or'Glass',
+Flag=an.ToggleStyleFlag or'_WindUI_ToggleStyle',Callback=function(az)ag.
+SetGlobalStyle(az)end}ap:Toggle{Title='Transparent Background',Value=am:
+GetTransparency(),Flag=an.TransparentFlag or'_WindUI_Transparent',Callback=
+function(az)al:ToggleTransparency(az)end}ap:Slider{Title='UI Scale',Step=0.05,
+Value={Min=0.4,Max=1.4,Default=math.clamp(math.floor((al:GetUIScale()or 1)*20+
+0.5)/20,0.4,1.4)},Flag=an.ScaleFlag or'_WindUI_UIScale',Callback=function(az)al:
+SetUIScale(az)end}end local function buildChromeSection(ak,al,am,an,ao)if an.
+ShowLayoutPreview==false and an.ShowNavBarPosition==false then return end local
+ap=ak:Section{Title=an.ChromeTitle or'Layout, Topbar & Navigate Bar',Opened=true
+}local aq local ar=getSectionContentParent(ap)if ar and an.ShowLayoutPreview~=
+false then local as=makePreviewWrapper(ar,'ChromeDisplayPreview',122)local at=
+ah('Frame',{Name='DisplayStage',Size=UDim2.fromOffset(224,100),Position=UDim2.
+fromScale(0.5,0.5),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.
+fromHex'#14161D',BorderSizePixel=0,ClipsDescendants=true,Parent=as},{ah(
+'UICorner',{CornerRadius=UDim.new(0,9)}),ah('UIStroke',{Thickness=1,Color=Color3
+.new(1,1,1),Transparency=0.84}),ah('UIGradient',{Rotation=132,Color=
+ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(1,Color3.fromRGB(190,202,224))}})})local au=ah('Frame'
+,{Name='MiniWindow',Size=UDim2.fromOffset(154,68),Position=UDim2.new(0.5,0,0.5,-
+5),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromHex'#1F2026',
+BorderSizePixel=0,ClipsDescendants=true,ZIndex=2,Parent=at},{ah('UICorner',{
+CornerRadius=UDim.new(0,6)}),ah('UIStroke',{Name='WinStroke',Thickness=1,Color=
+Color3.new(1,1,1),Transparency=0.82})})local av=ah('Frame',{Name='MiniTopbar',
+Size=UDim2.new(1,0,0,14),BackgroundColor3=Color3.fromHex'#25262E',
+BorderSizePixel=0,ZIndex=4,Parent=au},{ah('Frame',{Size=UDim2.fromOffset(4,4),
+Position=UDim2.new(0,6,0.5,0),AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=
+Color3.fromHex'#FF5F57',BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.
+new(1,0)})}),ah('Frame',{Size=UDim2.fromOffset(4,4),Position=UDim2.new(0,12,0.5,
+0),AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.fromHex'#FEBC2E',
 BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})}),ah('Frame',{
-Size=UDim2.fromOffset(4,4),Position=UDim2.new(0,12,0.5,0),AnchorPoint=Vector2.
-new(0,0.5),BackgroundColor3=Color3.fromHex'#FEBC2E',BorderSizePixel=0},{ah(
-'UICorner',{CornerRadius=UDim.new(1,0)})}),ah('Frame',{Size=UDim2.fromOffset(4,4
-),Position=UDim2.new(0,18,0.5,0),AnchorPoint=Vector2.new(0,0.5),BackgroundColor3
-=Color3.fromHex'#28C840',BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.
-new(1,0)})}),ah('Frame',{Size=UDim2.fromOffset(36,3),Position=UDim2.fromScale(
-0.5,0.5),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=0.55,BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim
-.new(1,0)})}),ah('Frame',{Size=UDim2.new(1,0,0,1),Position=UDim2.new(0,0,1,-1),
-BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.9,BorderSizePixel=0}
-)})local aw=ah('Frame',{Name='MiniSidebar',Size=UDim2.new(0,42,1,-14),Position=
-UDim2.fromOffset(0,14),BackgroundColor3=Color3.fromHex'#191A20',BorderSizePixel=
-0,ZIndex=3,Parent=au},{ah('Frame',{Name='ActiveBar',Size=UDim2.new(1,-8,0,8),
-Position=UDim2.fromOffset(4,6),BackgroundColor3=Color3.fromHex'#0A84FF',
-BackgroundTransparency=0.2,BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.
-new(0,3)})}),ah('Frame',{Name='IdleBar1',Size=UDim2.new(1,-10,0,6),Position=
-UDim2.fromOffset(4,18),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency
-=0.84,BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(0,3)})}),ah(
-'Frame',{Name='IdleBar2',Size=UDim2.new(1,-12,0,6),Position=UDim2.fromOffset(4,
-28),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.88,
-BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(0,3)})})})local ax=ah(
-'Frame',{Name='MiniNewFormDots',Size=UDim2.fromOffset(18,4),Position=UDim2.new(
-0.5,0,0,4),AnchorPoint=Vector2.new(0.5,0),BackgroundTransparency=1,ZIndex=5,
-Parent=au},{ah('UIListLayout',{FillDirection=Enum.FillDirection.Horizontal,
-HorizontalAlignment=Enum.HorizontalAlignment.Center,VerticalAlignment=Enum.
-VerticalAlignment.Center,Padding=UDim.new(0,3)}),ah('Frame',{Size=UDim2.
+Size=UDim2.fromOffset(4,4),Position=UDim2.new(0,18,0.5,0),AnchorPoint=Vector2.
+new(0,0.5),BackgroundColor3=Color3.fromHex'#28C840',BorderSizePixel=0},{ah(
+'UICorner',{CornerRadius=UDim.new(1,0)})}),ah('Frame',{Size=UDim2.fromOffset(36,
+3),Position=UDim2.fromScale(0.5,0.5),AnchorPoint=Vector2.new(0.5,0.5),
+BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.55,BorderSizePixel=0
+},{ah('UICorner',{CornerRadius=UDim.new(1,0)})}),ah('Frame',{Size=UDim2.new(1,0,
+0,1),Position=UDim2.new(0,0,1,-1),BackgroundColor3=Color3.new(1,1,1),
+BackgroundTransparency=0.9,BorderSizePixel=0})})local aw=ah('Frame',{Name=
+'MiniSidebar',Size=UDim2.new(0,42,1,-14),Position=UDim2.fromOffset(0,14),
+BackgroundColor3=Color3.fromHex'#191A20',BorderSizePixel=0,ZIndex=3,Parent=au},{
+ah('Frame',{Name='ActiveBar',Size=UDim2.new(1,-8,0,8),Position=UDim2.fromOffset(
+4,6),BackgroundColor3=Color3.fromHex'#0A84FF',BackgroundTransparency=0.2,
+BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(0,3)})}),ah('Frame',{
+Name='IdleBar1',Size=UDim2.new(1,-10,0,6),Position=UDim2.fromOffset(4,18),
+BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.84,BorderSizePixel=0
+},{ah('UICorner',{CornerRadius=UDim.new(0,3)})}),ah('Frame',{Name='IdleBar2',
+Size=UDim2.new(1,-12,0,6),Position=UDim2.fromOffset(4,28),BackgroundColor3=
+Color3.new(1,1,1),BackgroundTransparency=0.88,BorderSizePixel=0},{ah('UICorner',
+{CornerRadius=UDim.new(0,3)})})})local ax=ah('Frame',{Name='MiniNewFormDots',
+Size=UDim2.fromOffset(18,4),Position=UDim2.new(0.5,0,0,4),AnchorPoint=Vector2.
+new(0.5,0),BackgroundTransparency=1,ZIndex=5,Parent=au},{ah('UIListLayout',{
+FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.
+HorizontalAlignment.Center,VerticalAlignment=Enum.VerticalAlignment.Center,
+Padding=UDim.new(0,3)}),ah('Frame',{Size=UDim2.fromOffset(3,3),BackgroundColor3=
+Color3.new(1,1,1),BackgroundTransparency=0.45,BorderSizePixel=0},{ah('UICorner',
+{CornerRadius=UDim.new(1,0)})}),ah('Frame',{Size=UDim2.fromOffset(3,3),
+BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.45,BorderSizePixel=0
+},{ah('UICorner',{CornerRadius=UDim.new(1,0)})}),ah('Frame',{Size=UDim2.
 fromOffset(3,3),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.45,
-BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})}),ah('Frame',{
-Size=UDim2.fromOffset(3,3),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=0.45,BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim
-.new(1,0)})}),ah('Frame',{Size=UDim2.fromOffset(3,3),BackgroundColor3=Color3.
-new(1,1,1),BackgroundTransparency=0.45,BorderSizePixel=0},{ah('UICorner',{
-CornerRadius=UDim.new(1,0)})})})local ay=ah('Frame',{Name='MiniBody',Size=UDim2.
-new(1,-14,1,-18),Position=UDim2.fromOffset(7,13),BackgroundTransparency=1,ZIndex
-=3,Parent=au},{ah('UIListLayout',{FillDirection=Enum.FillDirection.Vertical,
-Padding=UDim.new(0,4)}),ah('Frame',{Name='Row1',Size=UDim2.new(1,0,0,14),
-BackgroundColor3=Color3.fromHex'#2B2D36',BorderSizePixel=0},{ah('UICorner',{
-CornerRadius=UDim.new(0,4)}),ah('Frame',{Size=UDim2.fromOffset(14,7),Position=
-UDim2.new(1,-4,0.5,0),AnchorPoint=Vector2.new(1,0.5),BackgroundColor3=Color3.
-fromHex'#30D158',BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})
-,ah('Frame',{Size=UDim2.fromOffset(5,5),Position=UDim2.new(1,-1,0.5,0),
-AnchorPoint=Vector2.new(1,0.5),BackgroundColor3=Color3.new(1,1,1),
-BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})})})}),ah('Frame'
-,{Name='Row2',Size=UDim2.new(1,0,0,14),BackgroundColor3=Color3.fromHex'#2B2D36',
+BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})})})local ay=ah(
+'Frame',{Name='MiniBody',Size=UDim2.new(1,-14,1,-18),Position=UDim2.fromOffset(7
+,13),BackgroundTransparency=1,ZIndex=3,Parent=au},{ah('UIListLayout',{
+FillDirection=Enum.FillDirection.Vertical,Padding=UDim.new(0,4)}),ah('Frame',{
+Name='Row1',Size=UDim2.new(1,0,0,14),BackgroundColor3=Color3.fromHex'#2B2D36',
 BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(0,4)}),ah('Frame',{Size
-=UDim2.new(0.45,0,0,3),Position=UDim2.new(0,5,0.5,0),AnchorPoint=Vector2.new(0,
-0.5),BackgroundColor3=Color3.fromHex'#0A84FF',BorderSizePixel=0},{ah('UICorner',
-{CornerRadius=UDim.new(1,0)})})})})local az=ah('UIListLayout',{FillDirection=
-Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.HorizontalAlignment.
-Center,VerticalAlignment=Enum.VerticalAlignment.Center,Padding=UDim.new(0,4)})
-local aA=ah('Frame',{Name='MiniNavBarPreview',Size=UDim2.fromOffset(124,11),
-Position=UDim2.new(0.5,0,1,-5),AnchorPoint=Vector2.new(0.5,1),
-BackgroundTransparency=1,ZIndex=6,Parent=at},{az})local aB=ah('Frame',{Name=
-'DockLeft',Size=UDim2.fromOffset(22,10),BackgroundColor3=Color3.fromHex'#1E1F24'
-,BorderSizePixel=0,LayoutOrder=1,Parent=aA},{ah('UICorner',{CornerRadius=UDim.
-new(1,0)}),ah('UIStroke',{Thickness=1,Color=Color3.new(1,1,1),Transparency=0.78}
-)})local aC=ah('Frame',{Name='DockLens',Size=UDim2.fromOffset(22,6),Position=
-UDim2.new(0,3,0.5,0),AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.new(
-1,1,1),BackgroundTransparency=0.72,BorderSizePixel=0},{ah('UICorner',{
-CornerRadius=UDim.new(1,0)})})local aD=ah('Frame',{Name='DockCenter',Size=UDim2.
-fromOffset(66,10),BackgroundColor3=Color3.fromHex'#1E1F24',BorderSizePixel=0,
-LayoutOrder=2,Parent=aA},{ah('UICorner',{CornerRadius=UDim.new(1,0)}),ah(
-'UIStroke',{Thickness=1,Color=Color3.new(1,1,1),Transparency=0.78}),aC})local aE
-=ah('Frame',{Name='DockRight',Size=UDim2.fromOffset(22,10),BackgroundColor3=
-Color3.fromHex'#1E1F24',BorderSizePixel=0,LayoutOrder=3,Parent=aA},{ah(
+=UDim2.fromOffset(14,7),Position=UDim2.new(1,-4,0.5,0),AnchorPoint=Vector2.new(1
+,0.5),BackgroundColor3=Color3.fromHex'#30D158',BorderSizePixel=0},{ah('UICorner'
+,{CornerRadius=UDim.new(1,0)}),ah('Frame',{Size=UDim2.fromOffset(5,5),Position=
+UDim2.new(1,-1,0.5,0),AnchorPoint=Vector2.new(1,0.5),BackgroundColor3=Color3.
+new(1,1,1),BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})})})})
+,ah('Frame',{Name='Row2',Size=UDim2.new(1,0,0,14),BackgroundColor3=Color3.
+fromHex'#2B2D36',BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(0,4)})
+,ah('Frame',{Size=UDim2.new(0.45,0,0,3),Position=UDim2.new(0,5,0.5,0),
+AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.fromHex'#0A84FF',
+BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})})})})local az=
+ah('UIListLayout',{FillDirection=Enum.FillDirection.Horizontal,
+HorizontalAlignment=Enum.HorizontalAlignment.Center,VerticalAlignment=Enum.
+VerticalAlignment.Center,Padding=UDim.new(0,4)})local aA=ah('Frame',{Name=
+'MiniNavBarPreview',Size=UDim2.fromOffset(124,11),Position=UDim2.new(0.5,0,1,-5)
+,AnchorPoint=Vector2.new(0.5,1),BackgroundTransparency=1,ZIndex=6,Parent=at},{az
+})local aB=ah('Frame',{Name='DockLeft',Size=UDim2.fromOffset(22,10),
+BackgroundColor3=Color3.fromHex'#1E1F24',BorderSizePixel=0,LayoutOrder=1,Parent=
+aA},{ah('UICorner',{CornerRadius=UDim.new(1,0)}),ah('UIStroke',{Thickness=1,
+Color=Color3.new(1,1,1),Transparency=0.78})})local aC=ah('Frame',{Name=
+'DockLens',Size=UDim2.fromOffset(22,6),Position=UDim2.new(0,3,0.5,0),AnchorPoint
+=Vector2.new(0,0.5),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=
+0.72,BorderSizePixel=0},{ah('UICorner',{CornerRadius=UDim.new(1,0)})})local aD=
+ah('Frame',{Name='DockCenter',Size=UDim2.fromOffset(66,10),BackgroundColor3=
+Color3.fromHex'#1E1F24',BorderSizePixel=0,LayoutOrder=2,Parent=aA},{ah(
 'UICorner',{CornerRadius=UDim.new(1,0)}),ah('UIStroke',{Thickness=1,Color=Color3
-.new(1,1,1),Transparency=0.78})})local aF=ah('TextLabel',{Name='PreviewStatus',
-AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.fromOffset(0,14),Position=UDim2.
-new(1,-6,0,5),AnchorPoint=Vector2.new(1,0),BackgroundColor3=Color3.fromRGB(0,0,0
-),BackgroundTransparency=0.52,BorderSizePixel=0,Text='NewForm \u{b7} Bottom',
-TextSize=8,FontFace=Font.new(ae.Font,Enum.FontWeight.SemiBold),TextColor3=Color3
-.fromHex'#F5F5F7',ZIndex=10,Parent=at},{ah('UICorner',{CornerRadius=UDim.new(0,4
-)}),ah('UIPadding',{PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5)})})aq={
-Stage=at,MiniWin=au,MiniTopbar=av,MiniSidebar=aw,MiniDots=ax,MiniBody=ay,
-MiniDock=aA,DockLayout=az,DockLeft=aB,DockCenter=aD,DockRight=aE,DockLens=aC,
-StatusBadge=aF}end local function refreshChromePreview()if not aq then return
-end local as=am:GetThemes()or{}local at=getThemePalette(as[am:GetCurrentTheme()]
-)local au=al.LayoutMode=='NewForm'local av=(al.GetNavBarPosition and al:
-GetNavBarPosition())or'Bottom'local aw=(al.GetSidebarMode and al:GetSidebarMode(
-))or'Full'aq.Stage.BackgroundColor3=at.Light and at.Bg:Lerp(Color3.fromHex
-'#DCE4F4',0.45)or at.Bg:Lerp(at.Accent,0.12):Lerp(Color3.fromHex'#090A0F',0.35)
-aq.MiniWin.BackgroundColor3=at.Bg aq.MiniTopbar.BackgroundColor3=at.Sidebar aq.
-MiniSidebar.BackgroundColor3=at.Sidebar local ax=at.Light and Color3.fromHex
-'#EAECF0'or Color3.fromHex'#1F2026'aq.DockLeft.BackgroundColor3=ax aq.DockCenter
-.BackgroundColor3=ax aq.DockRight.BackgroundColor3=ax aq.DockLens.
+.new(1,1,1),Transparency=0.78}),aC})local aE=ah('Frame',{Name='DockRight',Size=
+UDim2.fromOffset(22,10),BackgroundColor3=Color3.fromHex'#1E1F24',BorderSizePixel
+=0,LayoutOrder=3,Parent=aA},{ah('UICorner',{CornerRadius=UDim.new(1,0)}),ah(
+'UIStroke',{Thickness=1,Color=Color3.new(1,1,1),Transparency=0.78})})local aF=
+ah('TextLabel',{Name='PreviewStatus',AutomaticSize=Enum.AutomaticSize.X,Size=
+UDim2.fromOffset(0,14),Position=UDim2.new(1,-6,0,5),AnchorPoint=Vector2.new(1,0)
+,BackgroundColor3=Color3.fromRGB(0,0,0),BackgroundTransparency=0.52,
+BorderSizePixel=0,Text='NewForm \u{b7} Bottom',TextSize=8,FontFace=Font.new(ae.
+Font,Enum.FontWeight.SemiBold),TextColor3=Color3.fromHex'#F5F5F7',ZIndex=10,
+Parent=at},{ah('UICorner',{CornerRadius=UDim.new(0,4)}),ah('UIPadding',{
+PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5)})})aq={Stage=at,MiniWin=au,
+MiniTopbar=av,MiniSidebar=aw,MiniDots=ax,MiniBody=ay,MiniDock=aA,DockLayout=az,
+DockLeft=aB,DockCenter=aD,DockRight=aE,DockLens=aC,StatusBadge=aF}end
+local function refreshChromePreview()if not aq then return end local as=am:
+GetThemes()or{}local at=getThemePalette(as[am:GetCurrentTheme()])local au=al.
+LayoutMode=='NewForm'local av=(al.GetNavBarPosition and al:GetNavBarPosition())
+or'Bottom'local aw=(al.GetSidebarMode and al:GetSidebarMode())or'Full'aq.Stage.
+BackgroundColor3=at.Light and at.Bg:Lerp(Color3.fromHex'#DCE4F4',0.45)or at.Bg:
+Lerp(at.Accent,0.12):Lerp(Color3.fromHex'#090A0F',0.35)aq.MiniWin.
+BackgroundColor3=at.Bg aq.MiniTopbar.BackgroundColor3=at.Sidebar aq.MiniSidebar.
+BackgroundColor3=at.Sidebar local ax=at.Light and Color3.fromHex'#EAECF0'or
+Color3.fromHex'#1F2026'aq.DockLeft.BackgroundColor3=ax aq.DockCenter.
+BackgroundColor3=ax aq.DockRight.BackgroundColor3=ax aq.DockLens.
 BackgroundColor3=at.Light and Color3.fromHex'#1D1D1F'or Color3.new(1,1,1)aq.
 MiniTopbar.Visible=not au aq.MiniSidebar.Visible=not au aq.MiniDots.Visible=au
 aq.MiniDock.Visible=au if au then aq.MiniBody.Size=UDim2.new(1,-14,1,-18)aq.
