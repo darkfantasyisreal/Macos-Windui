@@ -2810,246 +2810,236 @@ Window and not aA.Window.Destroyed and aA.Id then table.insert(ay.Workspaces,aA)
 ay.ById[aA.Id]=aA end end end aw[ag]=ay return ay end return createManager()end
 return getManager()end function a.w()local aa={}local ab=a.load'e'local ad=ab.
 New local ae=ab.Tween local af=(cloneref or clonereference or function(af)return
-af end)local ag=af(game:GetService'UserInputService')local ah={Id=
-'rbxassetid://77297718671545',MirroredId='rbxassetid://92258969882244',Size=
-Vector2.new(102,128),Total=80,Cols=10}local ai='LiquidGlass'local aj={}
-local function normalizeStyle(ak)if type(ak)~='string'then return'LiquidGlass'
-end local al=string.lower((string.gsub(ak,'[%s_%-]+','')))if al=='classic'or al
-=='sequoia'or al=='standard'or al=='compact'then return'Classic'end return
+af end)local ag=af(game:GetService'UserInputService')local ah=af(game:GetService
+'RunService')local ai=
+[[https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/main/assets/]]
+local aj={Url=ai..'toggle_refract_sheet.png',CacheFile=
+'toggle_refract_sheet_v1.png',LocalFallback='assets/toggle_refract_sheet.png',
+Cols=4,Rows=8,Total=32,CellW=128,CellH=88,InnerW=126,InnerH=84}local ak={Url=ai
+..'toggle_glass_lens.png',CacheFile='toggle_glass_lens_v1.png',LocalFallback=
+'assets/toggle_glass_lens.png'}local al={Id=aj.Url,MirroredId=aj.Url,Size=
+Vector2.new(aj.InnerW,aj.InnerH),Total=aj.Total,Cols=aj.Cols}local am=
+'LiquidGlass'local an={}local ao={RefractId=nil,LensId=nil,Fetching=false}
+local function normalizeStyle(ap)if type(ap)~='string'then return'LiquidGlass'
+end local aq=string.lower((string.gsub(ap,'[%s_%-]+','')))if aq=='classic'or aq
+=='sequoia'or aq=='standard'or aq=='compact'then return'Classic'end return
 'LiquidGlass'end local function isLightTheme()if ab.IsThemeDark then return not
-ab.IsThemeDark(ab.Theme)end local ak=string.lower(tostring(ab.Theme or''))return
-string.find(ak,'light',1,true)~=nil end function aa.GetGlobalStyle()return ai
-end function aa.SetGlobalStyle(ak)local al=normalizeStyle(ak)ai=al for am=#aj,1,
--1 do local an=aj[am]if not an or not an.Root or not an.Root.Parent then table.
-remove(aj,am)elseif an.ApplyStyle then pcall(an.ApplyStyle,al)end end return al
-end local function getGlassFrame(ak)local al=ah local am if ak<=0.4 then am=math
-.floor((ak/0.4)*(al.Total-1))elseif ak<0.6 then am=al.Total-1 else am=math.
-floor(((ak-0.6)/0.4)*(al.Total-1))end am=math.clamp(am,0,al.Total-1)local an=ak
->=0.6 if an then am=(al.Total-1)-am end local ao=an and al.MirroredId or al.Id
-return ao,al.Size,Vector2.new((am%al.Cols)*al.Size.X,math.floor(am/al.Cols)*al.
-Size.Y)end function aa.New(ak,al,am,an,ao,ap,aq)local ar={GlassSpritesheet=ah,
-Style=(aq and aq.Style and normalizeStyle(aq.Style))or ai}function ar.
-GetGlassFrame(as,at)return getGlassFrame(at)end local as=ak and true or false
-local at=ar.Style local au,av,aw,ax,ay,az,aA local function computeMetrics(aB)if
-aB=='Classic'then au,av=40,22 aw,ax=18,18 ay=2 else au,av=48,24 aw,ax=28,20 ay=2
-end az=ay aA=au-aw-ay end computeMetrics(at)local aB local aC=al and al~=''and
-ab.Icon(al)or nil if aC then aB=ad('ImageLabel',{Size=UDim2.fromOffset(12,12),
+ab.IsThemeDark(ab.Theme)end local ap=string.lower(tostring(ab.Theme or''))return
+string.find(ap,'light',1,true)~=nil end local function fetchCustomAsset(ap,aq,ar
+)if not(getcustomasset and isfile)then return nil end local as,at=pcall(function
+()if ar and isfile(ar)then return getcustomasset(ar)end local as='WindUI/assets'
+if makefolder then pcall(makefolder,'WindUI')pcall(makefolder,as)end local at=as
+..'/'..aq if not isfile(at)and writefile then local au if ab.Request then local
+av,aw=pcall(ab.Request,{Url=ap,Method='GET',Headers={['User-Agent']=
+'Roblox/WinInet'}})if av and type(aw)=='table'and type(aw.Body)=='string'and#aw.
+Body>64 then au=aw.Body end end if(not au or#au<=64)and game.HttpGet then local
+av,aw=pcall(function()return game:HttpGet(ap)end)if av and type(aw)=='string'and
+#aw>64 then au=aw end end if au and#au>64 then writefile(at,au)end end if
+isfile(at)then return getcustomasset(at)end return nil end)if as and type(at)==
+'string'and at~=''then return at end return nil end local function
+ensureOpticalAssets()if(ao.RefractId and ao.LensId)or ao.Fetching then return
+end if not(getcustomasset and isfile)then return end ao.Fetching=true task.
+spawn(function()local ap=ao.RefractId or fetchCustomAsset(aj.Url,aj.CacheFile,aj
+.LocalFallback)local aq=ao.LensId or fetchCustomAsset(ak.Url,ak.CacheFile,ak.
+LocalFallback)ao.RefractId=ap ao.LensId=aq ao.Fetching=false if ap or aq then
+for ar=#an,1,-1 do local as=an[ar]if not as or not as.Root or not as.Root.Parent
+then table.remove(an,ar)elseif as.BindOpticalAssets then pcall(as.
+BindOpticalAssets,ap,aq)end end end end)end local function getRefractRect(ap)
+local aq=math.clamp(ap or 0,0,1)local ar=math.clamp(math.floor(aq*(aj.Total-1)+
+0.5),0,aj.Total-1)local as=ar%aj.Cols local at=math.floor(ar/aj.Cols)return
+Vector2.new(as*aj.CellW+1,at*aj.CellH+1),Vector2.new(aj.InnerW,aj.InnerH)end
+function aa.GetGlobalStyle()return am end function aa.SetGlobalStyle(ap)local aq
+=normalizeStyle(ap)am=aq for ar=#an,1,-1 do local as=an[ar]if not as or not as.
+Root or not as.Root.Parent then table.remove(an,ar)elseif as.ApplyStyle then
+pcall(as.ApplyStyle,aq)end end return aq end function aa.New(ap,aq,ar,as,at,au,
+av)local aw={GlassSpritesheet=al,Style=(av and av.Style and normalizeStyle(av.
+Style))or am}function aw.GetGlassFrame(ax,ay)local az,aA=getRefractRect(ay)
+return ao.RefractId or aj.Url,aA,az end local ax=ap and true or false local ay=
+aw.Style local az,aA,aB,aC,aD,aE,aF local function computeMetrics(aG)if aG==
+'Classic'then az,aA=40,22 aB,aC=18,18 aD=2 else az,aA=48,24 aB,aC=28,20 aD=2 end
+aE=aD aF=az-aB-aD end computeMetrics(ay)local aG local aH=aq and aq~=''and ab.
+Icon(aq)or nil if aH then aG=ad('ImageLabel',{Size=UDim2.fromOffset(12,12),
 BackgroundTransparency=1,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5
-,0,0.5,0),Image=aC[1],ImageRectOffset=aC[2].ImageRectPosition,ImageRectSize=aC[2
-].ImageRectSize,ImageTransparency=as and 0 or 1,ImageColor3=Color3.fromHex
-'#111114',ZIndex=11})end local aD=ad('Frame',{Name='LiquidGlassToggle',Size=
-UDim2.fromOffset(au,av),BackgroundTransparency=1,ClipsDescendants=false,Parent=
-an})local aE=ad('UIGradient',{Rotation=90,Color=ColorSequence.new{
+,0,0.5,0),Image=aH[1],ImageRectOffset=aH[2].ImageRectPosition,ImageRectSize=aH[2
+].ImageRectSize,ImageTransparency=ax and 0 or 1,ImageColor3=Color3.fromHex
+'#111114',ZIndex=10})end local aI=ad('Frame',{Name='LiquidGlassToggle',Size=
+UDim2.fromOffset(az,aA),BackgroundTransparency=1,ClipsDescendants=false,Parent=
+as})local aJ=ad('UIGradient',{Rotation=90,Color=ColorSequence.new{
 ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(
 0.55,Color3.fromRGB(165,170,182)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255
-,255,255))},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.64),
-NumberSequenceKeypoint.new(0.5,0.94),NumberSequenceKeypoint.new(1,0.7)}})local
-aF=ad('UIStroke',{Name='TrackRim',Thickness=1,ApplyStrokeMode=Enum.
-ApplyStrokeMode.Border,Color=Color3.new(1,1,1),Transparency=0.44},{aE})local aG=
-ad('Frame',{Name='Layer',Size=UDim2.fromScale(1,1),BackgroundTransparency=as and
+,255,255))},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.68),
+NumberSequenceKeypoint.new(0.5,0.95),NumberSequenceKeypoint.new(1,0.72)}})local
+aK=ad('UIStroke',{Name='TrackRim',Thickness=1,ApplyStrokeMode=Enum.
+ApplyStrokeMode.Border,Color=Color3.new(1,1,1),Transparency=0.48},{aJ})local aL=
+ad('Frame',{Name='Layer',Size=UDim2.fromScale(1,1),BackgroundTransparency=ax and
 0 or 1,BorderSizePixel=0,ThemeTag={BackgroundColor3='Toggle'},ZIndex=2},{ad(
 'UICorner',{CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation=90,Color=
 ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(246,255,249)),
 ColorSequenceKeypoint.new(0.45,Color3.fromRGB(255,255,255)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(228,236,232))}})})local aH=ad('Frame'
+ColorSequenceKeypoint.new(1,Color3.fromRGB(232,240,236))}})})local aM=ad('Frame'
 ,{Name='ThumbShadow',Size=UDim2.new(1,2,1,2),Position=UDim2.new(0.5,0,0.5,1),
 AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.new(0,0,0),
 BackgroundTransparency=0.82,BorderSizePixel=0,ZIndex=3},{ad('UICorner',{
-CornerRadius=UDim.new(1,0)})})local aI=ad('UIScale',{Scale=1})local aJ=ad(
+CornerRadius=UDim.new(1,0)})})local aN=ad('UIScale',{Scale=1})local aO=ad(
 'UIGradient',{Rotation=124,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
-Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.46,Color3.fromHex'#A8B2C4')
-,ColorSequenceKeypoint.new(1,Color3.fromHex'#F4F7FC')},Transparency=
+Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.48,Color3.fromHex'#B4BCCB')
+,ColorSequenceKeypoint.new(1,Color3.fromHex'#F5F7FC')},Transparency=
 NumberSequence.new{NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(
-0.48,0.52),NumberSequenceKeypoint.new(1,0.14)}})local aK=ad('UIStroke',{Name=
-'OuterFresnelRim',Thickness=1.35,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
-Color=Color3.new(1,1,1),Transparency=1},{aJ})local aL=ad('Frame',{Name=
+0.48,0.55),NumberSequenceKeypoint.new(1,0.16)}})local aP=ad('UIStroke',{Name=
+'OuterFresnelRim',Thickness=1.15,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
+Color=Color3.new(1,1,1),Transparency=1},{aO})local aQ=ad('Frame',{Name=
 'LensBackdrop',Size=UDim2.fromScale(1,1),BackgroundTransparency=1,
 BorderSizePixel=0,ThemeTag={BackgroundColor3='ElementBackground'},ZIndex=4},{ad(
-'UICorner',{CornerRadius=UDim.new(1,0)})})local aM=ad('Frame',{Name=
-'RefractOnBar',Size=UDim2.fromScale(1,1),BackgroundTransparency=1,
-BorderSizePixel=0,ThemeTag={BackgroundColor3='Toggle'},ZIndex=6},{ad('UICorner',
-{CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation=90,Color=ColorSequence.
-new{ColorSequenceKeypoint.new(0,Color3.fromRGB(230,242,236)),
-ColorSequenceKeypoint.new(0.38,Color3.fromRGB(255,255,255)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(218,232,224))}})})local aN=ad('Frame'
-,{Name='RefractedBar',Size=UDim2.new(1,-8,0,16),Position=UDim2.new(0,4,0.5,0),
-AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=isLightTheme()and Color3.fromHex
-'#D0D2DA'or Color3.fromHex'#39393F',BackgroundTransparency=1,BorderSizePixel=0,
-ZIndex=5},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation
-=90,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(228,232,
-240)),ColorSequenceKeypoint.new(0.42,Color3.fromRGB(255,255,255)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(218,222,230))}}),aM})local aO=ad(
-'UIGradient',{Rotation=304,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
-Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.5,Color3.fromHex'#D4DBE8'),
-ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF')},Transparency=
-NumberSequence.new{NumberSequenceKeypoint.new(0,0.12),NumberSequenceKeypoint.
-new(0.5,0.8),NumberSequenceKeypoint.new(1,0.3)}})local aP=ad('UIStroke',{Name=
-'InnerBevelStroke',Thickness=1,ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Color
-=Color3.new(1,1,1),Transparency=1},{aO})local aQ=ad('Frame',{Name=
-'InnerGlassBevel',Size=UDim2.new(1,-2,1,-2),Position=UDim2.fromScale(0.5,0.5),
-AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,BorderSizePixel=0,
-ZIndex=10},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),aP})local aR=ad('Frame',
-{Name='GlassTintBody',Size=UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,
-1),BackgroundTransparency=1,BorderSizePixel=0,ZIndex=7},{ad('UICorner',{
-CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation=96,Color=ColorSequence.
-new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.
-new(0.45,Color3.fromHex'#DCE6F5'),ColorSequenceKeypoint.new(1,Color3.fromHex
-'#FFFFFF')},Transparency=NumberSequence.new{NumberSequenceKeypoint.new(0,0.5),
-NumberSequenceKeypoint.new(0.28,0.92),NumberSequenceKeypoint.new(0.72,0.94),
-NumberSequenceKeypoint.new(1,0.64)}})})local aS=ad('UIGradient',{Rotation=-22,
-Offset=Vector2.new(-0.35,0),Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
-Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.5,Color3.fromHex'#FFFFFF'),
-ColorSequenceKeypoint.new(1,Color3.fromHex'#FFFFFF')},Transparency=
-NumberSequence.new{NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(
-0.32,0.9),NumberSequenceKeypoint.new(0.5,0.44),NumberSequenceKeypoint.new(0.68,
-0.9),NumberSequenceKeypoint.new(1,1)}})local aT=ad('Frame',{Name=
-'GlassSheenSweep',Size=UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,1),
-BackgroundTransparency=1,BorderSizePixel=0,ZIndex=9},{ad('UICorner',{
-CornerRadius=UDim.new(1,0)}),aS})local aU=ad('Frame',{Name='PorcelainFill',Size=
-UDim2.fromScale(1,1),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0
-,BorderSizePixel=0,ZIndex=8},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),ad(
-'UIGradient',{Rotation=90,Color=ColorSequence.new{ColorSequenceKeypoint.new(0,
-Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(0.76,Color3.fromHex'#F6F7FA')
-,ColorSequenceKeypoint.new(1,Color3.fromHex'#ECEEF4')}})})local aV=ad('Frame',{
-Name='Bar',Size=UDim2.fromScale(1,1),AnchorPoint=Vector2.new(0.5,0.5),Position=
-UDim2.fromScale(0.5,0.5),BackgroundTransparency=1,BorderSizePixel=0,ZIndex=4},{
-ad('UICorner',{CornerRadius=UDim.new(1,0)}),aI,aK,aL,aN,aR,aU,aT,aQ,aB})local aW
-=ad('Frame',{Name='Frame',Size=UDim2.fromOffset(aw,ax),Position=UDim2.new(0,as
-and aA or az,0.5,0),AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,
-BorderSizePixel=0,ZIndex=4},{aH,aV})local aX=ad('TextButton',{Name='Hitbox',Size
-=UDim2.new(1,6,1,12),Position=UDim2.fromScale(0.5,0.5),AnchorPoint=Vector2.new(
-0.5,0.5),BackgroundTransparency=1,Text='',AutoButtonColor=false,ZIndex=12})local
-aY=ad('Frame',{Name='ToggleFrame',Size=UDim2.fromOffset(au,av),AnchorPoint=
-Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),BackgroundColor3=isLightTheme()
-and Color3.fromHex'#D0D2DA'or Color3.fromHex'#39393F',BackgroundTransparency=0,
-BorderSizePixel=0,ClipsDescendants=false,Parent=aD},{ad('UICorner',{CornerRadius
-=UDim.new(1,0)}),aG,aF,aW,aX})local function refreshTrackSurface()local b=
-isLightTheme()local d=b and Color3.fromHex'#D0D2DA'or Color3.fromHex'#39393F'aY.
-BackgroundColor3=d aN.BackgroundColor3=d aF.Transparency=b and 0.56 or 0.44 aH.
-BackgroundTransparency=b and 0.86 or 0.8 aJ.Color=b and ColorSequence.new{
-ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),ColorSequenceKeypoint.new(
-0.48,Color3.fromHex'#8E97A8'),ColorSequenceKeypoint.new(1,Color3.fromHex
-'#CFD6E4')}or ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex
-'#FFFFFF'),ColorSequenceKeypoint.new(0.46,Color3.fromHex'#A8B2C4'),
-ColorSequenceKeypoint.new(1,Color3.fromHex'#F4F7FC')}end refreshTrackSurface()
-local b if ab.OnThemeChange then b=ab:OnThemeChange(refreshTrackSurface)end
-local d=0 local e=false local f=false local function computePinchedGeometry(g,h)
-local i=math.clamp(g or(as and 1 or 0),0,1)local l=math.floor(2+math.max(0,1-i*2
-)*4+0.5)local m=math.floor(2+math.max(0,i*2-1)*4+0.5)local p=h and 9 or 16
-return UDim2.new(1,-(l+m),0,p),UDim2.new(0,l,0.5,0)end local function
-setLiquidGlassState(g,h,i,l)local m=i or 0.18 local p=isLightTheme()local r=(l~=
-nil)and math.clamp(l,0,1)or(as and 1 or 0)if at~='LiquidGlass'then ae(aU,m,{
-BackgroundTransparency=0}):Play()ae(aL,m,{BackgroundTransparency=1}):Play()ae(aN
-,m,{BackgroundTransparency=1}):Play()ae(aM,m,{BackgroundTransparency=1}):Play()
-ae(aR,m,{BackgroundTransparency=1}):Play()ae(aT,m,{BackgroundTransparency=1}):
-Play()ae(aK,m,{Transparency=1}):Play()ae(aP,m,{Transparency=1}):Play()ae(aH,m,{
-BackgroundTransparency=p and 0.86 or 0.8}):Play()ae(aI,m,{Scale=g and 0.96 or 1}
-,Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()return end if g then
-local u,v=computePinchedGeometry(r,true)ae(aI,m,{Scale=h or 1.38},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aU,m*0.78,{
-BackgroundTransparency=0.95},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
-Play()ae(aL,m*0.85,{BackgroundTransparency=0.14},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ae(aN,m,{Size=u,Position=v,BackgroundTransparency=
-0.04},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aM,m,{
-BackgroundTransparency=1-r},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
-Play()ae(aR,m,{BackgroundTransparency=0.24},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ae(aT,m,{BackgroundTransparency=0.36},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aK,m,{Transparency=0.06},
-Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aP,m,{Transparency=
-0.28},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aH,m,{
-BackgroundTransparency=p and 0.89 or 0.95},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()if aB then ae(aB,m,{ImageColor3=Color3.new(1,1,1)}):
-Play()end else local u,v=computePinchedGeometry(r,false)ae(aI,m+0.04,{Scale=e
-and 1.03 or 1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()ae(aU,m,{
-BackgroundTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play(
-)ae(aL,m*0.9,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ae(aN,m,{Size=u,Position=v,BackgroundTransparency=1},
-Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aM,m,{
+'UICorner',{CornerRadius=UDim.new(1,0)})})local aR,aS=getRefractRect(ax and 1 or
+0)local aT=ad('ImageLabel',{Name='RefractOffImg',Size=UDim2.fromScale(1,1),
+BackgroundTransparency=1,BorderSizePixel=0,Image=ao.RefractId or'',
+ImageRectOffset=aR,ImageRectSize=aS,ScaleType=Enum.ScaleType.Stretch,ImageColor3
+=isLightTheme()and Color3.fromHex'#D0D2DA'or Color3.fromHex'#39393F',
+ImageTransparency=1,ZIndex=5})local aU=ad('ImageLabel',{Name='RefractOnImg',Size
+=UDim2.fromScale(1,1),BackgroundTransparency=1,BorderSizePixel=0,Image=ao.
+RefractId or'',ImageRectOffset=aR,ImageRectSize=aS,ScaleType=Enum.ScaleType.
+Stretch,ThemeTag={ImageColor3='Toggle'},ImageTransparency=1,ZIndex=6})local aV=
+ad('Frame',{Name='PorcelainFill',Size=UDim2.fromScale(1,1),BackgroundColor3=
+Color3.new(1,1,1),BackgroundTransparency=0,BorderSizePixel=0,ZIndex=7},{ad(
+'UICorner',{CornerRadius=UDim.new(1,0)}),ad('UIGradient',{Rotation=90,Color=
+ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex'#FFFFFF'),
+ColorSequenceKeypoint.new(0.76,Color3.fromHex'#F7F8FA'),ColorSequenceKeypoint.
+new(1,Color3.fromHex'#ECEEF4')}})})local aW=ad('ImageLabel',{Name='GlassLensImg'
+,Size=UDim2.fromScale(1,1),BackgroundTransparency=1,BorderSizePixel=0,Image=ao.
+LensId or'',ScaleType=Enum.ScaleType.Stretch,ImageTransparency=1,ZIndex=8})local
+aX=ad('Frame',{Name='Bar',Size=UDim2.fromScale(1,1),AnchorPoint=Vector2.new(0.5,
+0.5),Position=UDim2.fromScale(0.5,0.5),BackgroundTransparency=1,BorderSizePixel=
+0,ZIndex=4},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),aN,aP,aQ,aT,aU,aV,aW,aG
+})local aY=ad('Frame',{Name='Frame',Size=UDim2.fromOffset(aB,aC),Position=UDim2.
+new(0,ax and aF or aE,0.5,0),AnchorPoint=Vector2.new(0,0.5),
+BackgroundTransparency=1,BorderSizePixel=0,ZIndex=4},{aM,aX})local b=ad(
+'TextButton',{Name='Hitbox',Size=UDim2.new(1,6,1,12),Position=UDim2.fromScale(
+0.5,0.5),AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,Text='',
+AutoButtonColor=false,ZIndex=12})local d=ad('Frame',{Name='ToggleFrame',Size=
+UDim2.fromOffset(az,aA),AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,0,
+0.5,0),BackgroundColor3=isLightTheme()and Color3.fromHex'#D0D2DA'or Color3.
+fromHex'#39393F',BackgroundTransparency=0,BorderSizePixel=0,ClipsDescendants=
+false,Parent=aI},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),aL,aK,aY,b})local
+e=(ao.RefractId~=nil and ao.RefractId~='')local f=(ao.LensId~=nil and ao.LensId
+~='')local function bindOpticalAssets(g,h)if g and g~=''then aT.Image=g aU.Image
+=g e=true end if h and h~=''then aW.Image=h f=true end end local function
+applyRefractFrame(g)local h,i=getRefractRect(g)aT.ImageRectOffset=h aT.
+ImageRectSize=i aU.ImageRectOffset=h aU.ImageRectSize=i end local function
+refreshTrackSurface()local g=isLightTheme()local h=g and Color3.fromHex'#D0D2DA'
+or Color3.fromHex'#39393F'd.BackgroundColor3=h aT.ImageColor3=h aK.Transparency=
+g and 0.58 or 0.48 aM.BackgroundTransparency=g and 0.86 or 0.8 end
+refreshTrackSurface()local g if ab.OnThemeChange then g=ab:OnThemeChange(
+refreshTrackSurface)end local h=0 local i=false local l=false local m
+local function stopTapAnim()if m then m:Disconnect()m=nil end end local function
+setLiquidGlassState(p,r,u,v)local x=u or 0.16 local z=isLightTheme()local A=(v~=
+nil)and math.clamp(v,0,1)or(ax and 1 or 0)if ay~='LiquidGlass'then ae(aV,x,{
+BackgroundTransparency=0}):Play()ae(aQ,x,{BackgroundTransparency=1}):Play()ae(aT
+,x,{ImageTransparency=1}):Play()ae(aU,x,{ImageTransparency=1}):Play()ae(aW,x,{
+ImageTransparency=1}):Play()ae(aP,x,{Transparency=1}):Play()ae(aM,x,{
+BackgroundTransparency=z and 0.86 or 0.8}):Play()ae(aN,x,{Scale=p and 0.96 or 1}
+,Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()return end if p then
+local B=r or 1.44 ae(aN,x,{Scale=B},Enum.EasingStyle.Quint,Enum.EasingDirection.
+Out):Play()if e then ae(aV,x*0.72,{BackgroundTransparency=1},Enum.EasingStyle.
+Quint,Enum.EasingDirection.Out):Play()ae(aQ,x*0.78,{BackgroundTransparency=0.04}
+,Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aT,x*0.85,{
+ImageTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(
+aU,x*0.85,{ImageTransparency=1-A},Enum.EasingStyle.Quint,Enum.EasingDirection.
+Out):Play()else ae(aV,x*0.78,{BackgroundTransparency=0.94},Enum.EasingStyle.
+Quint,Enum.EasingDirection.Out):Play()ae(aQ,x*0.78,{BackgroundTransparency=1},
+Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end if f then ae(aW,x*0.8
+,{ImageTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+ae(aP,x*0.6,{Transparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()else ae(aP,x,{Transparency=0.12},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()end ae(aM,x,{Size=UDim2.new(B,2,B,2),Position=UDim2.
+new(0.5,0,0.5,2),BackgroundTransparency=z and 0.88 or 0.76},Enum.EasingStyle.
+Quint,Enum.EasingDirection.Out):Play()if aG then ae(aG,x,{ImageColor3=Color3.
+new(1,1,1)}):Play()end else ae(aN,x+0.04,{Scale=i and 1.03 or 1},Enum.
+EasingStyle.Back,Enum.EasingDirection.Out):Play()ae(aV,x,{BackgroundTransparency
+=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aQ,x*0.85,{
 BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play(
-)ae(aR,m,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.
-Out):Play()ae(aT,m,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()ae(aK,m,{Transparency=e and 0.65 or 1},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aP,m,{Transparency=1},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aH,m,{
-BackgroundTransparency=p and 0.86 or 0.8},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()if aB then ae(aB,m,{ImageColor3=Color3.fromHex
-'#111114'}):Play()end end end local function applyStyle(g)at=normalizeStyle(g)ar
-.Style=at computeMetrics(at)aD.Size=UDim2.fromOffset(au,av)aY.Size=UDim2.
-fromOffset(au,av)aW.Size=UDim2.fromOffset(aw,ax)aW.Position=UDim2.new(0,as and
-aA or az,0.5,0)setLiquidGlassState(false,1,0.14)end local g={Root=aD,ApplyStyle=
-applyStyle}table.insert(aj,g)local h local i local l=false local function
-cleanupDrag()if h then h:Disconnect()h=nil end if i then i:Disconnect()i=nil end
-if l then l=false if aq and aq.Window then aq.Window.IsToggleDragging=false end
-if aq and aq.WindUI then aq.WindUI.CurrentInput=nil end end end aD.Destroying:
-Once(function()cleanupDrag()if b then pcall(b)b=nil end for m=#aj,1,-1 do if aj[
-m]==g then table.remove(aj,m)break end end end)aX.MouseEnter:Connect(function()e
-=true if not l and at=='LiquidGlass'then ae(aK,0.14,{Transparency=0.65}):Play()
-ae(aI,0.16,{Scale=1.03},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-end end)aX.MouseLeave:Connect(function()e=false if not l then ae(aK,0.16,{
-Transparency=1}):Play()ae(aI,0.18,{Scale=1},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()end end)function ar.SetStyle(m,p)applyStyle(p)end
-function ar.Set(m,p,r,u)local v=as as=p and true or false local x=as and aA or
-az local z=as and 1 or 0 if u then d=d+1 aW.Size=UDim2.fromOffset(aw,ax)aW.
-Position=UDim2.new(0,x,0.5,0)aG.BackgroundTransparency=as and 0 or 1 if aB then
-aB.ImageTransparency=as and 0 or 1 aB.ImageColor3=Color3.fromHex'#111114'end aU.
-BackgroundTransparency=0 aL.BackgroundTransparency=1 local A,B=
-computePinchedGeometry(z,false)aN.Size=A aN.Position=B aN.BackgroundTransparency
-=1 aM.BackgroundTransparency=1 aR.BackgroundTransparency=1 aT.
-BackgroundTransparency=1 aK.Transparency=1 aP.Transparency=1 aI.Scale=1 else d=d
-+1 local A=d local B=(v~=as)ae(aG,0.22,{BackgroundTransparency=as and 0 or 1},
-Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()if aB then ae(aB,0.16,{
-ImageTransparency=as and 0 or 1}):Play()end if f then ae(aW,0.22,{Size=UDim2.
-fromOffset(aw,ax),Position=UDim2.new(0,x,0.5,0)},Enum.EasingStyle.Back,Enum.
-EasingDirection.Out):Play()setLiquidGlassState(false,1,0.22,z)elseif B and at==
-'LiquidGlass'then local C=aw+3 local F=as and math.max(az,x-3)or az local G,H=
-computePinchedGeometry(v and 1 or 0,false)aN.Size=G aN.Position=H aM.
-BackgroundTransparency=v and 0 or 1 aJ.Rotation=as and 108 or 140 aO.Rotation=as
-and 288 or 320 aS.Offset=Vector2.new(as and-0.55 or 0.55,0)setLiquidGlassState(
-true,1.32,0.12,z)ae(aS,0.24,{Offset=Vector2.new(as and 0.55 or-0.55,0)},Enum.
-EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aW,0.15,{Size=UDim2.
-fromOffset(C,ax),Position=UDim2.new(0,F,0.5,0)},Enum.EasingStyle.Quint,Enum.
-EasingDirection.Out):Play()task.delay(0.16,function()if d~=A or not aD.Parent
-then return end ae(aW,0.22,{Size=UDim2.fromOffset(aw,ax),Position=UDim2.new(0,x,
-0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()if not l then
-setLiquidGlassState(false,1,0.2,z)end end)else if B then local C=aw+3 local F=as
-and math.max(az,x-3)or az ae(aW,0.12,{Size=UDim2.fromOffset(C,ax),Position=UDim2
-.new(0,F,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()task.
-delay(0.11,function()if d~=A or not aD.Parent then return end ae(aW,0.18,{Size=
-UDim2.fromOffset(aw,ax),Position=UDim2.new(0,x,0.5,0)},Enum.EasingStyle.Back,
-Enum.EasingDirection.Out):Play()end)else ae(aW,0.22,{Size=UDim2.fromOffset(aw,ax
-),Position=UDim2.new(0,x,0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.Out)
-:Play()if not l then setLiquidGlassState(false,1,0.2,z)end end end end r=r~=
-false task.spawn(function()if ao and r then ab.SafeCallback(ao,as)end end)end
-function ar.Animate(m,p,r)if not aq or not aq.Window or aq.Window.
-IsToggleDragging then return end aq.Window.IsToggleDragging=true l=true d=d+1
-local u=p.Position.X local v=aW.Position.X.Offset local x=p local z=p.
-UserInputType==Enum.UserInputType.Touch local A=false local B=as and 1 or 0
-local C,F=computePinchedGeometry(B,false)aN.Size=C aN.Position=F
-setLiquidGlassState(true,1.38,0.18,B)if at=='LiquidGlass'then local G=aw+3 local
-H=as and math.max(az,aA-3)or az ae(aW,0.16,{Size=UDim2.fromOffset(G,ax),Position
-=UDim2.new(0,H,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-end if h then h:Disconnect()end h=ag.InputChanged:Connect(function(G)if not aq.
-Window.IsToggleDragging then return end if z then if G~=x then return end elseif
-G.UserInputType~=Enum.UserInputType.MouseMovement then return end local H=math.
-abs(G.Position.X-u)if not A and H>5 then A=true end local J=(at=='LiquidGlass')
-and(aw+3)or aw local L=math.max(az,au-J-ay)local M=G.Position.X-u local N=math.
-clamp(v+M,az,L)local O=math.max(L-az,1)local P=math.clamp((N-az)/O,0,1)aJ.
-Rotation=104+P*40 aO.Rotation=284+P*40 aS.Offset=Vector2.new(-0.45+P*0.9,0)aG.
-BackgroundTransparency=1-P if at=='LiquidGlass'then local Q,R=
-computePinchedGeometry(P,true)aN.Size=Q aN.Position=R aM.BackgroundTransparency=
-1-P end if aB then aB.ImageTransparency=1-P end ae(aW,0.08,{Position=UDim2.new(0
-,N,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end)if i then
-i:Disconnect()end i=ag.InputEnded:Connect(function(G)if not aq.Window.
-IsToggleDragging then return end if z then if G~=x then return end elseif G.
-UserInputType~=Enum.UserInputType.MouseButton1 then return end cleanupDrag()if
-not A then r:Set(not r.Value,true,false)else local H=aW.Position.X.Offset local
-J=H+aW.Size.X.Offset*0.5 local L=J>au*0.5 f=true r:Set(L,true,false)f=false end
-end)end return aD,ar end return aa end function a.x()local aa={}local ab=(
-cloneref or clonereference or function(ab)return ab end)local ad=ab(game:
-GetService'RunService')local ae=ab(game:GetService'UserInputService')local af=
-ab(game:GetService'CoreGui')local ag=ab(game:GetService'Players')local ah=ab(
-game:GetService'TweenService')local ai=a.load'e'local aj=protectgui or(syn and
-syn.protect_gui)or function()end local ak=
+)ae(aT,x*0.85,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.
+Out):Play()ae(aU,x*0.85,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()ae(aW,x*0.85,{ImageTransparency=1},Enum.EasingStyle.
+Quint,Enum.EasingDirection.Out):Play()ae(aP,x,{Transparency=i and 0.7 or 1},Enum
+.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(aM,x,{Size=UDim2.new(1,2,1
+,2),Position=UDim2.new(0.5,0,0.5,1),BackgroundTransparency=z and 0.86 or 0.8},
+Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()if aG then ae(aG,x,{
+ImageColor3=Color3.fromHex'#111114'}):Play()end end end local function
+applyStyle(p)stopTapAnim()ay=normalizeStyle(p)aw.Style=ay computeMetrics(ay)aI.
+Size=UDim2.fromOffset(az,aA)d.Size=UDim2.fromOffset(az,aA)aY.Size=UDim2.
+fromOffset(aB,aC)aY.Position=UDim2.new(0,ax and aF or aE,0.5,0)
+setLiquidGlassState(false,1,0.14)end local p={Root=aI,ApplyStyle=applyStyle,
+BindOpticalAssets=bindOpticalAssets}table.insert(an,p)ensureOpticalAssets()local
+r local u local v=false local function cleanupDrag()if r then r:Disconnect()r=
+nil end if u then u:Disconnect()u=nil end if v then v=false if av and av.Window
+then av.Window.IsToggleDragging=false end if av and av.WindUI then av.WindUI.
+CurrentInput=nil end end end aI.Destroying:Once(function()stopTapAnim()
+cleanupDrag()if g then pcall(g)g=nil end for x=#an,1,-1 do if an[x]==p then
+table.remove(an,x)break end end end)b.MouseEnter:Connect(function()i=true if not
+v and ay=='LiquidGlass'then ae(aP,0.14,{Transparency=0.7}):Play()ae(aN,0.16,{
+Scale=1.03},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end end)b.
+MouseLeave:Connect(function()i=false if not v then ae(aP,0.16,{Transparency=1}):
+Play()ae(aN,0.18,{Scale=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):
+Play()end end)function aw.SetStyle(x,z)applyStyle(z)end function aw.Set(x,z,A,B)
+stopTapAnim()local C=ax ax=z and true or false local F=ax and aF or aE local G=
+ax and 1 or 0 local H=C and 1 or 0 if B then h=h+1 aY.Size=UDim2.fromOffset(aB,
+aC)aY.Position=UDim2.new(0,F,0.5,0)aL.BackgroundTransparency=ax and 0 or 1
+applyRefractFrame(G)if aG then aG.ImageTransparency=ax and 0 or 1 aG.ImageColor3
+=Color3.fromHex'#111114'end aV.BackgroundTransparency=0 aQ.
+BackgroundTransparency=1 aT.ImageTransparency=1 aU.ImageTransparency=1 aW.
+ImageTransparency=1 aP.Transparency=1 aN.Scale=1 else h=h+1 local J=h local L=(C
+~=ax)ae(aL,0.22,{BackgroundTransparency=ax and 0 or 1},Enum.EasingStyle.Quint,
+Enum.EasingDirection.Out):Play()if aG then ae(aG,0.16,{ImageTransparency=ax and
+0 or 1}):Play()end if l then ae(aY,0.22,{Size=UDim2.fromOffset(aB,aC),Position=
+UDim2.new(0,F,0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
+setLiquidGlassState(false,1,0.2,G)elseif L and ay=='LiquidGlass'then local M=aB+
+2 local N=ax and math.max(aE,F-2)or aE applyRefractFrame(H)setLiquidGlassState(
+true,1.38,0.11,H)ae(aY,0.18,{Size=UDim2.fromOffset(M,aC),Position=UDim2.new(0,N,
+0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()local O=0 local P
+=0.19 m=ah.RenderStepped:Connect(function(Q)if h~=J or not aI.Parent then
+stopTapAnim()return end O=O+math.min(Q or(1.6666666666666665E-2),0.05)local R=
+math.clamp(O/P,0,1)local S=1-(1-R)*(1-R)*(1-R)local T=H+(G-H)*S
+applyRefractFrame(T)if e then aU.ImageTransparency=1-T end if R>=1 then
+stopTapAnim()end end)task.delay(0.18,function()if h~=J or not aI.Parent then
+return end stopTapAnim()applyRefractFrame(G)ae(aY,0.22,{Size=UDim2.fromOffset(aB
+,aC),Position=UDim2.new(0,F,0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.
+Out):Play()if not v then setLiquidGlassState(false,1,0.19,G)end end)else if L
+then local M=aB+2 local N=ax and math.max(aE,F-2)or aE ae(aY,0.12,{Size=UDim2.
+fromOffset(M,aC),Position=UDim2.new(0,N,0.5,0)},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()task.delay(0.11,function()if h~=J or not aI.Parent
+then return end ae(aY,0.18,{Size=UDim2.fromOffset(aB,aC),Position=UDim2.new(0,F,
+0.5,0)},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()end)else ae(aY,
+0.22,{Size=UDim2.fromOffset(aB,aC),Position=UDim2.new(0,F,0.5,0)},Enum.
+EasingStyle.Back,Enum.EasingDirection.Out):Play()if not v then
+setLiquidGlassState(false,1,0.19,G)end end end end A=A~=false task.spawn(
+function()if at and A then ab.SafeCallback(at,ax)end end)end function aw.Animate
+(x,z,A)if not av or not av.Window or av.Window.IsToggleDragging then return end
+stopTapAnim()av.Window.IsToggleDragging=true v=true h=h+1 local B=z.Position.X
+local C=aY.Position.X.Offset local F=z local G=z.UserInputType==Enum.
+UserInputType.Touch local H=false local J=ax and 1 or 0 applyRefractFrame(J)
+setLiquidGlassState(true,1.44,0.16,J)if ay=='LiquidGlass'then local L=aB+2 local
+M=ax and math.max(aE,aF-2)or aE ae(aY,0.15,{Size=UDim2.fromOffset(L,aC),Position
+=UDim2.new(0,M,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+end if r then r:Disconnect()end r=ag.InputChanged:Connect(function(L)if not av.
+Window.IsToggleDragging then return end if G then if L~=F then return end elseif
+L.UserInputType~=Enum.UserInputType.MouseMovement then return end local M=math.
+abs(L.Position.X-B)if not H and M>5 then H=true end local N=(ay=='LiquidGlass')
+and(aB+2)or aB local O=math.max(aE,az-N-aD)local P=L.Position.X-B local Q=math.
+clamp(C+P,aE,O)local R=math.max(O-aE,1)local S=math.clamp((Q-aE)/R,0,1)aL.
+BackgroundTransparency=1-S if ay=='LiquidGlass'then applyRefractFrame(S)if e
+then aU.ImageTransparency=1-S end end if aG then aG.ImageTransparency=1-S end
+ae(aY,0.08,{Position=UDim2.new(0,Q,0.5,0)},Enum.EasingStyle.Quint,Enum.
+EasingDirection.Out):Play()end)if u then u:Disconnect()end u=ag.InputEnded:
+Connect(function(L)if not av.Window.IsToggleDragging then return end if G then
+if L~=F then return end elseif L.UserInputType~=Enum.UserInputType.MouseButton1
+then return end cleanupDrag()if not H then A:Set(not A.Value,true,false)else
+local M=aY.Position.X.Offset local N=M+aY.Size.X.Offset*0.5 local O=N>az*0.5 l=
+true A:Set(O,true,false)l=false end end)end return aI,aw end return aa end
+function a.x()local aa={}local ab=(cloneref or clonereference or function(ab)
+return ab end)local ad=ab(game:GetService'RunService')local ae=ab(game:
+GetService'UserInputService')local af=ab(game:GetService'CoreGui')local ag=ab(
+game:GetService'Players')local ah=ab(game:GetService'TweenService')local ai=a.
+load'e'local aj=protectgui or(syn and syn.protect_gui)or function()end local ak=
 [[https://raw.githubusercontent.com/darkfantasyisreal/Macos-Windui/main/assets/]]
 local al={MacOS={Name='MacOS',Label='macOS Arrow',Url=ak..
 'cursor_macos_arrow.png',CacheKey='cursor_macos_arrow.png',Hotspot=Vector2.new(
